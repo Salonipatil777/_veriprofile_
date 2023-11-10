@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .btn-primary{
+            background-color: #0303C9 !important;
+            color: white !important;        
+        }
+        
+
+
+        .custom-file {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100% !important;
+        }
+
+        .custom-file-input {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+            width: 100% !important;
+        }
+
+        .custom-file-label {
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 5px;
+            padding: 15px 15px;
+            cursor: pointer;
+            display: inline-block;
+            border: 1px dashed #4c4c4c;
+            width: 100% !important;
+        }
+
+        .custom-file-label i {
+            margin-right: 5px;
+        }
+
+
+
+        .image-container {
+            width: 400px;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid;
+        }
+
+        .resizable {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: move;
+        }
+
+        .zoom-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .zoom-button {
+            background: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .or {
+            position: relative;
+        }
+
+        .error-message {
+            color: rgb(229, 4, 4);
+            font-size: 11px !important;
+        }
+
+        .or:before {
+            content: '';
+            height: 1px;
+            background: linear-gradient(to right, silver, silver, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), silver, silver);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            z-index: 0;
+        }
+
+        .show-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%) !important;
+            cursor: pointer;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veriprofile - Signup</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    {% include "messages.html" %}
+
+    <div class="container mt-5">
+        <div class="row d-flex align-items-center justify-content-center mt-5">
+            <div style="max-width: 420px;">
+                <form class="bg-white border mt-2 py-4 px-5" enctype="multipart/form-data" method="post"
+                    action="{% url 'personal_info_form' %}" onsubmit="return validateForm();">
+                    {% csrf_token %}
+                    <div class="text-center mb-3">
+                        <p class="text-muted fw-bold">Make the most of your professional life</p>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" id="first_name" name="first_name"
+                            placeholder="First Name">
+                        <label for="first_name">First Name</label>
+                        <div id="first_nameError" class="error-message"></div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" id="last_name" name="last_name" placeholder="Last Name">
+                        <label for="last_name">Last Name</label>
+                        <div id="last_nameError" class="error-message"></div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" id="location" name="location" placeholder="Location">
+                        <label for="location">Location</label>
+                        <div id="locationError" class="error-message"></div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" id="contact" name="contact" placeholder="Location">
+                        <label for="contact">Contact</label>
+                        <div id="contactError" class="error-message"></div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="image-input"
+                                accept="image/png, image/gif, image/jpeg">
+                            <label class="custom-file-label" for="image-input">
+                                <i class="fa fa-user"></i> Choose Profile Pic
+                            </label>
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-control" name="image" id="resized-image-data">
+                    <button type="button" hidden id="resize-button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#resizeModal">Resize Image</button>
+
+                    <!-- Bootstrap Modal for Image Resize -->
+                    <!-- Bootstrap Modal for Image Resize -->
+                    <!-- Bootstrap Modal for Image Resize -->
+                    <div class="modal fade" id="resizeModal" tabindex="-1" role="dialog"
+                        aria-labelledby="resizeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="resizeModalLabel">Resize Image</h5>
+                                </div>
+                                <div class="modal-body mx-auto">
+                                    <div class="image-container mb-4">
+                                        <img id="preview-image" src="" alt="Image Preview" class="resizable">
+                                    </div>
+                                    <input type="range" min="50" max="200" value="100" id="zoom-range"
+                                        class="form-range">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-mdb-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary"
+                                        id="save-resized-image">Upload</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <button class="btn btn-primary fw-bold w-100 bg-gradient" type="submit">Continue</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <!-- image  -->
+    <script>
+        $(document).ready(function () {
+            let isDragging = false;
+            let offsetX, offsetY;
+            const img = document.getElementById('preview-image');
+            const zoomRange = document.getElementById('zoom-range');
+
+            $('#image-input').change(function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        img.style.transform = 'scale(1)'; // Reset zoom
+                        zoomRange.value = 100; // Reset progress bar
+                        $('#preview-image').attr('src', e.target.result);
+                        $('#resizeModal').modal('show');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            $('#preview-image').on('load', function () {
+                // Get the aspect ratio of the image
+                const aspectRatio = this.width / this.height;
+                if (aspectRatio > 1) {
+                    // Landscape orientation
+                    $('.resizable').css('width', '100%');
+                    $('.resizable').css('height', 'auto');
+                } else {
+                    // Portrait or square orientation
+                    $('.resizable').css('width', 'auto');
+                    $('.resizable').css('height', '100%');
+                }
+            });
+
+            $('#preview-image').on('mousedown', function (e) {
+                isDragging = true;
+                offsetX = e.clientX - this.getBoundingClientRect().left;
+                offsetY = e.clientY - this.getBoundingClientRect().top;
+            });
+
+            $('#preview-image').on('mouseup', function () {
+                isDragging = false;
+            });
+
+            $('#preview-image').on('mousemove', function (e) {
+                if (isDragging) {
+                    this.style.left = e.clientX - offsetX - this.parentElement.getBoundingClientRect().left + 'px';
+                    this.style.top = e.clientY - offsetY - this.parentElement.getBoundingClientRect().top + 'px';
+                }
+            });
+
+            $('#save-resized-image').click(function () {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 400;
+                canvas.height = 400;
+                ctx.drawImage(img, 0, 0, 400, 400);
+
+                // Convert the resized image to a data URL
+                const resizedImageData = canvas.toDataURL('image/jpeg');
+
+                // Set the data in the hidden input field
+                $('#resized-image-data').val(resizedImageData);
+
+                // Close the modal
+                $('#resizeModal').modal('hide');
+            });
+
+            // Handle zoom using the range input
+            zoomRange.addEventListener('input', function () {
+                updateZoom();
+            });
+
+            function updateZoom() {
+                const zoomValue = parseFloat(zoomRange.value);
+                img.style.transform = `scale(${zoomValue / 100})`;
+            }
+        });
+    </script>
+    <!-- image  -->
+
+
+
+    <!-- validateForm -->
+    <script>
+        function validateForm() {
+            const first_name = document.getElementById('first_name');
+            const last_name = document.getElementById('last_name');
+            const location = document.getElementById('location');
+            const contact = document.getElementById('contact');
+            let isValid = true;
+
+            // Reset error messages and classes
+            document.getElementById('first_nameError').textContent = '';
+            document.getElementById('last_nameError').textContent = '';
+            document.getElementById('locationError').textContent = '';
+            document.getElementById('contactError').textContent = '';
+            first_name.classList.remove('error');
+            last_name.classList.remove('error');
+            location.classList.remove('error');
+            contact.classList.remove('error');
+
+            if (first_name.value.trim() === '') {
+                document.getElementById('first_nameError').textContent = 'Please enter your first name.';
+                first_name.classList.add('error');
+                isValid = false;
+            }
+
+            if (last_name.value.trim() === '') {
+                document.getElementById('last_nameError').textContent = 'Please enter your last name.';
+                last_name.classList.add('error');
+                isValid = false;
+            }
+
+            if (location.value.trim() === '') {
+                document.getElementById('locationError').textContent = 'Please enter your location.';
+                location.classList.add('error');
+                isValid = false;
+            }
+            if (contact.value.trim() === '') {
+                document.getElementById('contactError').textContent = 'Please enter your contact.';
+                contact.classList.add('error');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+    </script>
+    <!-- validateForm -->
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+</body>
+
+</html>

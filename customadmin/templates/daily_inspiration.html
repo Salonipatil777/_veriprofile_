@@ -1,0 +1,42 @@
+{% extends "admin.html" %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="mt-5 pt-2">
+                <div class="wrap p-4 mx-3">
+                    <h5 class="text-light mb-3">Upload Inspiration Images</h5>
+                    <form action="{% url 'daily_inspiration' %}" name="form" method="post"
+                        enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!-- FILE UPLOAD BEGIN -->
+                        <div class="file">
+                            <div class="file__input" id="file__input">
+                                <input type="file" multiple name="images[]" id="customFile" class="file__input--file">
+                                <label for="customFile" class="file__input--label" data-text-btn="Browse">Add
+                                    file :</label>
+                            </div>
+                        </div>
+                        <!-- FILE UPLOAD END -->
+                        <button type="submit" class="btn btn-danger my-3">Upload Images</button>
+                    </form>
+                    <div class="image-previews"></div>
+                </div>
+</div>
+
+<div class="mt-4 container">
+                <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6">
+                    {% for i in inspirations %}
+                    <div class="col">
+                        <img src="{{i.image.url}}" class="w-100" alt="">
+                    </div>
+                    {% endfor %}
+                </div>
+</div>
+
+{% endblock %}
+
+
+
+   

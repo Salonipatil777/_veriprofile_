@@ -1,0 +1,141 @@
+{% extends "admin.html" %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="container pt-5 mb-2 px-lg-0 ps-lg-3">
+            <form action="{% url 'notifications' %}" method="post">
+                {% csrf_token %}
+                <div class="ms-2 me-4 mb-5">
+                    <p class="mb-3 mt-3 mt-lg-0 text-center text-lg-start" style="
+                    color: #d1dde6;
+                    font-size: 38px;
+                    font: normal normal 300 38px/57px Poppins;
+                    ">
+                        <i class="fa-solid fa-bell"></i>
+                        Notifications
+                    </p>
+
+                    <div class="mb-3 rounded rounded-4" style="background-color: rgb(251, 248, 248);">
+
+
+                        {% if messages %}
+                        <div class="message-container mb-3 w-25">
+                            {% for message in messages %}
+                                <div class="message alert-{{ message.tags }}">
+                                    {{ message }}
+                                    <span class="close-button" onclick="this.parentElement.style.display='none'">&times;</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                         <p class="text-secondary fw-bold px-5 py-3 rounded-start rounded-3"
+                            style="background-color: rgb(237, 235, 235);font-size: 18px;">Compose
+                            Notification</p>
+                        <div class="px-5 pb-4">
+                            <div class="row mt-4">
+                                <div class="col-md-4">
+                                    <label for="">Notification Type</label>
+                                    <div class="select-wrapper my-3">
+                                        <select class="form-control form_control_form" name="notification_type">
+                                            <option value="Informational">Informational</option>
+                                            <option value="Promotional">Promotional</option>
+                                            <option value="Verification">Verification</option>
+                                            <option value="Financial">Financial</option>
+                                            <option value="Reminder">Reminder</option>
+                                            <option value="News">News</option>
+                                            <option value="Warning">Warning</option>
+                                            <option value="Subscription">Subscription</option>
+                                            <option value="Update">Update</option>
+                                            <option value="Emergency">Emergency</option>
+                                            <option value="Critical">Critical</option>
+                                            <option value="Confirmation">Confirmation</option>
+                                            <option value=" Founder’s Desk"> Founder’s Desk</option>
+                                            <option value="Security">Security</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="notificationTitle">Notification Title</label>
+                                    <div class="my-3 position-relative">
+                                        <input id="notificationTitle" name="notification_title" class="form-control form_control_form"
+                                            type="text" />
+                                        <label id="charCount1"
+                                            class="position-absolute top-0 end-0 mt-2 text-muted pe-2"
+                                            style="font-size: 15px;">0/39</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="frequency_option">Frequency</label>
+                                    <div class="select-wrapper my-3">
+                                        <select class="form-control form_control_form" name="frequency_option">
+                                            <option value="A Week">A Week</option>
+                                            <option value="A Month">A Month</option>
+                                            <option value="A Year">A Year</option>
+                                            <option value="Custom: From Date – To Date">Custom: From Date – To Date</option>
+                                            <option value="Hourly">Hourly</option> <!-- Add Hourly option -->
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <label for="message">Message</label>
+                                    <div class="my-3 position-relative">
+                                        <textarea id="message" name="message" class="form-control form_control_form"
+                                            rows="4"></textarea>
+                                        <label id="charCount2"
+                                            class="position-absolute bottom-0 end-0 mb-2 me-2 text-muted">0/150</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"> <label for="">Select Recipients</label>
+                                    <div class="select-wrapper my-3">
+                                        <select class="form-control form_control_form" name="Recipients">
+                                            <option value="hr_users" selected>HRs</option>
+                                            <option value="Users">Users</option>
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="link">Link</label>
+                                    <div class="my-3">
+                                        <input class="form-control form_control_form" name="link" type="text" placeholder="assigned to call to action button" />
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="schedule_date">Schedule Date and Time</label>
+                                    <div class="my-3">
+                                        <input class="form-control" name="schedule_date" type="datetime-local" />
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-self-center justify-content-end">
+                        <button id="sendNowBtn" type="submit" class="mx-2 btn d-flex align-items-center active-btn"
+                            style="background-color: #0024d3; font-size: 13px; color: white; font-weight: 600;">
+                            <span class="material-symbols-outlined me-1" style="font-size: 21px;">send</span> Send Now
+                        </button>
+                        <button id="scheduleBtn" type="button" class="ms-2 btn d-flex align-items-center"
+                            style="background-color: #c6c6c6; font-size: 13px; color: white; font-weight: 600;">
+                            <span class="material-symbols-outlined me-1" style="font-size: 21px;">send</span> Schedule
+                        </button>
+                    </div>
+                </div>
+            </form>
+</div>
+{% endblock %}
+<!--Main layout-->
+

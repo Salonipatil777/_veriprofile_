@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+    <style>
+      .form-control-primary {
+        margin: 10px;
+        opacity: 0.2;
+        border-radius: 2px;
+      }
+
+      .sidebar {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        top: 0;
+        z-index: 100;
+        padding: 100px 0 0 10px !important;
+        border-right: 1px solid #d3d3d3;
+      }
+
+      .left-sidebar {
+        position: sticky;
+        top: 0;
+        height: calc(100vh - 70px);
+      }
+
+      .sidebar-nav li .nav-link {
+        color: #000;
+        font-weight: 500;
+      }
+
+      main .card {
+        margin-bottom: 20px;
+      }
+      .navbar-brand {
+        margin: 10px;
+      }
+
+      input[type="checkbox"] {
+        accent-color: green;
+        width: 20px; /*Desired width*/
+        height: 20px; /*Desired width*/
+      }
+
+      @import url("https://fonts.cdnfonts.com/css/segoe-ui-4");
+      @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Open+Sans&family=Poppins&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Nunito+Sans:opsz@6..12&family=Open+Sans&family=Poppins&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Exo+2&family=Josefin+Sans:wght@500&family=Nunito+Sans:opsz@6..12&family=Open+Sans&family=Poppins&display=swap");
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .profile-pictures {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .profile-picture {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+        margin-left: -12px; /* Adjust this value for overlapping effect */
+        z-index: 1;
+      }
+
+      .profile-picture img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .Navlinks {
+        font-family: Jost, sans-serif !important;
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        color: rgb(78, 53, 163) !important;
+        text-transform: uppercase !important;
+        transition: background-color 0.7s linear !important;
+      }
+
+      .Navlinks:hover {
+        background-color: #96eab7 !important;
+        font-weight: bold !important;
+        box-shadow: 0 1px red !important;
+      }
+
+      @media screen and (max-width: 900px) {
+        .left-sidebar {
+          /* {% comment %} position: sticky !important; {% endcomment %} */
+          /* {% comment %} top: 73px !important; {% endcomment %} */
+          flex-basis: 100% !important;
+          align-self: flex-start !important;
+        }
+        .main-content {
+          flex-basis: 100% !important;
+        }
+        .right-sidebar {
+          position: sticky !important;
+          top: 73px !important;
+          flex-basis: 100% !important;
+          align-self: flex-start !important;
+        }
+
+        .userImg {
+          position: relative !important;
+        }
+
+        .userLock {
+          position: absolute !important;
+          right: 24px !important;
+          bottom: 24px !important;
+        }
+      }
+      .sidebar {
+        min-height: 100% !important;
+        padding: 20px;
+        /* {% comment %} background-color: #f8f9fa; {% endcomment %} */
+        /* {% comment %} box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); {% endcomment %} */
+      }
+      @media screen and (min-width: 900px) {
+        .left-sidebar {
+          position: sticky !important;
+          top: 73px !important;
+          flex-basis: 22% !important;
+          align-self: flex-start !important;
+          /* {% comment %} border-left: 1px solid gray !important; {% endcomment %} */
+          margin-left: 10px !important;
+        }
+        .main-content {
+          flex-basis: 60% !important;
+          border-left: 1px solid #cccccc !important;
+        }
+        .right-sidebar {
+          position: sticky !important;
+          top: 73px !important;
+          flex-basis: 22% !important;
+          align-self: flex-start !important;
+        }
+        .content {
+          flex: 1;
+          display: flex;
+        }
+
+        .userImg {
+          position: relative !important;
+        }
+
+        .userLock {
+          position: absolute !important;
+          right: 27px !important;
+          bottom: 10px !important;
+        }
+      }
+
+      .SidebarLinks {
+        font-size: 15px !important;
+        font-weight: normal !important;
+        color: gray !important;
+      }
+
+      input[type="checkbox"] {
+        accent-color: green;
+        width: 20px; /*Desired width*/
+        height: 20px; /*Desired width*/
+      }
+      @media screen and (max-width: 900px) {
+        .social-icons {
+          display: none !important;
+        }
+        .veriProfileLogo {
+          width: 100% !important;
+        }
+
+        .logodiv {
+          width: 20% !important;
+        }
+        .navbar-brand {
+          font-family: "Exo 2", sans-serif;
+          font-size: 24px !important;
+          font-weight: 600 !important;
+          color: #166ec6 !important;
+          text-transform: uppercase !important;
+          text-shadow: 0 0 1px black !important;
+          letter-spacing: 3px !important;
+        }
+      }
+      @media screen and (min-width: 900px) {
+        .veriProfileLogo {
+          width: 100% !important;
+        }
+
+        .logodiv {
+          width: 13% !important;
+        }
+        .navbar-brand {
+          /* {% comment %} font-family: "Josefin Sans", sans-serif; {% endcomment %} */
+          font-family: "Exo 2", sans-serif;
+          font-size: 23px !important;
+          font-weight: 600 !important;
+          color: #166ec6 !important;
+          text-transform: uppercase !important;
+          text-shadow: 0 0 1px black !important;
+          letter-spacing: 3px !important;
+        }
+      }
+
+      @media screen and (max-width: 900px) {
+        .form-inputs .form-control {
+          background-color: #f1f1f1 !important;
+        }
+      }
+
+      .form-inputs {
+        position: relative;
+      }
+      .form-inputs .form-control {
+        height: 40px;
+        background-color: #efffff !important;
+      }
+
+      .form-inputs .form-control:focus {
+        box-shadow: none;
+        border: 1px solid #000;
+      }
+
+      .form-inputs i {
+        position: absolute;
+        right: 10px;
+        top: 11px;
+      }
+
+      @media (min-width: 900px) {
+        .formInput {
+          width: 400px !important;
+        }
+      }
+      @media (max-width: 900px) {
+        .formInput {
+          width: 500px !important;
+        }
+      }
+
+      .dropdownMenu {
+        /* {% comment %} border:1px solid #000 !important; {% endcomment %} */
+        border-radius: 0 !important;
+      }
+
+      .username {
+        color: #234fa7 !important;
+        font-weight: bold !important;
+        font-size: 25px !important;
+        font-family: "Segoe UI", sans-serif !important;
+      }
+
+      .scrolldiv {
+        position: sticky;
+        top: 100px;
+        align-self: flex-start;
+      }
+      .intro {
+        font-family: "Segoe UI", sans-serif !important;
+        color: #343434 !important;
+        font-size: 17px !important;
+      }
+
+      .introPara {
+        font-family: "Segoe UI", sans-serif !important;
+        font-size: 18px !important;
+        color: gray !important;
+        text-align: justify !important;
+      }
+
+      @media screen and (min-width: 900px) {
+        .content2 {
+          display: none !important;
+        }
+      }
+      @media screen and (max-width: 900px) {
+        .content1 {
+          display: none !important;
+        }
+      }
+
+      .pagedown {
+        display: flex;
+        text-align: center;
+        position: fixed;
+        justify-content: center;
+        align-items: center;
+        bottom: 15px;
+        right: 20px;
+        width: 90% !important;
+        transition: background-color 0.3s ease 0s, opacity 0.5s ease 0s,
+          visibility 0.5s ease 0s;
+        /* {% comment %} border: 1px solid gray !important; {% endcomment %} */
+        background-color: white !important;
+        z-index: 1000;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Veriprofile</title>
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body  hx-ext="ws" ws-connect="/ws/notifications/">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 bg-light text-dark d-none d-md-block sidebar">
+          <div class="left-sidebar">
+            <ul class="nav flex-column sidebar-nav">
+              {% comment %}
+              <hr class="my-2" />
+              {% endcomment %}
+              <li class="nav-item mt-1">
+                <a class="nav-link active" href="{% url 'dashboard' %}">
+                  <i class="fa-solid fa-user-group me-2"></i> Users
+                </a>
+              </li>
+              <hr class="my-2" />
+              <li class="nav-item mt-1">
+                <a class="nav-link" href="{% url 'create_plan' %}">
+                  <i class="fa-solid fa-pen-to-square me-2"></i> Create Plan
+                </a>
+              </li>
+              <hr class="my-2" />
+              <li class="nav-item mt-1">
+                <a class="nav-link" href="{% url 'plans' %}"
+                  ><i class="fa-solid fa-certificate me-2"></i> All Plans
+                </a>
+              </li>
+              <hr class="my-2" />
+              <li class="nav-item mt-1">
+                <a class="nav-link" href="{% url 'admin_logout' %}"
+                  ><i class="fa-solid fa-right-from-bracket me-2"></i> Logout
+                </a>
+              </li>
+              {% comment %}
+              <hr class="my-2" />
+              {% endcomment %}
+            </ul>
+          </div>
+        </div>
+        <main role="main" class="col-md-10 ms-auto col-lg-10 px-lg-4">
+          <nav
+            class="navbar navbar-expand-lg shadow-none sticky-top py-3 d-lg-block d-none"
+            style="background-color: #fff"
+          >
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+              <!-- Collapsible wrapper -->
+              <div class="navbar-collapse" id="navbarSupportedContent">
+                <!-- Navbar brand -->
+                <a
+                  class="navbar-brand mt-2 mt-lg-0"
+                  href="{% url 'home' %}"
+                  style="letter-spacing: 2px !important"
+                >
+                  <div class="d-flex align-items-center">
+                    <div class="logodiv">
+                      <img
+                        src="{% static 'verifiedLogo.png' %}"
+                        class="veriProfileLogo"
+                      />
+                    </div>
+                    <div class="mt-1">eriprofile</div>
+                  </div>
+                </a>
+                <!-- Left links -->
+                <ul
+                  class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center"
+                >
+                  <li class="nav-item d-flex">
+                    <div
+                      class="d-flex form-inputs formInput me-3 align-items-center"
+                    >
+                      <input
+                        class="form-control rounded-pill w-100"
+                        type="text"
+                        placeholder=""
+                      />
+                      <i class="fa fa-search mx-2"></i>
+                    </div>
+                  </li>
+
+                  {% comment %}
+                  <li class="nav-item">
+                    <a
+                      class="nav-link Navlinks mx-2"
+                      href="{% url 'create_plan' %}"
+                      >Create Plan</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link Navlinks mx-2" href="{% url 'plans' %}"
+                      >Plans</a
+                    >
+                  </li>
+                  {% endcomment %}
+                  <li class="nav-item">
+                    {% if user.is_authenticated %} {% if user.is_superuser %}
+                    <a class="mb-0 mx-2 text-primary fw-bold"
+                      >Hi! {{ user.username }}</a
+                    >
+                    {% endif %} {% endif %}
+                  </li>
+                  <li class="nav-item">
+                    <div class="dropdown">
+                      <a
+                        class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                        href="#"
+                        id="navbarDropdownMenuAvatar"
+                        role="button"
+                        data-mdb-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <img
+                          src="{% static 'DummyImg.jpg' %}"
+                          class="rounded-circle"
+                          height="28"
+                          alt="Black and White Portrait of a Man"
+                          loading="lazy"
+                        /><i class="fa-solid fa-caret-down text-dark mx-1"></i>
+                      </a>
+                      <ul
+                        class="dropdown-menu dropdown-menu-end dropdownMenu mt-3 py-3 shadow-lg"
+                        aria-labelledby="navbarDropdownMenuAvatar"
+                      >
+                        <li>
+                          <a class="dropdown-item" href="#"
+                            ><img
+                              src="{% static 'Leftside Icons/L1_dashboard_FILL0_wght400_GRAD0_opsz48.png' %}"
+                              height="20"
+                            />
+                            &nbsp; Forum</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="#"
+                            ><i class="fa-solid fa-user-group"></i> &nbsp; Talk
+                            to Contribute</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="#"
+                            ><i class="fa-solid fa-message"></i> &nbsp;
+                            Messages</a
+                          >
+                        </li>
+                        <hr class="my-2" />
+                        <p
+                          class="my-0 mx-3"
+                          style="font-size: 12px !important ; font-weight: 500"
+                        >
+                          Business
+                        </p>
+                        <li>
+                          <a class="dropdown-item" href="#"
+                            ><i class="fa-solid fa-city"></i> &nbsp; Register
+                            Company</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="#"
+                            ><i class="fa-solid fa-heart"></i> &nbsp; Human
+                            Resource</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="#"
+                            ><i class="fa-solid fa-gear"></i> &nbsp;
+                            Preferences</a
+                          >
+                        </li>
+                        {% comment %}
+                        <li>
+                          <a class="dropdown-item" href="{% url 'signout' %}"
+                            ><i class="fa-solid fa-right-from-bracket"></i>
+                            &nbsp; Logout</a
+                          >
+                        </li>
+                        {% endcomment %}
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+          <!-- Navbar2 -->
+          <nav
+            class="navbar navbar-expand-lg p-2 py-3 shadow-none sticky-top d-block d-lg-none"
+            style="background-color: #fff"
+          >
+            <div class="container-fluid p-0">
+              <div class="d-flex align-items-center">
+                <a
+                  class="navbar-brand"
+                  href="{% url 'home' %}"
+                  style="letter-spacing: 2px !important"
+                >
+                  <div class="d-flex align-items-center">
+                    <div class="logodiv mb-1">
+                      <img
+                        src="{% static 'verifiedLogo.png' %}"
+                        class="veriProfileLogo"
+                      />
+                    </div>
+                    <div class="">eriprofile</div>
+                  </div>
+                </a>
+                <div class="dropdown">
+                  <a
+                    class="dropdown-toggle d-flex align-items-center hidden-arrow mx-2"
+                    href="#"
+                    id="navbarDropdownMenuAvatar"
+                    role="button"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img
+                      src="{% static 'DummyImg.png' %}"
+                      class="rounded-circle"
+                      height="28"
+                      alt="Black and White Portrait of a Man"
+                      loading="lazy"
+                    /><i class="fa-solid fa-caret-down text-dark me-1"></i>
+                  </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end dropdownMenu mt-3"
+                    aria-labelledby="navbarDropdownMenuAvatar"
+                  >
+                    <li>
+                      <a class="dropdown-item" href="{% url 'user_profile' %}"
+                        ><i class="fa-solid fa-user-pen"></i> &nbsp; Manage
+                        Profile</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#"
+                        ><i class="fa-solid fa-message"></i> &nbsp; Talk to
+                        Admin</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#"
+                        ><i class="fa-solid fa-gear"></i> &nbsp; Preferences</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#"
+                        ><i class="fa-solid fa-heart"></i> &nbsp; Your
+                        Followers</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{% url 'signout' %}"
+                        ><i class="fa-solid fa-right-from-bracket"></i> &nbsp;
+                        Logout</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+                <!-- Toggle button -->
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-mdb-toggle="collapse"
+                  data-mdb-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <i class="fas fa-bars"></i>
+                </button>
+              </div>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav flex-column sidebar-nav my-2">
+                  <li class="nav-item mt-1">
+                    <a
+                      class="nav-link active text-dark"
+                      href="{% url 'dashboard' %}"
+                    >
+                      <i class="fa-solid fa-user-group me-2"></i> Users
+                    </a>
+                  </li>
+                  <hr class="my-2" />
+                  <li class="nav-item mt-1">
+                    <a
+                      class="nav-link text-dark"
+                      href="{% url 'create_plan' %}"
+                    >
+                      <i class="fa-solid fa-pen-to-square me-2"></i> Create Plan
+                    </a>
+                  </li>
+                  <hr class="my-2" />
+                  <li class="nav-item mt-1">
+                    <a class="nav-link text-dark" href="{% url 'plans' %}"
+                      ><i class="fa-solid fa-certificate me-2"></i> All Plans
+                    </a>
+                  </li>
+                  <hr class="my-2" />
+                  <li class="nav-item mt-1">
+                    <a
+                      class="nav-link text-dark"
+                      href="{% url 'admin_logout' %}"
+                      ><i class="fa-solid fa-right-from-bracket me-2"></i>
+                      Logout
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="nav-item d-flex w-100 my-2">
+                <div class="d-flex form-inputs formInput w-100">
+                  <input
+                    class="form-control rounded-pill w-100"
+                    type="text"
+                    placeholder=""
+                  />
+                  <i class="fa fa-search mx-3"></i>
+                </div>
+              </div>
+            </div>
+          </nav>
+          <section class="my-3">
+            <div class="container">
+              <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-lg-8">
+                  <div class="card rounded-3">
+                    <div class="loader"></div>
+                    <div class="card-body p-3 p-md-5 shadow-lg">
+                      <h3 class="mb-4 pb-2 pb-md-0 mb-md-4 text-dark px-md-2">
+                        Create Plan
+                      </h3>
+
+                      <form
+                        class="px-md-2"
+                        method="post"
+                        action="{% url 'create_plan' %}"
+                      >
+                        {% csrf_token %}
+                        <div class="form-outline mb-4">
+                          <input
+                            type="text"
+                            id="form3Example1q"
+                            class="form-control"
+                            name="name"
+                          />
+                          <label class="form-label" for="form3Example1q"
+                            >Name</label
+                          >
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-outline mb-4">
+                              <input
+                                type="text"
+                                id="form3Example1q"
+                                class="form-control"
+                                name="price"
+                              />
+                              <label class="form-label" for="form3Example1q"
+                                >Price</label
+                              >
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-outline mb-4 col-md-6">
+                              <input
+                                type="text"
+                                id="form3Example1q"
+                                class="form-control"
+                                name="discount"
+                              />
+                              <label class="form-label" for="form3Example1q"
+                                >Discount %</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-outline mb-4">
+                          <textarea
+                            rows="4"
+                            id="form3Example1q"
+                            class="form-control"
+                            name="description"
+                          ></textarea>
+                          <label class="form-label" for="form3Example1q"
+                            >Description</label
+                          >
+                        </div>
+
+                        <button
+                          type="submit"
+                          class="btn btn-success btn-lg mb-1"
+                        >
+                          Submit
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script>
+      window.addEventListener("load", () => {
+        const loader = document.querySelector(".loader");
+        loader.classList.add("loader-hidden");
+
+        loader.addEventListener("transitionend", () => {
+          document.body.removeChild("loader");
+        });
+      });
+    </script>
+
+    {% if messages %}
+    <script>
+      // JavaScript code to display notifications
+      {% for message in messages %}
+        alert("{{ message }}"); // You can customize the notification style and behavior here
+      {% endfor %}
+    </script>
+    {% endif %}
+
+    <script>
+      // WebSocket connection
+      const socket = new WebSocket("ws://your-domain/ws/notifications/");
+
+      // Handle incoming messages
+      socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        const message = data.message;
+        // Display the notification message to the admin
+      };
+    </script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"
+    ></script>
+  </body>
+</html>

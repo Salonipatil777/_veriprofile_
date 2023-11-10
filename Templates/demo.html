@@ -1,0 +1,1037 @@
+
+{% load static %}
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Profile Page</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+
+    <!-- favicon
+		============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <!-- Fontawsome CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+
+    <!-- Metarial Iconic Font CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Plugin CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static 'css/plugin.css' %}">
+
+    <!-- Style CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/card.css' %}">
+    <link rel="stylesheet" href="{% static 'css/rough.css' %}">
+
+    <!-- share
+		============================================ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="hello" />
+    <meta property="og:image" content="https://t4.ftcdn.net/jpg/05/47/97/81/360_F_547978128_vqEEUYBr1vcAwfRAqReZXTYtyawpgLcC.jpg" />
+    <meta property="og:url" content="http://127.0.0.1:8000/gallery/12/" />
+    <!-- Responsive CSS
+		============================================ -->
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            min-height: 100vh;
+            font-family: "Poppins", sans-serif;
+        }
+        .img__container {
+            position: relative;
+          }
+          
+          .img__container i {
+            position: absolute;
+            bottom: 34px; /* Adjust the top positioning as needed */
+            right: 33px; /* Adjust the left positioning as needed */
+            font-size: 24px;
+            color: #007BFF;
+            background:rgb(107, 232, 107);;
+            padding:8px;
+            border-radius:50%; /* Change the icon color to your desired color */
+          }
+
+          
+        
+        .myul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .anker {
+            text-decoration: none;
+        }
+        
+        
+        .sub-menu a {
+            text-decoration: none;
+        }
+        
+        .header__wrapper header {
+            width: 100%;
+            /* background-image: url('{% static 'img/bg.jpeg' %}') no-repeat 50% 20% / cover; */
+            height: 22rem;
+            min-height: calc(100px + 15vw);
+            background-color: #545454;
+            background-position: center;
+            z-index: -1;
+            position: relative;
+        }
+        
+        .header__wrapper .cols__container .left__col {
+            padding: 25px 20px;
+            text-align: center;
+            max-width: 295px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .header__wrapper .cols__container .left__col .img__container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translatex(-50%);
+        }
+        
+        .header__wrapper .cols__container .left__col .img__container img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+            box-shadow: 1px 3px 12px rgba(0, 0, 0, 0.18);
+        }
+        
+        .header__wrapper .cols__container .left__col .img__container span {
+            position: absolute;
+            background: #2afa6a;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            bottom: 31px;
+            right: 40px;
+            border: 2px solid #fff;
+        }
+        
+        .header__overlay {
+            position: relative;
+            /* Ensure the overlay container is positioned relative to the header */
+        }
+        
+        .header__content {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background-color: white;
+            border-radius: 50%;
+        }
+        
+        .header__wrapper .cols__container .left__col .mypage {
+            margin-top: 220px;
+            font-weight: 600;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .header__wrapper .cols__container .left__col p {
+            font-size: 0.9rem;
+            color: #818181;
+            margin: 0;
+        }
+        
+        .header__wrapper .cols__container .left__col .about {
+            justify-content: space-between;
+            position: relative;
+            margin: 35px 0;
+        }
+        
+        .header__wrapper .cols__container .left__col .about li {
+            display: flex;
+            flex-direction: column;
+            color: #818181;
+            font-size: 0.9rem;
+        }
+        
+        .header__wrapper .cols__container .left__col .about li span {
+            color: #1d1d1d;
+            font-weight: 600;
+        }
+        
+        .header__wrapper .cols__container .left__col .about:after {
+            position: absolute;
+            content: "";
+            bottom: -16px;
+            display: block;
+            background: #cccccc;
+            height: 1px;
+            width: 100%;
+        }
+        
+        .header__wrapper .cols__container .content p {
+            font-size: 1rem;
+            color: #1d1d1d;
+            line-height: 1.6em;
+        }
+        
+        .header__wrapper .cols__container .content ul {
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 9px;
+        }
+        
+        .header__wrapper .cols__container .content ul li {
+            display: flex;
+        }
+        
+        .header__wrapper .cols__container .content ul i {
+            font-size: 1.3rem;
+        }
+        
+        .header__wrapper .cols__container .right__col nav {
+            display: flex;
+            align-items: center;
+            padding: 2px 0;
+            padding-top:1rem;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+        
+        .header__wrapper .cols__container .right__col nav ul {
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+        }
+        
+        .header__wrapper .cols__container .right__col nav ul li a {
+            text-transform: uppercase;
+            color: #818181;
+        }
+        
+        .header__wrapper .cols__container .right__col nav ul li:nth-child(1) a {
+            color: #1d1d1d;
+            font-weight: 600;
+        }
+        
+        .header__wrapper .cols__container .right__col nav button {
+            background: #0091ff;
+            color: #fff;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        .header__wrapper .cols__container .right__col nav button:hover {
+            opacity: 0.8;
+        }
+        
+        .header__wrapper .cols__container .right__col .photos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(202px, 1fr));
+            gap: 20px;
+        }
+        
+        .header__wrapper .cols__container .right__col .photos img {
+            max-width: 100%;
+            display: block;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        /* Responsiveness */
+        
+        @media (min-width: 868px) {
+            .header__wrapper .cols__container {
+                max-width: 1215px;
+                margin: 0 auto;
+                width: 90%;
+                justify-content: space-between;
+                display: grid;
+                grid-template-columns: 1fr 2.5fr;
+                gap: 15px;
+            }
+            .header__wrapper .cols__container .left__col {
+                padding: 25px 0px;
+            }
+            .header__wrapper .cols__container .right__col nav ul {
+                flex-direction: row;
+                gap: 30px;
+            }
+            .header__wrapper .cols__container .right__col .photos {
+                height: 210px;
+                overflow: auto;
+                padding: 0 0 30px;
+            }
+        }
+        
+        @media (min-width: 1017px) {
+            .header__wrapper .cols__container .left__col {
+                margin: 0;
+                margin-right: auto;
+            }
+            .header__wrapper .cols__container .right__col nav {
+                flex-direction: row;
+            }
+            .header__wrapper .cols__container .right__col nav button {
+                margin-top: 0;
+            }
+        }
+        
+        .inner::before {
+            content: "";
+            background-color: rgba(238, 18, 18, 0.4);
+            /* Adjust the opacity here (0.5 = 50% opacity) */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* Place it behind the content */
+        }
+        
+        .tab {
+            display: none;
+        }
+        /* Style for active tab */
+        
+        .active-tab {
+            display: block;
+        }
+        
+        .photo-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 13px
+        }
+        
+        
+        @media (max-width: 768px) {
+            .photo-row {
+              justify-content: center;
+              margin-bottom:10rem; /* Center align items for screens below 768px */
+            }
+          }
+        .photo {
+            width: 100%;
+            height: 15rem;
+            border-radius: 10px;
+        }
+        
+        .share__wrapper {
+            position: relative;
+        }
+        
+        .share__options {
+            width: 168px;
+            background: white;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            top: 56px;
+            right: -1px;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            padding: 13px 45px;
+            border-radius: 7px;
+            visibility: hidden;
+
+        }
+        
+        .share__options::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: white;
+            transform: rotate(45deg);
+        }
+        
+        .share__options a {
+            margin-left: 10px;
+        }
+        
+        .share__options img {
+            width: 15px;
+            height: auto;
+        }
+        
+        .share__button {
+            outline: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 50%;
+            color: #fff;
+            padding: 10px;
+            /* font-weight: 1.3rem; */
+        }
+        
+       
+        
+        .share__button:hover {
+            transition: 250ms linear;
+        }
+        
+        .share__button svg {
+            fill: #fff;
+        }
+        
+        .show__share-options {
+            visibility: visible;
+        }
+        .custom-upload-button {
+            cursor: pointer;
+            position: absolute;
+            bottom: 13px;
+            font-weight:bold;
+            right: 20px;
+            background: rgb(107, 232, 107); /* Change the background color to a desired color */
+            padding: 10px 20px; /* Adjust the padding for better spacing */
+            border: none; /* Adjust border color */
+          
+            color: #fff; /* Text color */
+            border-radius: 5px; /* Rounded corners */
+            transition: background 0.3s; /* Add a smooth transition effect on hover */
+          }
+          
+        
+    </style>
+</head>
+
+<body>
+
+    <div class="as-mainwrapper">
+        <!--Bg White Start-->
+        <div class="bg-white">
+            <!--Header Area Start-->
+
+            <!--End of Header Area-->
+            <header>
+                <div class="header-logo-menu sticker">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-2 col-12">
+                                <div class="logo">
+                                    <a href="{% url 'home' %}">
+                                        <img src="{% static 'images/BookOfTalents Logo.png' %}" alt="EDUCAT" class="static-logo" style="height:133px;position:relative;margin-top:-1.2rem">
+                                    </a>
+                                </div>
+                                
+                            </div>
+                            <div class="col-lg-10 col-12">
+                                <div class="mainmenu-area pull-right">
+                                    <div class="mainmenu d-none d-lg-block">
+                                        <nav>
+                                            <ul id="nav">
+                                                <li class="current"><a href="{% url 'home' %}">Home</a>
+
+                                                </li>
+                                                <li><a>About</a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="">Know HBT
+                                                        </a></li>
+                                                        <li><a href="">News Room
+                                                        </a></li>
+                                                        <li><a href="">HBT Vlog
+                                                        </a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a>Talents
+                                                </a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="">Talent Zone</a></li>
+                                                        <li><a href="">Competitions (TOH)
+                                                        </a></li>
+                                                        <li><a href="">Submission Guidelines
+                                                        </a></li>
+                                                        <li><a href="">Past Winners
+                                                        </a></li>
+                                                        <li><a href="#">Awards
+                                                            <i class="zmdi zmdi-chevron-right"></i></a>
+                                                            <ul class="inside-menu">
+                                                                <li><a href="">Award Categories
+                                                                </a></li>
+                                                                <li><a href="">Award Criteria
+                                                                </a></li>
+                                                                <li><a href="">Recognized Talents</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><a href="#">SupportTalents
+                                                            <i class="zmdi zmdi-chevron-right"></i></a>
+                                                            <ul class="inside-menu">
+                                                                <li><a href="">Campaign Creation</a></li>
+                                                                <li><a href="">Payment Processing
+                                                                </a></li>
+                                                                <li><a href="">Donor Recognition
+                                                                </a></li>
+                                                                <li><a href="">Funded Projects</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li><a>Programs
+                                                </a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="">SkillForge Workshops
+                                                        </a></li>
+                                                        <li><a href="">TalentLab Programs
+                                                        </a></li>
+                                                        <li><a href="">Schedules
+                                                        </a></li>
+                                                        <li><a href="">Registration
+                                                        </a></li>
+                                                        <li><a href="">Success Stories
+                                                        </a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a>HBT Collabs
+
+                                                </a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="">HBT Social
+
+                                                        </a></li>
+
+                                                        <li><a href="">Partnership
+
+                                                        </a></li>
+                                                        <li><a href="">Donate
+
+                                                        </a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a>Contact Us</a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="">Inquiry Form
+
+                                                        </a></li>
+                                                        <li><a href="">Location Map
+
+                                                        </a></li>
+                                                        <li><a href="">FAQ
+
+                                                        </a></li>
+
+                                                    </ul>
+                                                </li>
+                                                {% if user.is_authenticated %}
+                                                <li>
+                                                    <a>
+
+                                                        Hello! {{ user_profile.first_name }}
+                                                    </a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="">Logout</a></li>
+
+                                                    </ul>
+                                                </li>
+                                                {% else %}
+
+                                                <button class="bg-white p-0 text-black border-0" id="redirectButton" style="border-radius: 50%;"> <a href="" class="nav-link d-flex p-3 bg-white-all rounded-circle text-gigas icon-xs" data-bs-toggle="modal" data-bs-target="#accountModal">
+                                                    <!-- Icon -->
+                                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M17.2252 3.0777C15.3376 1.10738 12.7258 -0.0045765 9.99712 0.000444175C4.48284 -0.00650109 0.00695317 4.45809 7.91636e-06 9.97242C-0.00342287 12.6991 1.1084 15.3085 3.07726 17.1948C3.08299 17.2005 3.08512 17.209 3.09082 17.2141C3.14864 17.2698 3.21148 17.3169 3.27005 17.3705C3.43071 17.5133 3.59138 17.6611 3.76061 17.7989C3.85128 17.8703 3.94554 17.9417 4.03838 18.0074C4.19833 18.1266 4.35828 18.2459 4.52535 18.3558C4.6389 18.4273 4.756 18.4986 4.87236 18.5701C5.02658 18.6629 5.18012 18.7564 5.33936 18.8414C5.47434 18.9128 5.61211 18.9742 5.74922 19.0392C5.89917 19.1106 6.04698 19.182 6.20049 19.2462C6.354 19.3105 6.50826 19.3605 6.6639 19.4162C6.81954 19.4719 6.9538 19.5233 7.10304 19.569C7.27157 19.6197 7.44436 19.6589 7.61573 19.7011C7.75853 19.736 7.89706 19.776 8.04416 19.8046C8.24123 19.8439 8.44117 19.8689 8.64112 19.896C8.76467 19.9132 8.88534 19.9374 9.01027 19.9496C9.33732 19.9817 9.66718 19.9996 9.99992 19.9996C10.3327 19.9996 10.6626 19.9817 10.9896 19.9496C11.1146 19.9374 11.2352 19.9132 11.3587 19.896C11.5587 19.8689 11.7586 19.8439 11.9557 19.8046C12.0985 19.776 12.2413 19.7332 12.3841 19.7011C12.5555 19.6589 12.7283 19.6196 12.8968 19.569C13.046 19.5233 13.1903 19.4676 13.3359 19.4162C13.4816 19.3648 13.6473 19.3091 13.7994 19.2462C13.9514 19.1834 14.1007 19.1098 14.2506 19.0392C14.3877 18.9742 14.5256 18.9128 14.6605 18.8414C14.8197 18.7564 14.9732 18.6629 15.1275 18.5701C15.2439 18.4986 15.361 18.4337 15.4745 18.3558C15.6416 18.2459 15.8016 18.1267 15.9615 18.0074C16.0543 17.936 16.1485 17.8717 16.2392 17.7989C16.4085 17.6632 16.5691 17.519 16.7298 17.3705C16.7883 17.3169 16.8512 17.2698 16.909 17.2141C16.9147 17.2091 16.9169 17.2005 16.9226 17.1948C20.9046 13.38 21.04 7.05955 17.2252 3.0777ZM15.6203 16.4472C15.4904 16.5614 15.3561 16.6699 15.2205 16.7749C15.1405 16.8363 15.0605 16.897 14.9784 16.9556C14.8491 17.0491 14.7178 17.1377 14.5842 17.2226C14.4871 17.2848 14.3879 17.3447 14.2879 17.4033C14.1622 17.4747 14.0344 17.5461 13.9051 17.6175C13.7909 17.676 13.6745 17.7311 13.5574 17.7853C13.4403 17.8396 13.3111 17.8974 13.1847 17.9481C13.0583 17.9988 12.924 18.0467 12.7919 18.0909C12.6713 18.1323 12.5506 18.1752 12.4285 18.2116C12.2857 18.2544 12.1364 18.2894 11.9886 18.3251C11.8729 18.3522 11.7587 18.383 11.6416 18.4058C11.4724 18.4387 11.2996 18.4615 11.1261 18.4851C11.0275 18.4979 10.9297 18.5158 10.8304 18.5258C10.5562 18.5522 10.2784 18.5679 9.99783 18.5679C9.71722 18.5679 9.43945 18.5522 9.16524 18.5258C9.066 18.5158 8.96818 18.4979 8.8696 18.4851C8.6961 18.4615 8.5233 18.4387 8.35406 18.4058C8.23696 18.383 8.1227 18.3523 8.00705 18.3251C7.85924 18.2894 7.71213 18.2537 7.5672 18.2116C7.44512 18.1752 7.32441 18.1323 7.20375 18.0909C7.07166 18.0452 6.93953 17.9988 6.811 17.9481C6.68248 17.8974 6.5611 17.8417 6.43826 17.7853C6.31542 17.7289 6.20476 17.6761 6.09054 17.6175C5.9613 17.5504 5.83348 17.4797 5.7078 17.4033C5.60784 17.3448 5.50856 17.2848 5.41145 17.2226C5.27794 17.1377 5.14653 17.0491 5.01729 16.9556C4.93516 16.897 4.8552 16.8363 4.77521 16.7749C4.63952 16.6699 4.5053 16.5607 4.37535 16.4472C4.34393 16.4236 4.31536 16.3936 4.28469 16.3664C4.31661 13.9374 5.87708 11.7926 8.17843 11.0146C9.32912 11.562 10.6651 11.562 11.8158 11.0146C14.1171 11.7926 15.6776 13.9374 15.7096 16.3664C15.6796 16.3936 15.651 16.4208 15.6203 16.4472ZM7.50716 5.7256C8.2803 4.3506 10.0217 3.86272 11.3967 4.63586C12.7717 5.409 13.2596 7.15038 12.4864 8.52538C12.2299 8.98159 11.8529 9.35856 11.3967 9.61511C11.3931 9.61511 11.3888 9.61511 11.3845 9.61938C11.1952 9.72477 10.9951 9.80954 10.7876 9.87217C10.7505 9.88288 10.7162 9.89715 10.6769 9.90644C10.6055 9.92501 10.5305 9.93786 10.457 9.9507C10.3185 9.97493 10.1784 9.98898 10.0378 9.99283H9.95641C9.81588 9.98898 9.67576 9.97493 9.53727 9.9507C9.46585 9.93786 9.39016 9.92501 9.31736 9.90644C9.2795 9.89715 9.24594 9.88288 9.2067 9.87217C8.99922 9.80954 8.79911 9.72481 8.60974 9.61938L8.5969 9.61511C7.2219 8.84197 6.73402 7.10059 7.50716 5.7256ZM16.9763 14.9505C16.518 12.8133 15.1107 11.0014 13.1532 10.0286C14.7534 8.28555 14.6375 5.57535 12.8944 3.97522C11.1514 2.3751 8.44117 2.49099 6.84104 4.23404C5.33677 5.8727 5.33677 8.38998 6.84104 10.0286C4.88361 11.0014 3.47624 12.8133 3.01802 14.9505C0.27991 11.0937 1.18681 5.74744 5.04365 3.00933C8.90048 0.271226 14.2467 1.17813 16.9848 5.03496C18.0141 6.48481 18.5666 8.21907 18.5658 9.99714C18.5658 11.7737 18.01 13.5057 16.9763 14.9505Z" fill="currentColor"/>
+                                                    </svg>
+
+                                                </a></button> {% endif %}
+
+
+
+
+
+
+                                            </ul>
+                                        </nav>
+                                        
+                                    </div>
+                                   
+                                    <!--Search Form-->
+                                  
+                                    <!--End of Search Form-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mobile Menu Area start -->
+                <div class="mobile-menu-area">
+                    <div class="container clearfix">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="mobile-menu">
+                                    <nav id="dropdown">
+                                        <ul>
+                                            <li class="current"><a href="{% url 'home' %}">Home</a>
+
+
+
+                                            </li>
+                                            <li><a>About</a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="">Know HBT
+                                                    </a></li>
+                                                    <li><a href="">News Room
+                                                    </a></li>
+                                                    <li><a href="">HBT Vlog
+                                                    </a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a>Talents
+                                            </a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="">Talent Zone</a></li>
+                                                    <li><a href="">Competitions (TOH)
+                                                    </a></li>
+                                                    <li><a href="">Submission Guidelines
+                                                    </a></li>
+                                                    <li><a href="">Past Winners
+                                                    </a></li>
+                                                    <li><a>Awards
+                                                        <i class="zmdi zmdi-chevron-right"></i></a>
+                                                        <ul class="inside-menu">
+                                                            <li><a href="{% url 'AwardCategories' %}">Award Categories
+                                                            </a></li>
+                                                            <li><a href="{% url 'AwardCriteria' %}">Award Criteria
+                                                            </a></li>
+                                                            <li><a href="{% url 'RecognizedTalents' %}">Recognized Talents</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a>SupportTalents
+                                                        <i class="zmdi zmdi-chevron-right"></i></a>
+                                                        <ul class="inside-menu">
+                                                            <li><a href="{% url 'CampaignCreation' %}">Campaign Creation</a></li>
+                                                            <li><a href="{% url 'PaymentProcessing' %}">Payment Processing
+                                                            </a></li>
+                                                            <li><a href="{% url 'DonorRecognition' %}">Donor Recognition
+                                                            </a></li>
+                                                            <li><a href="{% url 'FundedProjects' %}">Funded Projects</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li><a>Programs
+                                            </a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="{% url 'SkillForgeWorkshops' %}">SkillForge Workshops
+                                                    </a></li>
+                                                    <li><a href="{% url 'TalentLabPrograms' %}">TalentLab Programs
+                                                    </a></li>
+                                                    <li><a href="{% url 'Schedules' %}">Schedules
+                                                    </a></li>
+                                                    <li><a href="{% url 'Registration' %}">Registration
+                                                    </a></li>
+                                                    <li><a href="{% url 'SuccessStories' %}">Success Stories
+                                                    </a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a>HBT Collabs
+
+                                            </a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="{% url 'HBTSocial' %}">HBT Social
+
+                                                    </a></li>
+
+                                                    <li><a href="{% url 'Partnership' %}">Partnership
+
+                                                    </a></li>
+                                                    <li><a href="{% url 'Donate' %}">Donate
+
+                                                    </a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a>Contact Us</a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="{% url 'InquiryForm' %}">Inquiry Form
+
+                                                    </a></li>
+                                                    <li><a href="{% url 'LocationMap' %}">Location Map
+
+                                                    </a></li>
+                                                    <li><a href="{% url 'FAQ' %}">FAQ
+
+                                                    </a></li>
+
+                                                </ul>
+                                            </li>
+                                            {% if user.is_authenticated %}
+                                            <li>
+                                                <b class="text-white text-uppercase">Hello! {{ user.username }}</b>
+                                                <ul class="sub-menu">
+                                                    <li><a href="{% url 'Logout' %}">Logout</a></li>
+                                                </ul>
+                                            </li>
+                                            {% else %}
+
+                                            <button class="bg-transparent text-white border-0" id="redirectButton" style="border-radius: 50%;"> <a href="" class="nav-link d-flex p-3 bg-white-all rounded-circle text-gigas icon-xs" data-bs-toggle="modal" data-bs-target="#accountModal">
+                                                    <!-- Icon -->
+                                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M17.2252 3.0777C15.3376 1.10738 12.7258 -0.0045765 9.99712 0.000444175C4.48284 -0.00650109 0.00695317 4.45809 7.91636e-06 9.97242C-0.00342287 12.6991 1.1084 15.3085 3.07726 17.1948C3.08299 17.2005 3.08512 17.209 3.09082 17.2141C3.14864 17.2698 3.21148 17.3169 3.27005 17.3705C3.43071 17.5133 3.59138 17.6611 3.76061 17.7989C3.85128 17.8703 3.94554 17.9417 4.03838 18.0074C4.19833 18.1266 4.35828 18.2459 4.52535 18.3558C4.6389 18.4273 4.756 18.4986 4.87236 18.5701C5.02658 18.6629 5.18012 18.7564 5.33936 18.8414C5.47434 18.9128 5.61211 18.9742 5.74922 19.0392C5.89917 19.1106 6.04698 19.182 6.20049 19.2462C6.354 19.3105 6.50826 19.3605 6.6639 19.4162C6.81954 19.4719 6.9538 19.5233 7.10304 19.569C7.27157 19.6197 7.44436 19.6589 7.61573 19.7011C7.75853 19.736 7.89706 19.776 8.04416 19.8046C8.24123 19.8439 8.44117 19.8689 8.64112 19.896C8.76467 19.9132 8.88534 19.9374 9.01027 19.9496C9.33732 19.9817 9.66718 19.9996 9.99992 19.9996C10.3327 19.9996 10.6626 19.9817 10.9896 19.9496C11.1146 19.9374 11.2352 19.9132 11.3587 19.896C11.5587 19.8689 11.7586 19.8439 11.9557 19.8046C12.0985 19.776 12.2413 19.7332 12.3841 19.7011C12.5555 19.6589 12.7283 19.6196 12.8968 19.569C13.046 19.5233 13.1903 19.4676 13.3359 19.4162C13.4816 19.3648 13.6473 19.3091 13.7994 19.2462C13.9514 19.1834 14.1007 19.1098 14.2506 19.0392C14.3877 18.9742 14.5256 18.9128 14.6605 18.8414C14.8197 18.7564 14.9732 18.6629 15.1275 18.5701C15.2439 18.4986 15.361 18.4337 15.4745 18.3558C15.6416 18.2459 15.8016 18.1267 15.9615 18.0074C16.0543 17.936 16.1485 17.8717 16.2392 17.7989C16.4085 17.6632 16.5691 17.519 16.7298 17.3705C16.7883 17.3169 16.8512 17.2698 16.909 17.2141C16.9147 17.2091 16.9169 17.2005 16.9226 17.1948C20.9046 13.38 21.04 7.05955 17.2252 3.0777ZM15.6203 16.4472C15.4904 16.5614 15.3561 16.6699 15.2205 16.7749C15.1405 16.8363 15.0605 16.897 14.9784 16.9556C14.8491 17.0491 14.7178 17.1377 14.5842 17.2226C14.4871 17.2848 14.3879 17.3447 14.2879 17.4033C14.1622 17.4747 14.0344 17.5461 13.9051 17.6175C13.7909 17.676 13.6745 17.7311 13.5574 17.7853C13.4403 17.8396 13.3111 17.8974 13.1847 17.9481C13.0583 17.9988 12.924 18.0467 12.7919 18.0909C12.6713 18.1323 12.5506 18.1752 12.4285 18.2116C12.2857 18.2544 12.1364 18.2894 11.9886 18.3251C11.8729 18.3522 11.7587 18.383 11.6416 18.4058C11.4724 18.4387 11.2996 18.4615 11.1261 18.4851C11.0275 18.4979 10.9297 18.5158 10.8304 18.5258C10.5562 18.5522 10.2784 18.5679 9.99783 18.5679C9.71722 18.5679 9.43945 18.5522 9.16524 18.5258C9.066 18.5158 8.96818 18.4979 8.8696 18.4851C8.6961 18.4615 8.5233 18.4387 8.35406 18.4058C8.23696 18.383 8.1227 18.3523 8.00705 18.3251C7.85924 18.2894 7.71213 18.2537 7.5672 18.2116C7.44512 18.1752 7.32441 18.1323 7.20375 18.0909C7.07166 18.0452 6.93953 17.9988 6.811 17.9481C6.68248 17.8974 6.5611 17.8417 6.43826 17.7853C6.31542 17.7289 6.20476 17.6761 6.09054 17.6175C5.9613 17.5504 5.83348 17.4797 5.7078 17.4033C5.60784 17.3448 5.50856 17.2848 5.41145 17.2226C5.27794 17.1377 5.14653 17.0491 5.01729 16.9556C4.93516 16.897 4.8552 16.8363 4.77521 16.7749C4.63952 16.6699 4.5053 16.5607 4.37535 16.4472C4.34393 16.4236 4.31536 16.3936 4.28469 16.3664C4.31661 13.9374 5.87708 11.7926 8.17843 11.0146C9.32912 11.562 10.6651 11.562 11.8158 11.0146C14.1171 11.7926 15.6776 13.9374 15.7096 16.3664C15.6796 16.3936 15.651 16.4208 15.6203 16.4472ZM7.50716 5.7256C8.2803 4.3506 10.0217 3.86272 11.3967 4.63586C12.7717 5.409 13.2596 7.15038 12.4864 8.52538C12.2299 8.98159 11.8529 9.35856 11.3967 9.61511C11.3931 9.61511 11.3888 9.61511 11.3845 9.61938C11.1952 9.72477 10.9951 9.80954 10.7876 9.87217C10.7505 9.88288 10.7162 9.89715 10.6769 9.90644C10.6055 9.92501 10.5305 9.93786 10.457 9.9507C10.3185 9.97493 10.1784 9.98898 10.0378 9.99283H9.95641C9.81588 9.98898 9.67576 9.97493 9.53727 9.9507C9.46585 9.93786 9.39016 9.92501 9.31736 9.90644C9.2795 9.89715 9.24594 9.88288 9.2067 9.87217C8.99922 9.80954 8.79911 9.72481 8.60974 9.61938L8.5969 9.61511C7.2219 8.84197 6.73402 7.10059 7.50716 5.7256ZM16.9763 14.9505C16.518 12.8133 15.1107 11.0014 13.1532 10.0286C14.7534 8.28555 14.6375 5.57535 12.8944 3.97522C11.1514 2.3751 8.44117 2.49099 6.84104 4.23404C5.33677 5.8727 5.33677 8.38998 6.84104 10.0286C4.88361 11.0014 3.47624 12.8133 3.01802 14.9505C0.27991 11.0937 1.18681 5.74744 5.04365 3.00933C8.90048 0.271226 14.2467 1.17813 16.9848 5.03496C18.0141 6.48481 18.5666 8.21907 18.5658 9.99714C18.5658 11.7737 18.01 13.5057 16.9763 14.9505Z" fill="currentColor"/>
+                                                    </svg>
+
+                                                </a></button> {% endif %}
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mobile Menu Area end -->
+            </header>
+
+            
+
+        </div>
+        <!--End of Bg White-->
+    </div>
+    <div class="header__wrapper">
+
+        <div class="header__overlay">
+            <header class="inner" style="background-image: url('{{ user_profile.cover_image.url }}'); height: 370px; background-repeat: no-repeat; background-size: cover; position: relative;">
+                
+                <div style="padding-top: 18rem; padding-left: 25rem;">
+                    <div class="d-flex">
+                        <div style="float: left; margin-top: 10px;">
+                            <h4 class="text-white">Ms. {{ user_profile.first_name }} {{ user_profile.last_name }}</h4>
+                            <p class="text-white">Ms. {{ user_profile.user }}</p>
+                        </div>
+                        <div style="float: right; margin-top: 18px;">
+                            <button class="mypage mx-5" style="background-color: rgb(107, 232, 107); border: none; border-radius: 2rem; width: 8rem; color: white; font-weight: bold;padding:12px">Connect</button>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <!-- Edit Cover Button -->
+                
+            </header>
+            
+            <form method="post" enctype="multipart/form-data" id="imageUploadForm">
+                {% csrf_token %}
+                <label for="cover_image" class="custom-upload-button">
+                    <i class="fa-solid fa-camera"></i> Edit Cover
+                </label>
+                <input type="file" name="cover_image" id="cover_image" accept="image/*" style="display: none;">
+            </form>
+            
+            
+            
+           
+            
+
+            
+        </div>
+
+        <div class="cols__container">
+
+            <div class="left__col" style="top: -10rem;background-color: #fffefe;padding: 1rem;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;border-radius: 1rem;">
+               
+                
+           
+                <form method="post" enctype="multipart/form-data" id="profile-form">
+                    {% csrf_token %}
+                    <div class="img__container">
+                        <label for="profile-upload">
+                            <img src="{% if user_profile.profile_pic %}{{ user_profile.profile_pic.url }}{% else %}{% static 'images/userimage.jpg' %}{% endif %}" alt="Anna Smith" style="border: 1px solid white; padding: 1rem; background-color: white;" />
+                            <!-- Font Awesome camera icon -->
+                            <i class="fas fa-camera" id="camera-icon" style="color:white"></i>
+                        </label>
+                        <input type="file" name="profile_pic" id="profile-upload" accept=".jpg, .jpeg, .png" style="display: none" onchange="submitForm()">
+                    </div>
+                </form>
+                
+                
+                
+                <i class="fa-regular fa-thumbs-up" style="color: rgb(191, 139, 191);font-size: 2rem;padding-right: 1rem;"></i>
+                <button class="mypage" style="background-color: rgb(191, 139, 191);border: none;padding: 8px;border-radius: 2rem;width: 6rem;color: white;">101<i class="fa fa-star"></i></button>
+                <i class="fa-solid fa-camera" style="color: red;font-size: 2rem; padding-left: 1rem;"></i>
+                <hr>
+                <div>
+                    <h5 style="margin-bottom: 3px;margin-top: 2px;">Talent</h5>
+                    <p>{{ user_profile.talent_category }}</p>
+                    <h5 style="margin-bottom: 3px;margin-top: 2px;">Sector</h5>
+                    <ul>
+                        {% for education in education_data %}
+                            <li>{{ education.degree }} in {{ education.education_field }} ({{ education.passing_year }})</li>
+                        {% empty %}
+                            <li>No education data available.</li>
+                        {% endfor %}
+                    </ul>
+                   
+                
+                    <h5 style="margin-bottom: 3px;margin-top: 2px;">Location</h5>
+                    <p class="fs-6">{{ user_profile.street_address }}</p>
+                    <p>{{ user_profile.pincode }}</p>
+                    <span>{{ user_profile.country }},</span>
+                    <span>{{ user_profile.state }},</span>
+                    <span>{{ user_profile.city }}</span>
+                    
+                </div>
+                <hr>
+
+
+                <div class="content">
+                    <h5 style="margin-bottom: 3px;margin-top: 10px;">Intro</h5>
+                    <p>
+                        {{ user_profile.about_info | truncatewords:25 }}
+                    </p>
+                    {% for link in user_profile.social_links.all %}
+                    <ul class="myul" style="display:inline-block">
+                        {% if link.social_media == "Facebook" %}
+                        <li><a href="{{ link.social_links }}"><i class="fa-brands fa-facebook" style="color: rgb(15, 15, 177); font-size: 2rem;"></i></a></li>
+                        {% elif link.social_media == "WhatsApp" %}
+                        <li><a href="{{ link.social_links }}"><i class="fa-brands fa-whatsapp" style="color: white; background-color: rgb(71, 232, 71); padding: 4px; border-radius: 5px;"></i></a></li>
+                        {% elif link.social_media == "Linkedin" %}
+                        <li><a href="{{ link.social_links }}"><i class="fa-brands fa-linkedin" style="color: rgb(0, 119, 181); font-size: 2rem;"></i></a></li>
+                        {% elif link.social_media == "Other" %}
+                        <li><a href="{{ link.social_links }}"><i class="fa-solid fa-globe" style="color: rgb(0, 119, 181); font-size: 2rem;"></i></a></li>
+                        {% else %}
+                            <!-- Handle other social media platforms here if needed -->
+                        {% endif %}
+                    </ul>
+                    {% endfor %}
+                </div>
+           
+                
+
+            </div>
+            <div class="right__col">
+                <nav>
+                    <ul style="padding-left: 0rem;">
+                        <li><a class="anker" href="javascript:void(0);" onclick="showTab('about')">about</a></li>
+                        <li><a class="anker" href="javascript:void(0);" onclick="showTab('photos')">photos</a></li>
+                        <li><a class="anker" href="javascript:void(0);" onclick="showTab('videos')">videos</a></li>
+                    </ul>
+                    
+                    {% comment %} <p>Followers: {{ followers }}</p>
+                    <p>Following: {{ following }}</p> {% endcomment %}
+
+                    
+                    {% comment %} <form method="post" action="">
+                        {% csrf_token %}
+                        
+                        {% if request.user.is_authenticated %}
+                            {% if request.user == user_profile.user %}
+                                <!-- This is the current user's profile, so don't show follow/unfollow buttons -->
+                            {% elif request.user in user_profile.followers.all %}
+                                <input type="hidden" name="action" value="unfollow">
+                                <input type="submit" value="Unfollow">
+                            {% else %}
+                                <input type="hidden" name="action" value="follow">
+                                <input type="submit" value="Follow">
+                            {% endif %}
+                        {% endif %}
+                    </form> {% endcomment %}
+                    
+                    
+
+                    <div class="share__wrapper">
+                        <a href="{% url 'edit_profile' %}" class="bg-primary text-white" style="text-decoration:none;padding:11px;border-radius:4px">Edit Profile</a>
+
+                        <div class="share__options">
+                           
+                            <a class="facebook" target="_blank">
+                                <i class="fa-brands fa-facebook" style="color: rgb(15, 15, 177); font-size: 2rem;"></i>
+                            </a>
+                           
+                           
+                            <a class="whatsapp" target="_blank">
+                                <i class="fa-brands fa-whatsapp" style="color: white; background-color: rgb(71, 232, 71); padding: 7px; border-radius: 5px;height:2rem"></i>
+                            </a>
+                        </div>
+
+                        <!-- share button -->
+                        <button type="button" class="share__button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="13"
+              >
+                <path
+                  d="M15 6.495L8.766.014V3.88H7.441C3.33 3.88 0 7.039 0 10.936v2.049l.589-.612C2.59 10.294 5.422 9.11 8.39 9.11h.375v3.867L15 6.495z"
+                />
+              </svg>
+            </button>
+                    </div>
+
+                </nav>
+
+                <div id="about" class="tab">
+                    <!-- Content for the "about" tab goes here -->
+                    <p>{{ user_profile.about_info }}</p>
+                </div>
+
+                <div id="photos" class="tab">
+                    <!-- Content for the "photos" tab goes here -->
+                    <div class="photo-row">
+                        
+                            {% for image in user_images %}
+                              <div class="image-item">
+                                <img src="{{ image.image.url }}" alt="User Image" style="height:12rem;width:15rem;margin-top:8px">
+                              </div>
+                            {% endfor %}
+                         
+                    </div>
+                </div>
+                
+
+                <div id="videos" class="tab">
+                    <!-- Content for the "videos" tab goes here -->
+                    {% for video in user_videos %}
+                    <li>
+                        <video width="320" height="240" controls>
+                            <source src="{{ video.video.url }}" type="{{ video.video.content_type }}">
+                            Your browser does not support the video tag.
+                        </video>
+                    </li>
+                {% endfor %}
+                </div>
+                
+            </div>
+
+            <script>
+                function showTab(tabId) {
+                    // Hide all tabs
+                    var tabs = document.getElementsByClassName("tab");
+                    for (var i = 0; i < tabs.length; i++) {
+                        tabs[i].style.display = "none";
+                    }
+
+                    // Show the selected tab
+                    document.getElementById(tabId).style.display = "block";
+                }
+
+                // Show the "photos" tab by default
+                showTab("photos");
+            </script>
+        </div>
+    </div>
+
+
+
+    <!--End of Main Wrapper Area-->
+
+    <script>
+        // JavaScript code to redirect to the login page
+        document.getElementById('redirectButton').addEventListener('click', function() {
+            // Replace 'login.html' with the actual URL of your login page
+            window.location.href = 'login/';
+        });
+    </script>
+
+    <!-- jquery
+		============================================ -->
+    <script src="{% static 'js/vendor/modernizr-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/vendor/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/vendor/jquery-migrate-3.3.2.min.js' %}"></script>
+
+    <!-- popper JS
+		============================================ -->
+    <script src="{% static 'js/popper.min.js' %}"></script>
+
+    <!-- bootstrap JS
+		============================================ -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- AJax Mail JS
+		============================================ -->
+    <script src="{% static 'js/ajax-mail.js' %}"></script>
+
+    <!-- plugins JS
+		============================================ -->
+    <script src="{% static 'js/plugins.js' %}"></script>
+
+    <!-- main JS
+		============================================ -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.owl-carousel').owlCarousel({
+                items: 1, // Number of items to display
+                loop: true, // Infinite loop
+                autoplay: true, // Auto-play the slider
+                autoplayTimeout: 3000, // Auto-play interval in milliseconds (3 seconds in this example)
+                autoplayHoverPause: true, // Pause on hover
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            new WOW().init();
+        });
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  
+    <script>
+        function submitForm() {
+            // Select the form element and submit it
+            document.getElementById("profile-form").submit();
+        }
+    </script>
+  
+      <script>
+        const uploadInput = document.getElementById('profile-upload');
+        const profileImage = document.getElementById('profile-image');
+
+
+        uploadInput.addEventListener('change', function() {
+            const file = uploadInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profileImage.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        </script>
+        <script>
+            // Add an event listener to the file input element
+            const fileInput = document.getElementById("cover_image");
+            fileInput.addEventListener("change", function () {
+                // Automatically submit the form when a file is selected
+                document.getElementById("imageUploadForm").submit();
+            });
+        </script>
+    
+</body>
+
+</html>

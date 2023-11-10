@@ -1,0 +1,69 @@
+<!-- media_references/templates/media_references/add_media_reference.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
+    <title>Add Media References</title>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body  hx-ext="ws" ws-connect="/ws/notifications/">
+    <h5 class="text-center mt-5 mb-3">Add Media References</h5>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div id="input_wrapper">
+                    <div> 
+                        <input type="text" name="reference_link_0" class="form-control my-3" id="input_0">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" id="add_button">Add More</button>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+    <!-- media_references/templates/media_references/add_media_reference.html -->
+    <!-- <script>
+        $(document).ready(function () {
+            $('#add-form').click(function () {
+                const formset = $('#formset');
+                const totalForms = $('#id_form-TOTAL_FORMS');
+                const nextIndex = parseInt(totalForms.val());
+                const newForm = formset.find('.form:last').clone(true);
+
+                // Update form fields to clear values and update names
+                newForm.find(':input').each(function () {
+                    const name = $(this).attr('name').replace(`form-${nextIndex - 1}-`, `form-${nextIndex}-`);
+                    const id = `id_${name}`;
+                    $(this).attr({ 'name': name, 'id': id }).val('').removeAttr('value');
+                });
+
+                // Update labels
+                newForm.find('label').each(function () {
+                    const newFor = $(this).attr('for').replace(`form-${nextIndex - 1}-`, `form-${nextIndex}-`);
+                    $(this).attr('for', newFor);
+                });
+
+                totalForms.val(nextIndex + 1);
+                formset.append(newForm);
+            });
+        });
+    </script> -->
+    {% include 'tech_js.html' %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
+
+</body>
+
+</html>

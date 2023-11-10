@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+  <div class="pb-5 home_banner" style="background: linear-gradient(90deg, #ffebe5 0.13%, #edeaf6 100.01%)">
+    <div class="container">
+      <div class="row mx-lg-5">
+        <div class="col-lg-6">
+          <h1 class="title pb-lg-1 mx-4 mx-lg-0">Veriprofile</h1>
+          <p class="subtitle mt-3">Employee background verification.</p>
+        </div>
+        <div class="col-lg-6 my-md-5 my-lg-0">
+          <img
+            src="https://www.backgroundchecks.com/hubfs/images/homepage/background-checks-for-employment-criminal-educational-searches.png"
+            class="w-100" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row my-5 py-lg-4">
+      <div class="col-lg-5">
+        <img
+          src="data:image/jpeg;base64,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"
+          class="w-100 rounded-4" />
+      </div>
+      <div class="col-lg-7">
+        <div class="m-lg-4 m-2">
+          <p class="fw-bold mb-2" style="color: #ff497c">
+            <i class="fa fa-star"></i> About Veriprofile
+          </p>
+          <h3 class="text-dark">Veriprofile: Your Professional Identity</h3>
+          <p class="text-dark fw-light" style="font-size: 18px; text-align: justify">
+            Welcome to Veriprofile, your all-in-one solution for building and
+            showcasing your professional identity. We understand the
+            importance of credibility and trust in today's competitive
+            landscape. With Veriprofile, you can take control of your online
+            reputation and present a comprehensive and verified profile to
+            potential employers, clients, and collaborators.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if levels %}
+  <div class="" style="background-color: rgb(246 247 251)">
+    <div class="mt-4 py-1">
+      <div class="container">
+        <p class="fw-bold mb-2 mt-5" style="color: rgb(134, 5, 181)">
+          <i class="fa-solid fa-cart-shopping"></i> Our Levels and Pricing
+        </p>
+        <h3 class="text-dark">Choose the Perfect Level for You</h3>
+      </div>
+      <div>
+        <section class="pricing py-5 mb-4">
+          <div class="container">
+            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4 mx-4 mx-lg-0">
+              {% for l in levels %} {% if l.name != "Smart" %}
+              <div class="col">
+                <div class="thumb-wrapper">
+                  <div class="img-box">
+                    <img src="{{l.image.url}}" class="img-fluid" alt="" />
+                  </div>
+                  <div class="thumb-content">
+                    <h4 class="mt-3">{{l.name}}</h4>
+                    <p class="item-price">
+                      <b><i class="fa fa-rupee-sign me-1"></i>{{l.price}}</b>
+                    </p>
+                    <a href="{% url 'temp_login' %}" class="btn btn-primary">Add to Cart</a>
+                  </div>
+                </div>
+              </div>
+              {% endif %} {% endfor %}
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="pb-5">
+    <div class="container">
+      <p class="fw-bold mb-2 mt-4 text-center text-lg-start" style="color: rgb(134, 5, 181)">
+        <i class="fa-solid fa-forward-step"></i> Steps
+      </p>
+      <div class="row my-5 ms-lg-4 mx-lg-0 px-lg-0 mx-5 px-4">
+        <div class="col-xl-2 col-lg-6">
+          <div class="stepcard l-bg-cherry">
+            <div class="card-statistic-3 p-4">
+              <div class="card-icon card-icon-large text-center my-2 fs-5">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="mb-4">
+                <h5 class="card-title mb-0">Registration</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-1 col-lg-6 d-flex align-items-center justify-content-center">
+          <i class="fa-solid fa-right-long fs-4 text-danger d-none d-lg-block"></i>
+          <i class="fa-solid fa-down-long fs-4 text-danger d-block d-lg-none my-3"></i>
+        </div>
+        <div class="col-xl-2 col-lg-6">
+          <div class="stepcard l-bg-blue-dark">
+            <div class="card-statistic-3 p-4">
+              <div class="card-icon card-icon-large text-center my-2 fs-5">
+                <i class="fas fa-right-to-bracket"></i>
+              </div>
+              <div class="mb-4">
+                <h5 class="card-title mb-0">Fill Form</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-1 col-lg-6 d-flex align-items-center justify-content-center">
+          <i class="fa-solid fa-right-long fs-4 text-danger d-none d-lg-block"></i>
+          <i class="fa-solid fa-down-long fs-4 text-danger d-block d-lg-none my-3"></i>
+        </div>
+        <div class="col-xl-2 col-lg-6">
+          <div class="stepcard l-bg-green-dark">
+            <div class="card-statistic-3 p-4">
+              <div class="card-icon card-icon-large text-center my-2 fs-5">
+                <i class="fas fa-magnifying-glass"></i>
+              </div>
+              <div class="mb-4">
+                <h5 class="card-title mb-0">Verification</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-1 col-lg-6 d-flex align-items-center justify-content-center">
+          <i class="fa-solid fa-right-long fs-4 text-danger d-none d-lg-block"></i>
+          <i class="fa-solid fa-down-long fs-4 text-danger d-block d-lg-none my-3"></i>
+        </div>
+        <div class="col-xl-2 col-lg-6">
+          <div class="stepcard l-bg-orange-dark">
+            <div class="card-statistic-3 p-4">
+              <div class="card-icon card-icon-large text-center my-2 fs-5">
+                <i class="fas fa-circle-check"></i>
+              </div>
+              <div class="mb-4">
+                <h5 class="card-title mb-0">Get Verified</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Remove the container if you want to extend the Footer to full width. -->
+  <div class="">
+    <!-- Footer -->
+    <footer class="text-center text-lg-start text-white" style="background-color: #1c2331">
+      <!-- Section: Social media -->
+      <section class="d-flex justify-content-between p-4" style="background-color: #6351ce">
+        <!-- Left -->
+        <div class="me-5">
+          <span>Get connected with us on social networks:</span>
+        </div>
+        <!-- Left -->
+
+        <!-- Right -->
+        <div>
+          <a href="" class="text-white me-4 text-decoration-none">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="" class="text-white me-4 text-decoration-none">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="" class="text-white me-4 text-decoration-none">
+            <i class="fab fa-google"></i>
+          </a>
+          <a href="" class="text-white me-4 text-decoration-none">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="" class="text-white me-4 text-decoration-none">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="" class="text-white me-4 text-decoration-none">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+        <!-- Right -->
+      </section>
+      <!-- Section: Social media -->
+
+      <!-- Section: Links  -->
+      <section class="">
+        <div class="container text-center text-md-start mt-5">
+          <!-- Grid row -->
+          <div class="row mt-3">
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+              <!-- Content -->
+              <h6 class="text-uppercase fw-bold">
+                <a class="navbar-brand p-0" href="{% url 'home' %}">
+                  <div class="d-flex align-items-center">
+                    <div class="">
+                      <img src="{% static 'logo.veriprofile.com.svg' %}" class="w-100" style="
+                            width: 260px;
+                            height: 65px;
+                            background: transparent;
+                          " />
+                    </div>
+                  </div>
+                </a>
+              </h6>
+              <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #7c4dff; height: 2px" />
+              <p>
+                Welcome to Veriprofile, your all-in-one solution for building
+                and showcasing your professional identity.
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+              <!-- Links -->
+              <h6 class="text-uppercase fw-bold text-warning">Links</h6>
+              <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #7c4dff; height: 2px" />
+              <p>
+                <a href="#!" class="text-white">Contact Us</a>
+              </p>
+              <p>
+                <a href="#!" class="text-white">About Us</a>
+              </p>
+              <p>
+                <a href="#!" class="text-white">FAQs</a>
+              </p>
+              <p>
+                <a href="#!" class="text-white">Plans</a>
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+              <!-- Links -->
+              <h6 class="text-uppercase fw-bold text-warning">Contact</h6>
+              <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #7c4dff; height: 2px" />
+              <p>
+                <i class="fas fa-home mr-3 mx-2"></i> Kolhapur , Maharashtra
+              </p>
+              <p>
+                <i class="fas fa-envelope mr-3 mx-2"></i>
+                veriprofile.com@gmail.com
+              </p>
+            </div>
+            <!-- Grid column -->
+          </div>
+          <!-- Grid row -->
+        </div>
+      </section>
+      <!-- Section: Links  -->
+
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        © 2023 Copyright, Universal People Connect LLP, All rights reserved
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+  </div>
+  <!-- End of .container -->
+  {% endblock %}
+
+

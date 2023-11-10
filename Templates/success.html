@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+
+  <meta charset="UTF-8">
+  <title>Payment Confirmation</title>
+</head>
+
+<body hx-ext="ws" ws-connect="/ws/notifications/">
+  <div style="text-align: center; margin-top: 20px;">
+    <i class="material-icons" style="font-size: 48px; color: #4CAF50;">check_circle</i>
+    <h2 style="color: #4CAF50;">Congratulations!</h2>
+    <p>Your level has been upgraded.</p>
+    <p>Please wait while you are being redirected to your profile page.</p>
+    <p style="font-size: small;">
+      {% for u in users %}
+      <a href="{% url 'userdashboard' %}">Back to your profile <i class="fa fa-arrow-alt-circle-right"></i></a>
+      {% endfor %}
+    </p>
+  </div>
+
+  <!-- Add Google Icons stylesheet link in the head of your HTML -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <script>
+    // JavaScript to redirect the user after a delay (e.g., 5 seconds)
+    setTimeout(function () {
+      window.location.href = "{% url 'userdashboard' %}";
+    }, 3000); // 5000 milliseconds (5 seconds)
+  </script>
+</body>
+
+</html>

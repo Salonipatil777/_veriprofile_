@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&display=swap");
+      
+      .or {
+            position: relative;
+        }
+
+
+        .or:before {
+            content: '';
+            height: 1px;
+            background: linear-gradient(to right, silver, silver, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), silver, silver);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            z-index: 0;
+        }
+
+
+    .show-password {
+      position: absolute;
+      top: 50%;
+      right: 30px;
+      transform: translateY(-50%) !important;
+      cursor: pointer;
+    }
+
+      body {
+        max-height: 100vh !important;
+        width: 100%;
+      }
+
+      #description {
+        font-size: 24px !important;
+      }
+
+      .nav-link {
+        border-radius: 20px !important; /* Add rounded corners */
+        padding: 7px 22px !important; /* Adjust padding for better appearance */
+        transition: background-color 0.3s !important; /* Add a smooth transition effect for background color */
+        margin: 1px !important;
+        color: white !important; /* Set the background color for the active tab */
+        }
+
+        .nav-link:hover{
+            color: rgb(63, 63, 250) !important; /* Set the text color for the active tab */
+        }
+
+    /* Style the active tab */
+        .nav-link.active {
+            background-color: white !important; /* Set the background color for the active tab */
+            color: rgb(63, 63, 250) !important; /* Set the text color for the active tab */
+            border: 1px solid #001a74 !important;
+            margin: 1px !important;
+        }
+
+      .form-wrap {
+        background: rgba(255, 255, 255, 1) !important;
+        width: 100% !important;
+        max-width: 450px !important;
+        padding: 40px !important;
+        margin: 50px auto !important;
+        position: relative !important;
+        -webkit-border-radius: 10px !important;
+        -moz-border-radius: 10px !important;
+        border-radius: 10px !important;
+        -webkit-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15) !important;
+        -moz-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15) !important;
+        box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15) !important;
+      }
+
+      .form-wrap:before {
+        content: "" !important;
+        width: 90%;
+        height: calc(100% + 60px) !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 auto !important;
+        position: absolute !important;
+        top: -30px !important;
+        background: #0000d9 !important;
+        z-index: -1 !important;
+        opacity: 0.8 !important;
+        -webkit-border-radius: 10px !important;
+        -moz-border-radius: 10px !important;
+        border-radius: 10px !important;
+        -webkit-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15) !important;
+        -moz-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15) !important;
+        box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15) !important;
+      }
+
+      .form-group {
+        margin-bottom: 25px !important;
+      }
+
+      .form-group > label {
+        display: block !important;
+        font-size: 18px !important;
+        color: #000 !important;
+      }
+
+      .custom-control-label {
+        color: #000 !important;
+        font-size: 16px !important;
+      }
+
+      .form-control {
+        height: 50px !important;
+        background: #f2f4fe !important;
+        border-color: rgb(212, 212, 212) !important;
+        padding: 0 15px !important;
+        font-size: 16px !important;
+        -webkit-transition: all 0.3s ease-in-out !important;
+        -moz-transition: all 0.3s ease-in-out !important;
+        -o-transition: all 0.3s ease-in-out !important;
+        transition: all 0.3s ease-in-out !important;
+      }
+
+      .form-select {
+        height: 50px !important;
+        /* {% comment %} background: #ecf0f4 !important; {% endcomment %} */
+        /* {% comment %} color:black !important; {% endcomment %} */
+        /* {% comment %} border-color: transparent !important; {% endcomment %} */
+        padding: 0 15px !important;
+        font-size: 16px !important;
+        -webkit-transition: all 0.3s ease-in-out !important;
+        -moz-transition: all 0.3s ease-in-out !important;
+        -o-transition: all 0.3s ease-in-out !important;
+        transition: all 0.3s ease-in-out !important;
+      }
+
+      .form-select:focus {
+        border-color: #0b0085 !important;
+        -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1) !important;
+        -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1) !important;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1) !important;
+      }
+
+      .form-control:focus {
+        border-color: #0d01b2 !important;
+        -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1) !important;
+        -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1) !important;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1) !important;
+      }
+
+      textarea.form-control {
+        /* {% comment %} height: 160px; {% endcomment %} */
+        padding-top: 10px !important;
+        /* {% comment %} resize: none; {% endcomment %} */
+      }
+
+      .btn {
+        padding: 0.657rem 0.75rem !important;
+        font-size: 18px !important;
+        letter-spacing: 0.05em !important;
+        -webkit-transition: all 0.3s ease-in-out !important;
+        -moz-transition: all 0.3s ease-in-out !important;
+        -o-transition: all 0.3s ease-in-out !important;
+        transition: all 0.3s ease-in-out !important;
+      }
+
+      .btn-primary {
+        color: #fff !important;
+        background-color: #0036d9 !important;
+        border-color: #0036d9 !important;
+      }
+    </style>
+    <!-- css  -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Veriprofile</title>
+  </head>
+
+  <body hx-ext="ws" ws-connect="/ws/notifications/">
+    {% include "messages.html" %}
+    
+    <div class="row mt-1 mx-lg-4 mx-auto" style="background-color: white">
+      <div class="col-md-6 px-lg-5 px-4 py-4 pt-5">
+          <div class="row mt-2">
+            <a class="p-0 ms-lg-4" href="{% url 'home' %}">
+              <div class="d-flex align-items-center">
+                <div class="">
+                  <img
+                    src="{% static 'veriprofile_logo_blue.svg' %}"
+                    class="w-100"
+                    style="width: 230px; height: 50px; background: transparent"
+                  />
+                </div>
+              </div>
+            </a>
+          </div>
+            <div class="px-lg-4 mt-0 mb-4">
+                <div class="px-lg-3 d-lg-flex my-3 my-lg-0 align-items-center justify-content-between">
+                <div></div>
+                <ul class="nav nav-tabs mb-2" id="myTab0" role="tablist">
+                 <div class="d-flex align-items-center" style="background-color:#0303C9;border-radius: 20px;padding: 1px;">
+                    <li class="nav-item me-2" role="presentation">
+                        <button
+                          class="nav-link active"
+                          id="home-tab0"
+                          data-mdb-toggle="tab"
+                          data-mdb-target="#home0"
+                          type="button"
+                          role="tab"
+                          aria-controls="home"
+                          aria-selected="true"
+                        >
+                          User
+                        </button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button
+                          class="nav-link"
+                          id="profile-tab0"
+                          data-mdb-toggle="tab"
+                          data-mdb-target="#profile0"
+                          type="button"
+                          role="tab"
+                          aria-controls="profile"
+                          aria-selected="false"
+                        >
+                          HR
+                        </button>
+                      </li>
+                  </div>
+                </ul>
+                </div>
+                <div class="tab-content mx-auto px-lg-3 ps-lg-5" id="myTabContent0">
+                  <div
+                    class="tab-pane fade show active"
+                    id="home0"
+                    role="tabpanel"
+                    aria-labelledby="home-tab0"
+                  >
+                    <form class="form-signin" method="post" action="{% url 'signin' %}">
+                      {% csrf_token %}
+                      <p class="mb-3 fw-bold" style="font-size: 25px;color: #001a74;">Login As Employee</p>
+        
+                      <div class="row">
+                        <div class="col-md-12 mb-4">
+                          <input
+                          type="text" 
+                          name="username_or_email" 
+                          placeholder="Username or Email" 
+                          class="form-control"
+                          id="exampleInputEmail1" 
+                          aria-describedby="emailHelp" 
+                          
+                          />
+                        </div>
+                        <div class="col-md-12 mb-3" style="position: relative;">
+                          <input
+                          input type="password" 
+                          name="password" 
+                          placeholder="Password" 
+                          id="password" 
+                          class="form-control"
+                          id="exampleInputPassword1"
+                          
+                          />
+                          <span class="show-password" id="showPassword"><i class="fa fa-eye"></i></span>
+                        </div>
+                      </div>
+                      <div class="mb-3 d-flex align-items-center justify-content-between">
+                        <div class="">
+                          <!-- Checkbox -->
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
+                            <label class="form-check-label" for="form1Example3"> Remember me </label>
+                          </div>
+                        </div>
+                        <div class="">
+                          <div><a href="{% url 'password_reset' %}">Forget Password?</a></div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                            <button
+                              type="submit"
+                              id="submit"
+                              class="btn btn-block"
+                              style="background-color: #0303C9;color: white;"
+                            >
+                              Login
+                            </button>
+                          </div>
+                      </div>
+                    </form>
+                    <div class="sideline my-1 text-center or">OR</div>
+                    <div class="row">
+                        <a href="{% url 'social:begin' 'google-oauth2' %}">
+                          <button type="submit" class="btn btn-outline-dark w-100 p-2" style="font-size: 13px !important;"><i class="fa-brands fa-google"
+                              aria-hidden="true"></i> Login With Google</button>
+                        </a>
+                    </div>
+                    <div class="row mt-2">
+                      <div class="col-md-12">
+                        <p class="mb-0 my-2 text-center">
+                          Dont Have Account?
+                          <a href="{% url 'quick_signup' %}" class="ms-2"> Register</a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="tab-pane fade"
+                    id="profile0"
+                    role="tabpanel"
+                    aria-labelledby="profile-tab0"
+                  >
+                  <form class="form-signin" id="survey-form" method="post" action="{% url 'hr_login' %}">
+                    {% csrf_token %}
+                    <p class="mb-3 fw-bold" style="font-size: 25px;color: #001a74;">Login As HR</p>
+      
+                    <div class="row">
+                      <div class="col-md-12 mb-4">
+                        <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Username"
+                        
+                        class="form-control"                />
+                      </div>
+                      <div class="col-md-12 mb-3" style="position: relative;">
+                        <input
+                        type="password"
+                        id="password2"
+                        name="password"
+                        placeholder="Password"
+                        
+                        class="form-control"
+                        />
+                        <span class="show-password" id="showPassword2"><i class="fa fa-eye" id="eye"></i></span>
+                      </div>
+                    </div>
+                    <div class="mb-3 d-flex align-items-center justify-content-between">
+                      <div class="">
+                        <!-- Checkbox -->
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
+                          <label class="form-check-label" for="form1Example3"> Remember me </label>
+                        </div>
+                      </div>
+                      <div class="">
+                        <div><a href="{% url 'password_reset' %}">Forget Password?</a></div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                          <button
+                            type="submit"
+                            id="submit"
+                            class="btn btn-block"
+                            style="background-color: #0303C9;color: white;"
+                          >
+                            Login
+                          </button>
+                        </div>
+                    </div>
+                  </form>
+
+                  <div class="sideline my-1 text-center or">OR</div>
+                    <div class="row">
+                        <a href="{% url 'social:begin' 'google-oauth2' %}">
+                          <button type="submit" class="btn btn-outline-dark w-100 p-2" style="font-size: 13px !important;"><i class="fa-brands fa-google"
+                              aria-hidden="true"></i> Login With Google</button>
+                        </a>
+                    </div>
+                    <div class="row mt-2">
+                      <div class="col-md-12">
+                        <p class="mb-0 my-2 text-center">
+                          Dont Have Account?
+                          <a href="{% url 'hr_register' %}" class="ms-2"> Register</a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+      </div>
+        <div class="col-md-6 p-lg-4 ps-lg-5 pe-lg-0 p-3">
+            <img src="{% static 'login.jpg' %}" class="w-100 h-100 ps-lg-5" alt="">
+        </div>
+    </div>
+
+      <!-- password -->
+  <script>
+    const passwordInput = document.getElementById("password");
+    const showPasswordButton = document.getElementById("showPassword");
+    const eyeIcon = showPasswordButton.querySelector("i");
+
+    showPasswordButton.addEventListener("click", function () {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text"; // Show password as plain text
+        eyeIcon.classList.remove("fa-eye");
+        eyeIcon.classList.add("fa-eye-slash");
+      } else {
+        passwordInput.type = "password"; // Hide password
+        eyeIcon.classList.remove("fa-eye-slash");
+        eyeIcon.classList.add("fa-eye");
+      }
+    });
+  </script>
+  <!-- password -->
+
+<!-- password2 -->
+    <script>
+            const passwordInput2 = document.getElementById("password2");
+            const showPasswordButton2 = document.getElementById("showPassword2");
+            const eyeIcon2 = showPasswordButton2.querySelector("i");
+        
+            showPasswordButton2.addEventListener("click", function () {
+              if (passwordInput2.type === "password") {
+                passwordInput2.type = "text"; // Show password as plain text
+                eyeIcon2.classList.remove("fa-eye");
+                eyeIcon2.classList.add("fa-eye-slash");
+              } else {
+                passwordInput2.type = "password"; // Hide password
+                eyeIcon2.classList.remove("fa-eye-slash");
+                eyeIcon2.classList.add("fa-eye");
+              }
+            });
+    </script>
+<!-- password -->
+    <!-- MDB -->
+<script
+type="text/javascript"
+src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"
+></script>
+  </body>
+</html>

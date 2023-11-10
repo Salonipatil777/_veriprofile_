@@ -1,0 +1,1074 @@
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#save_button").hide();
+    var x = 1; // Start with 1 for the initial input field
+
+    $("#add_button").click(function (e) {
+      e.preventDefault();
+      console.log("Add button clicked");
+      appendRow();
+      x++;
+      $("#save_button").show();
+    });
+
+    $("#input_wrapper").on("click", ".deleteButton", function (e) {
+      e.preventDefault();
+      $(this).closest('.row').remove();
+      x--;
+      if (x === 0) {
+        $("#save_button").hide();
+      }
+    });
+
+    function appendRow() {
+      $("#input_wrapper").append(
+        `<div class="row mx-0 px-0">
+                 <div class="col-md-3">
+                    <div class="select-wrapper my-3">
+                        <select class="form-control form_control_form" name="social">
+                          <option selected disabled>Choose</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Ted">Ted</option>
+                            <option value="Youtube">Youtube</option>
+                            <option value="Linkedin">Linkedin</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="my-3 position-relative">
+                        <input name="facebook" id="input_0" class="form-control form_control_form"
+                        type="text" />
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-danger deleteButton" id="add_button" style="margin-top: 15px;"> <i
+                                                    class="fa fa-minus"></i></button>
+                </div>
+                </div>
+                `
+      )
+    }
+  });
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#save_button").hide();
+    var x = 1; // Start with 1 for the initial input field
+
+    $("#add_button1").click(function (e) {
+      e.preventDefault();
+      console.log("Add button clicked");
+      appendRow();
+      x++;
+      $("#save_button").show();
+    });
+
+    $("#input_wrapper1").on("click", ".deleteButton", function (e) {
+      e.preventDefault();
+      $(this).closest('.row').remove();
+      x--;
+      if (x === 0) {
+        $("#save_button").hide();
+      }
+    });
+
+    function appendRow() {
+      $("#input_wrapper1").append(
+        `<div class="row mx-0 px-0">
+                                        <div class="col-md-3">
+                      <label for="">Educational Details</label>
+                      <div class="select-wrapper my-3">
+                        <select class="form-control form_control_form" name="degrees">
+                          <option disabled selected>Choose</option>
+                          <option value="Undergraduate">Undergraduate</option>
+                          <option value="Diploma">Diploma</option>
+                          <option value="Bachelor's Degree">
+                            Bachelor's Degree
+                          </option>
+                          <option value="Master's Degree">
+                            Master's Degree
+                          </option>
+                          <option value="Professional Degree">
+                            Professional Degree
+                          </option>
+                          <option value="PG Diploma">PG Diploma</option>
+                          <option value="PG Degree">PG Degree</option>
+                          <option value="Doctoral Degree">
+                            Doctoral Degree
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="notificationTitle">Specialization </label>
+                      <div class="my-3 position-relative">
+                        <input id="input_01" class="form-control form_control_form" type="text" name="specialization" />
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <label for="notificationTitle">Passing year </label>
+                      <div class="my-3 position-relative">
+                        <input id="input_01" class="form-control form_control_form" type="text" name="passing_year" />
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="notificationTitle">Passing year </label>
+                      <div class="my-3 position-relative">
+                        <input id="input_01" class="form-control form_control_form" type="text" name="college" />
+                      </div>
+                    </div>
+                <div class="col-md-1">
+                      <label for="notificationTitle"></label>
+                    <button type="button" class="btn btn-danger deleteButton" style="margin-top: 39px;"> <i
+                                                    class="fa fa-minus"></i></button>
+                </div>
+                </div>
+                `
+      )
+    }
+  });
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#save_button").hide();
+    var x = 1; // Start with 1 for the initial input field
+
+    $("#add_button2").click(function (e) {
+      e.preventDefault();
+      console.log("Add button clicked");
+      appendRow();
+      x++;
+      $("#save_button").show();
+    });
+
+    $("#input_wrapper2").on("click", ".deleteButton", function (e) {
+      e.preventDefault();
+      $(this).closest('.row').remove();
+      x--;
+      if (x === 0) {
+        $("#save_button").hide();
+      }
+    });
+
+    function appendRow() {
+      $("#input_wrapper2").append(
+        `<div class="row mx-0 px-0">
+                      <div class="col-md-4">
+                      <label for="">Additional Educational Details </label>
+                      <div class="select-wrapper my-3">
+                        <select class="form-control form_control_form" name="additional_info">
+                          <option value="Crash / Certificate Course">
+                            Crash / Certificate Course
+                          </option>
+                          <option value="Online Course">Online Course</option>
+                          <option value="Nanodegree">Nanodegree</option>
+                          <option value="Short Term Professional Course">
+                            Short Term Professional Course
+                          </option>
+                          <option value="Short Term Diploma Course">
+                            Short Term Diploma Course
+                          </option>
+                          <option value="Specialized training">
+                            Specialized training
+                          </option>
+                          <option value="Bootcamps attended">
+                            Bootcamps attended
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-7">
+                      <label for="notificationTitle">Name</label>
+                      <div class="my-3 position-relative">
+                        <input name="additional_info_input" id="input_02" class="form-control form_control_form"
+                          type="text" />
+                      </div>
+                    </div>
+                <div class="col-md-1">
+                    <label for="notificationTitle"></label>
+                    <button type="button" class="btn btn-danger deleteButton" style="margin-top: 39px;"> <i
+                                                    class="fa fa-minus"></i></button>
+                </div>
+                </div>
+                `
+      )
+    }
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#save_button").hide();
+    var x = 1; // Start with 1 for the initial input field
+
+    $("#add_button3").click(function (e) {
+      e.preventDefault();
+      console.log("Add button clicked");
+      appendRow();
+      x++;
+      $("#save_button").show();
+    });
+
+    $("#jobDetailsinput").on("click", ".deleteButton", function (e) {
+      e.preventDefault();
+      $(this).closest('.deleteinput').remove();
+      x--;
+      if (x === 0) {
+        $("#save_button").hide();
+      }
+    });
+
+    function appendRow() {
+      $("#jobDetailsinput").append(
+        `<div class="deleteinput">
+                    <div class="row mt-0">
+                      <div class="col-md-6">
+                        <label for="notificationTitle">Job Title</label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="job_title"
+                            class="form-control form_control_form"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="notificationTitle">Company Name</label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="company_name"
+                            class="form-control form_control_form"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-0">
+                      <div class="col-md-6">
+                        <label for="notificationTitle">Start date</label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="joining_date"
+                            class="form-control form_control_form"
+                            type="date"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="notificationTitle">Upload Job ID</label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="upload_id"
+                            class="form-control form_control_form"
+                            type="file"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-0">
+                        <div class="col-md-6">
+                          <label for="notificationTitle">Location</label>
+                          <div class="my-3 position-relative">
+                            <input class="form-control form_control_form" type="text" name="job_location" />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="notificationTitle">Industry</label>
+                          <div class="my-3 position-relative">
+                            <input class="form-control form_control_form" type="text" name="job_industry" />
+                          </div>
+                        </div>
+                      </div>
+                    <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-danger deleteButton" style="margin-top: 15px;"> <i
+                                                    class="fa fa-minus"></i></button>
+                </div>
+                </div>
+                `
+      )
+    }
+  });
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#save_button").hide();
+    var x = 1; // Start with 1 for the initial input field
+
+    $("#add_button4").click(function (e) {
+      e.preventDefault();
+      console.log("Add button clicked");
+      appendRow();
+      x++;
+      $("#save_button").show();
+    });
+
+    $("#exwrapper").on("click", ".deleteButton", function (e) {
+      e.preventDefault();
+      $(this).closest('.deleteinput2').remove();
+      x--;
+      if (x === 0) {
+        $("#save_button").hide();
+      }
+    });
+
+    function appendRow() {
+      $("#exwrapper").append(
+        `<div class="deleteinput2">
+                    <div class="row mt-0">
+                      <div class="col-md-6">
+                        <label for="notificationTitle">Job Title</label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="ex_job_title"
+                            class="form-control form_control_form"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="notificationTitle">Company Name</label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="ex_company_name"
+                            class="form-control form_control_form"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-0">
+                      <div class="col-md-4">
+                        <label for="notificationTitle">Start date</label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="ex_joining_date"
+                            class="form-control form_control_form"
+                            type="date"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="notificationTitle">End date</label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="ex_quit_date"
+                            class="form-control form_control_form"
+                            type="date"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="notificationTitle">Upload Job ID</label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="ex_upload_id"
+                            class="form-control form_control_form"
+                            type="file"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-0">
+                        <div class="col-md-6">
+                        <label for="notificationTitle">Job Location</label>
+                        <div class="my-3 position-relative">
+                          <input id="notificationTitle" name="ex_job_location" class="form-control form_control_form"
+                            type="text" />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                          <label for="notificationTitle">Sector / Industry
+                          </label>
+                          <div class="my-3 position-relative">
+                            <div class="select-wrapper my-3">
+                              <select id="notificationTitle" name="ex_job_industry"
+                                class="form-control form_control_form">
+                                <option value="Technology">Technology</option>
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Education">Education</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Design">Design</option>
+                                <option value="Engineering">Engineering</option>
+                                <option value="Non-profit">Non-profit</option>
+                                <option value="Research">Research</option>
+                                <option value="Entertainment">
+                                  Entertainment
+                                </option>
+                                <option value="Environmental">
+                                  Environmental
+                                </option>
+                                <option value="Agriculture">Agriculture</option>
+                                <option value="Architecture">
+                                  Architecture
+                                </option>
+                                <option value="Automotive">Automotive</option>
+                                <option value="Biotechnology">
+                                  Biotechnology
+                                </option>
+                                <option value="Construction">
+                                  Construction
+                                </option>
+                                <option value="Consumer Goods">
+                                  Consumer Goods
+                                </option>
+                                <option value="Energy">Energy</option>
+                                <option value="Food and Beverage">
+                                  Food and Beverage
+                                </option>
+                                <option value="Government and Public Administration">
+                                  Government and Public Administration
+                                </option>
+                                <option value="Hospitality and Tourism">
+                                  Hospitality and Tourism
+                                </option>
+                                <option value="Human Resources">
+                                  Human Resources
+                                </option>
+                                <option value="Legal Services">
+                                  Legal Services
+                                </option>
+                                <option value="Manufacturing">
+                                  Manufacturing
+                                </option>
+                                <option value="Media and Communications">
+                                  Media and Communications
+                                </option>
+                                <option value="Real Estate">Real Estate</option>
+                                <option value="Retail">Retail</option>
+                                <option value="Social Services">
+                                  Social Services
+                                </option>
+                                <option value="Sports and Recreation">
+                                  Sports and Recreation
+                                </option>
+                                <option value="Transportation">
+                                  Transportation
+                                </option>
+                                <option value="Aerospace">Aerospace</option>
+                                <option value="Chemicals">Chemicals</option>
+                                <option value="Consulting">Consulting</option>
+                                <option value="Education Technology (EdTech)">
+                                  Education Technology (EdTech)
+                                </option>
+                                <option value="Fashion and Apparel">
+                                  Fashion and Apparel
+                                </option>
+                                <option value="Financial Technology (FinTech)">
+                                  Financial Technology (FinTech)
+                                </option>
+                                <option value="Gaming and eSports">
+                                  Gaming and eSports
+                                </option>
+                                <option value="Healthcare Technology (HealthTech)">
+                                  Healthcare Technology (HealthTech)
+                                </option>
+                                <option value="Information Technology Services">
+                                  Information Technology Services
+                                </option>
+                                <option value="Insurance">Insurance</option>
+                                <option value="Internet and E-commerce">
+                                  Internet and E-commerce
+                                </option>
+                                <option value="Pharmaceuticals">
+                                  Pharmaceuticals
+                                </option>
+                                <option value="Renewable Energy">
+                                  Renewable Energy
+                                </option>
+                                <option value="Telecommunications">
+                                  Telecommunications
+                                </option>
+                                <option value="Venture Capital and Private Equity">
+                                  Venture Capital and Private Equity
+                                </option>
+                                <option value="Other">
+                                  Other (for industries not covered by the above
+                                  categories)
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-danger deleteButton" style="margin-top: 15px;"> <i
+                                                    class="fa fa-minus"></i></button>
+                </div>
+                </div>
+                `
+      )
+    }
+  });
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#save_button").hide();
+    var x = 1; // Start with 1 for the initial input field
+
+    $("#add_button5").click(function (e) {
+      e.preventDefault();
+      console.log("Add button clicked");
+      appendRow();
+      x++;
+      $("#save_button").show();
+    });
+
+    $("#awadrdwrapper").on("click", ".deleteButton", function (e) {
+      e.preventDefault();
+      $(this).closest('.deleteinput3').remove();
+      x--;
+      if (x === 0) {
+        $("#save_button").hide();
+      }
+    });
+
+    function appendRow() {
+      $("#awadrdwrapper").append(
+        `<div class="deleteinput3">
+                    <div class="row mt-0">
+                      <div class="col-md-6">
+                        <label for="">Honors</label>
+                        <div class="select-wrapper my-3">
+                          <select
+                            class="form-control form_control_form"
+                            name="honors"
+                          >
+                            <option value="Informational">Award</option>
+                            <option value="Recognition">Recognition</option>
+                            <option value="Appreciation">Appreciation</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="">Type</label>
+                        <div class="select-wrapper my-3">
+                          <select
+                            class="form-control form_control_form"
+                            name="honor_type"
+                          >
+                            <option value="Private">Private </option>
+                            <option value="Government">Government</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-0">
+                      <div class="col-md-12">
+                        <label for="notificationTitle">Name of award</label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="awards_name"
+                            class="form-control form_control_form"
+                            type="text"
+                            placeholder="Enter name of award or recognition etc."
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-danger deleteButton" style="margin-top: 15px;"> <i
+                                                    class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                `
+      )
+    }
+  });
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#save_button").hide();
+    var x = 1; // Start with 1 for the initial input field
+
+    $("#add_button6").click(function (e) {
+      e.preventDefault();
+      console.log("Add button clicked");
+      appendRow();
+      x++;
+      $("#save_button").show();
+    });
+
+    $("#skillswrapper").on("click", ".deleteButton", function (e) {
+      e.preventDefault();
+      $(this).closest('.deleteinput4').remove();
+      x--;
+      if (x === 0) {
+        $("#save_button").hide();
+      }
+    });
+
+    function appendRow() {
+      $("#skillswrapper").append(
+        `<div class="deleteinput4">
+                    <div class="row mt-0">
+                                            <div class="col-md-6">
+                        <label for="notificationTitle">Name of Skill </label>
+                        <div class="my-3 position-relative">
+                          <input id="notificationTitle" name="skill_name" class="form-control form_control_form"
+                            type="text" placeholder="" />
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <label for="notificationTitle">Field/Sector </label>
+                        <div class="my-3 position-relative">
+                          <input id="notificationTitle" name="skill_filed" class="form-control form_control_form"
+                            type="text" placeholder="" />
+                        </div>
+                      </div>
+                      <div class="col-1">
+                      <button type="button" class="btn btn-danger deleteButton" style="margin-top: 39px;"> <i
+                                                      class="fa fa-minus"></i></button>
+                      </div>
+                    </div>
+                </div>
+                `
+      )
+    }
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#save_button").hide();
+    var x = 1; // Start with 1 for the initial input field
+
+    $("#add_button7").click(function (e) {
+      e.preventDefault();
+      console.log("Add button clicked");
+      appendRow();
+      x++;
+      $("#save_button").show();
+    });
+
+    $("#workswrapper").on("click", ".deleteButton", function (e) {
+      e.preventDefault();
+      $(this).closest('.deleteinput5').remove();
+      x--;
+      if (x === 0) {
+        $("#save_button").hide();
+      }
+    });
+
+    function appendRow() {
+      $("#workswrapper").append(
+        `<div class="deleteinput5">
+                    <div class="row mt-0">
+                                            <div class="col-md-4">
+                        <label for="">Proof of work</label>
+                        <div class="select-wrapper my-3">
+                          <select class="form-control form_control_form" name="proof_of_work">
+                            <option value="Published Article">
+                              Published Article
+                            </option>
+                            <option value="Research Paper">
+                              Research Paper
+                            </option>
+                            <option value="Patent or IP">Patent or IP</option>
+                            <option value="Media Reference">
+                              Media Reference
+                            </option>
+                            <option value="Open Source Contribution">
+                              Open Source Contribution
+                            </option>
+                            <option value="GitHub Repo">GitHub Repo</option>
+                            <option value="Own Project">Own Project</option>
+                            <option value="Video">Video</option>
+                            <option value="Image">Image</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-7">
+                        <label for="notificationTitle">Link</label>
+                        <div class="my-3 position-relative">
+                          <input id="notificationTitle" name="proof_of_work_input"
+                            class="form-control form_control_form" type="text" placeholder="" />
+                        </div>
+                      </div>
+                        <div class="col-1">
+                        <button type="button" class="btn btn-danger deleteButton" style="margin-top: 39px;"> <i
+                                                        class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                `
+      )
+    }
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#save_button").hide();
+    var x = 1; // Start with 1 for the initial input field
+
+    $("#add_button9").click(function (e) {
+      e.preventDefault();
+      console.log("Add button clicked");
+      appendRow();
+      x++;
+      $("#save_button").show();
+    });
+
+    $("#workswrapper2").on("click", ".deleteButton", function (e) {
+      e.preventDefault();
+      $(this).closest('.deleteinput6').remove();
+      x--;
+      if (x === 0) {
+        $("#save_button").hide();
+      }
+    });
+
+    function appendRow() {
+      $("#workswrapper2").append(
+        `<div class="deleteinput6">
+                    <div class="row mt-0">
+                      <div class="col-md-4">
+                        <label for="">Name</label>
+                        <div class="my-3">
+                          <input id="notificationTitle" name="name" class="form-control form_control_form" type="text"
+                            placeholder="" />
+                        </div>
+                      </div>
+                      <div class="col-md-7">
+                        <label for="notificationTitle">Link</label>
+                        <div class="my-3 position-relative">
+                          <input id="notificationTitle" name="link" class="form-control form_control_form" type="text"
+                            placeholder="" />
+                        </div>
+                      </div>
+                      <div class="col-1">
+                      <button type="button" class="btn btn-danger deleteButton" style="margin-top: 39px;"> <i
+                                                      class="fa fa-minus"></i></button>
+                      </div>
+                    </div>
+                `
+      )
+    }
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#save_button").hide();
+    var x = 1; // Start with 1 for the initial input field
+
+    $("#add_button8").click(function (e) {
+      e.preventDefault();
+      console.log("Add button clicked");
+      appendRow();
+      x++;
+      $("#save_button").show();
+    });
+
+    $("#socialworkswrapper").on("click", ".deleteButton", function (e) {
+      e.preventDefault();
+      $(this).closest('.deleteinput6').remove();
+      x--;
+      if (x === 0) {
+        $("#save_button").hide();
+      }
+    });
+
+    function appendRow() {
+      $("#socialworkswrapper").append(
+        `<div class="deleteinput6">
+                    <div class="row mt-0">
+                                            <div class="col-md-4">
+                        <label for="">Social work</label>
+                        <div class="select-wrapper my-3">
+                          <select class="form-control form_control_form" name="social_work">
+                            <option value="Volunteer Activity">
+                              Volunteer Activity
+                            </option>
+                            <option value="Participation">
+                              Participation
+                            </option>
+                            <option value="Leadership Role">
+                              Leadership Role
+                            </option>
+                            <option value="Initiative Led">
+                              Initiative Led
+                            </option>
+                            <option value="Project Led">Project Led</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-7">
+                        <label for="notificationTitle"></label>
+                        <div class="my-3 position-relative">
+                          <input id="notificationTitle" name="social_work_input" class="form-control form_control_form"
+                            type="text" placeholder="" />
+                        </div>
+                      </div>
+                      <div class="col-1">
+                        
+                        <button type="button" class="btn btn-danger deleteButton" style="margin-top: 39px;"> <i
+                                                    class="fa fa-minus"></i></button>
+                      </div>
+                    </div>
+                </div>
+                `
+      )
+    }
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#save_button").hide();
+    var x = 1; // Start with 1 for the initial input field
+
+    $("#add_button9").click(function (e) {
+      e.preventDefault();
+      console.log("Add button clicked");
+      appendRow();
+      x++;
+      $("#save_button").show();
+    });
+
+    $("#innovationwrapper").on("click", ".deleteButton", function (e) {
+      e.preventDefault();
+      $(this).closest('.deleteinput7').remove();
+      x--;
+      if (x === 0) {
+        $("#save_button").hide();
+      }
+    });
+
+    function appendRow() {
+      $("#innovationwrapper").append(
+        `<div class="deleteinput7">
+                    <div class="row mt-0">
+                      <div class="col-md-4">
+                        <label for="">Innovation</label>
+                        <div class="select-wrapper my-3">
+                          <select
+                            class="form-control form_control_form"
+                            name="innovation_name"
+                          >
+                            <option value="Product">Product</option>
+                            <option value="Service">Service</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <label for="notificationTitle">Proof of concept / Prototype </label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="proof_of_concept"
+                            class="form-control form_control_form"
+                            type="text"
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-0">
+                      <div class="col-md-6">
+                        <label for="notificationTitle">Upload Information Video </label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="upload_info_video"
+                            class="form-control form_control_form"
+                            type="file"
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="notificationTitle">Upload Information Image </label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="upload_info_image"
+                            class="form-control form_control_form"
+                            type="file"
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-0">
+                      <div class="col-md-6">
+                        <label for="notificationTitle">Date of invention </label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="date_of_inovation"
+                            class="form-control form_control_form"
+                            type="date"
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="notificationTitle">Certificate of Ownership </label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="upload_info_certificate"
+                            class="form-control form_control_form"
+                            type="file"
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                          <label for="notificationTitle"
+                            >Any link regarding innovation
+                          </label>
+                          <div class="my-3 position-relative">
+                            <input
+                              id="notificationTitle"
+                              name="innovation_link"
+                              class="form-control form_control_form"
+                              type="text"
+                              placeholder=""
+                            />
+                          </div>
+                        </div>
+                    <label class="text-dark fw-bold my-2" for="notificationTitle">Reference </label>
+                    <div class="row mt-0">
+                      <div class="col-md-6">
+                        <label for="notificationTitle">Name </label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="reference_name"
+                            class="form-control form_control_form"
+                            type="text"
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="notificationTitle">Contact </label>
+                        <div class="my-3 position-relative">
+                          <input
+                            id="notificationTitle"
+                            name="reference_contact"
+                            class="form-control form_control_form"
+                            type="number"
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-danger deleteButton" style="margin-top: 15px;"> <i
+                                                    class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                `
+      )
+    }
+  });
+</script>
+
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#save_button").hide();
+    var x = 1; // Start with 1 for the initial input field
+
+    $("#add_button10").click(function (e) {
+      e.preventDefault();
+      console.log("Add button clicked");
+      appendRow();
+      x++;
+      $("#save_button").show();
+    });
+
+    $("#activitieswrapper").on("click", ".deleteButton", function (e) {
+      e.preventDefault();
+      $(this).closest('.deleteinput7').remove();
+      x--;
+      if (x === 0) {
+        $("#save_button").hide();
+      }
+    });
+
+    function appendRow() {
+      $("#activitieswrapper").append(
+        `<div class="deleteinput7">
+                                      <div id="activitieswrapper">
+                    <div class="row mt-0">
+                      <div class="col-md-5">
+                        <label for="">Type</label>
+                        <div class="select-wrapper my-3">
+                          <select class="form-control form_control_form" name="act_type">
+                            <option value="Webinar">
+                              Webinar
+                            </option>
+                            <option value="Seminar">
+                              Seminar
+                            </option>
+                            <option value="Event">
+                              Event
+                            </option>
+                            <option value="Program">
+                              Program
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-7">
+                        <label for="notificationTitle">Title/Subject</label>
+                        <div class="my-3 position-relative">
+                          <input id="notificationTitle" name="act_title" class="form-control form_control_form"
+                            type="text" placeholder="" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label for="notificationTitle">Link</label>
+                        <div class="my-3 position-relative">
+                          <input id="notificationTitle" name="act_link" class="form-control form_control_form"
+                            type="text" placeholder="" />
+                        </div>
+                        </div>
+                      <div class="col-md-6">
+                        <label for="notificationTitle">Date</label>
+                        <div class="my-3 position-relative">
+                          <input id="notificationTitle" name="act_date" class="form-control form_control_form"
+                            type="date" placeholder="" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-danger deleteButton" style="margin-top: 15px;"> <i
+                                                    class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                `
+      )
+    }
+  });
+</script>

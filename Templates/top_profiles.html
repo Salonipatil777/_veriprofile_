@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+
+    <head>
+      <style>
+
+             @import url('https://fonts.cdnfonts.com/css/segoe-ui-4');
+               @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Open+Sans&family=Poppins&display=swap");
+               @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Nunito+Sans:opsz@6..12&family=Open+Sans&family=Poppins&display=swap');
+               @import url('https://fonts.googleapis.com/css2?family=Exo+2&family=Josefin+Sans:wght@500&family=Nunito+Sans:opsz@6..12&family=Open+Sans&family=Poppins&display=swap');
+
+
+
+               .articles a {
+                text-decoration: none !important;
+                display: block;
+                margin-bottom: 0;
+                color: #555
+            }
+
+            .articles .badge {
+                font-size: 0.7em;
+                padding: 5px 10px;
+                line-height: 1;
+                margin-left: 10px
+            }
+
+            .articles .item {
+                padding: 20px
+            }
+
+            .articles .item:nth-of-type(even) {
+                background: #fafafa
+            }
+
+            .articles .item .image img {
+                min-width: 50px !important;
+                max-width: 50px !important;
+                height: 50px !important;
+                width: 50px !important;
+                margin-right: 15px !important
+            }
+
+            .articles .item img {
+                padding: 3px;
+                border: 1px solid #28a745
+            }
+
+            .articles .item h3 {
+                color: #555;
+                font-weight: 400;
+                margin-bottom: 0
+            }
+
+            .articles .item small {
+                color: #aaa;
+                font-size: 0.75em
+            }
+
+            .card-close {
+                position: absolute;
+                top: 15px;
+                right: 15px
+            }
+
+            .card-close .dropdown-toggle {
+                color: #999;
+                background: none;
+                border: none
+            }
+
+            .card-close .dropdown-toggle:after {
+                display: none
+            }
+
+            .card-close .dropdown-menu {
+                border: none;
+                min-width: auto;
+                font-size: 0.9em;
+                border-radius: 0;
+                -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1), -2px -2px 3px rgba(0, 0, 0, 0.1);
+                box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1), -2px -2px 3px rgba(0, 0, 0, 0.1)
+            }
+
+            .card-close .dropdown-menu a {
+                color: #999 !important
+            }
+
+            .card-close .dropdown-menu a:hover {
+                background: #796AEE;
+                color: #fff !important
+            }
+
+            .card-close .dropdown-menu a i {
+                margin-right: 10px;
+                -webkit-transition: none;
+                transition: none
+            }
+
+
+
+               body {
+                 margin: 0;
+                 padding: 0;
+                 font-family: Arial, sans-serif;
+                 display: flex;
+                 flex-direction: column;
+                 min-height: 100vh;
+               }
+
+               .fixed-top{
+                 position: fixed !important;
+               }
+
+               a{
+                 text-decoration: none !important;
+               }
+
+
+               .profile-pictures {
+                 display: flex;
+                 justify-content: center;
+                 align-items: center;
+               }
+
+               .profile-picture {
+                 width: 18px;
+                 height: 18px;
+                 border-radius: 50%;
+                 overflow: hidden;
+                 position: relative;
+                 margin-left: -12px; /* Adjust this value for overlapping effect */
+                 z-index: 1;
+               }
+
+               .profile-picture img {
+                 width: 100%;
+                 height: 100%;
+                 object-fit: cover;
+                 position: absolute;
+                 top: 0;
+                 left: 0;
+               }
+
+
+               @media screen and (max-width:900px) {
+                 .left-sidebar {
+                   /* {% comment %} position: sticky !important; {% endcomment %} */
+                   /* {% comment %} top: 73px !important; {% endcomment %} */
+                   flex-basis: 100% !important;
+                   align-self: flex-start !important;
+                 }
+                 .main-content{
+                   flex-basis: 100% !important;
+                 }
+                 .right-sidebar {
+                   position: sticky !important;
+                   top: 73px !important;
+                   flex-basis: 100% !important;
+                   align-self: flex-start !important;
+                 }
+
+                .userImg{
+                 position:relative !important;
+                }
+
+                .userLock{
+                 position:absolute !important;
+                 right: 24px !important;
+                 bottom: 24px !important;
+                }
+
+               }
+               .sidebar {
+                 min-height: 100% !important;
+                 padding: 20px;
+                 /* {% comment %} background-color: #f8f9fa; {% endcomment %} */
+                 /* {% comment %} box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); {% endcomment %} */
+               }
+               @media screen and (min-width:900px) {
+                table {
+                  table-layout: fixed !important;
+                  width: 100% !important;
+              }
+              th {
+                  width: 25% !important; /* You can adjust the width as needed */
+              }
+
+              main{
+                margin-top: 58px !important;
+               }
+                .left-sidebar {
+                 position: sticky !important;
+                 top: 73px !important;
+                 flex-basis: 22% !important;
+                 align-self: flex-start !important;
+                 /* {% comment %} border-left: 1px solid gray !important; {% endcomment %} */
+                 margin-left:10px !important;
+                }
+                .main-content{
+                 flex-basis: 60% !important;
+                 border-left: 1px solid #cccccc !important;
+                }
+                .right-sidebar {
+                 position: sticky !important;
+                 top: 73px !important;
+                 flex-basis: 22% !important;
+                 align-self: flex-start !important;
+                }
+                .content {
+                 flex: 1;
+                 display: flex;
+                }
+
+                .userImg{
+                 position:relative !important;
+                }
+
+                 .userLock{
+                 position:absolute !important;
+                 right: 27px !important;
+                 bottom: 10px !important;
+                 }
+
+               }
+
+               .SidebarLinks{
+                 font-size:15px !important;
+                 font-weight: normal !important;
+                 color:gray !important;
+               }
+
+               input[type="checkbox"] {
+                 accent-color: green;
+                 width: 20px; /*Desired width*/
+                 height: 20px; /*Desired width*/
+               }
+               @media screen and (max-width: 900px) {
+                 .social-icons {
+                   display: none !important;
+                 }
+                 .veriProfileLogo{
+                   width:100% !important;
+                 }
+
+                 .logodiv{
+                   width:20% !important;
+                 }
+                 .navbar-brand {
+                   font-family: 'Exo 2', sans-serif;
+                   font-size:24px !important;
+                   font-weight:600 !important;
+                   color:#166ec6 !important;
+                   text-transform:uppercase !important;
+                   text-shadow:0 0 1px black !important;
+                   letter-spacing: 3px !important;
+                 }
+               }
+               @media screen and (min-width: 900px) {
+                 .veriProfileLogo{
+                   width:100% !important;
+                 }
+
+                 .logodiv{
+                   width:13% !important;
+                 }
+                 .navbar-brand {
+                   /* {% comment %} font-family: "Josefin Sans", sans-serif; {% endcomment %} */
+                   font-family: 'Exo 2', sans-serif;
+                   font-size:23px !important;
+                   font-weight:600 !important;
+                   color:#166ec6 !important;
+                   text-transform:uppercase !important;
+                   text-shadow:0 0 1px black !important;
+                   letter-spacing: 3px !important;
+                 }
+               }
+
+
+               @media screen and (max-width:900px) {
+                 .form-inputs .form-control{
+                   background-color:#f1f1f1 !important;
+                 }
+                 main{
+                  margin-top: 110px !important;
+                 }
+               }
+
+               .form-inputs{
+                 position:relative;
+               }
+               .form-inputs .form-control{
+                 height:40px;
+                 background-color: #efffff !important;
+               }
+
+               .form-inputs .form-control:focus{
+                   box-shadow:none;
+                   border:1px solid #000;
+               }
+
+               .form-inputs i{
+                   position:absolute;
+                   right:10px;
+                   top:11px;
+               }
+
+             @media (min-width: 900px) {
+               .formInput{
+                 width:515px !important;
+               }
+             }
+             @media (max-width: 900px) {
+               .formInput{
+                 width:500px !important;
+               }
+             }
+
+             .dropdownMenu{
+               /* {% comment %} border:1px solid #000 !important; {% endcomment %} */
+               border-radius:0 !important;
+             }
+
+             .username{
+               color:#234FA7 !important;
+               font-weight:bold !important;
+               font-size:25px  !important;
+               font-family: 'Segoe UI', sans-serif !important;
+             }
+
+             .scrolldiv {
+               position: sticky;
+               top: 100px;
+               align-self: flex-start;
+             }
+             .intro{
+               font-family: 'Segoe UI', sans-serif !important;
+               color: #343434 !important;
+               font-size:17px !important;
+             }
+
+             .introPara{
+               font-family: 'Segoe UI', sans-serif !important;
+               font-size:18px !important;
+               color: gray !important;
+               text-align:justify !important;
+             }
+
+             @media screen and (min-width:900px) {
+               .content2{
+                 display:none !important;
+               }
+               .table-title .btn {
+                float: right !important;
+               }
+             }
+             @media screen and (max-width:900px) {
+               .content1{
+                 display:none !important;
+               }
+             }
+
+             .pagedown {
+               text-align: center;
+               position: fixed;
+               bottom: 15px;
+               right: 20px;
+               width:90% !important;
+               transition: background-color 0.3s ease 0s, opacity 0.5s ease 0s,
+                 visibility 0.5s ease 0s;
+               /* {% comment %} border: 1px solid gray !important; {% endcomment %} */
+               background-color: white !important;
+               z-index: 1000;
+             }
+             body {
+               background-color: #fbfbfb;
+             }
+             @media (min-width: 991.98px) {
+               main {
+                 padding-left: 240px;
+               }
+             }
+
+             /* Sidebar */
+             .sidebar {
+               position: fixed;
+               top: 0;
+               bottom: 0;
+               left: 0;
+               padding: 78px 0 0; /* Height of navbar */
+               box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+               width: 240px;
+               z-index: 600;
+             }
+
+             @media (max-width: 991.98px) {
+               .sidebar {
+                 width: 100%;
+               }
+
+             }
+             .sidebar .active {
+               border-radius: 5px;
+               box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+             }
+
+             .sidebar-sticky {
+               position: relative;
+               top: 0;
+               height: calc(100vh - 48px);
+               padding-top: 0.5rem;
+               overflow-x: hidden;
+               overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+             }
+
+
+
+             /* {% comment %} table {% endcomment %} */
+             body {
+               color: #566787;
+          background: #f5f5f5;
+          font-family: 'Varela Round', sans-serif;
+          font-size: 13px;
+        }
+        .table-wrapper {
+               background: #fff;
+               padding: 20px 25px;
+               margin: 30px 0;
+          border-radius: 3px;
+               box-shadow: 0 1px 1px rgba(0,0,0,.05);
+           }
+        .table-title {
+          padding-bottom: 15px;
+          background: #435d7d;
+          color: #fff;
+          padding: 16px 30px;
+          margin: -20px -25px 10px;
+          border-radius: 3px 3px 0 0;
+           }
+           .table-title h2 {
+          margin: 5px 0 0;
+          font-size: 24px;
+        }
+        .table-title .btn-group {
+          float: right;
+        }
+        .table-title .btn {
+          color: #fff;
+          font-size: 13px;
+          border: none;
+          min-width: 50px;
+          border-radius: 2px;
+          border: none;
+          outline: none !important;
+          margin-left: 10px;
+        }
+        .table-title .btn i {
+          float: left;
+          font-size: 21px;
+          margin-right: 5px;
+        }
+        .table-title .btn span {
+          float: left;
+          margin-top: 2px;
+        }
+           table.table tr th, table.table tr td {
+               border-color: #e9e9e9;
+          padding: 12px 15px;
+          vertical-align: middle;
+           }
+        table.table tr th:first-child {
+          width: 60px;
+        }
+        table.table tr th:last-child {
+          width: 100px;
+        }
+           table.table-striped tbody tr:nth-of-type(odd) {
+             background-color: #fcfcfc;
+        }
+        table.table-striped.table-hover tbody tr:hover {
+          background: #f5f5f5;
+        }
+           table.table th i {
+               font-size: 13px;
+               margin: 0 5px;
+               cursor: pointer;
+           }
+           table.table td:last-child i {
+          opacity: 0.9;
+          font-size: 22px;
+               margin: 0 5px;
+           }
+        table.table td a {
+          font-weight: bold;
+          color: #566787;
+          display: inline-block;
+          text-decoration: none;
+          outline: none !important;
+        }
+        table.table td a:hover {
+          color: #2196F3;
+        }
+        table.table td a.edit {
+               color: #FFC107;
+           }
+           table.table td a.delete {
+               color: #F44336;
+           }
+           table.table td i {
+               font-size: 19px;
+           }
+        table.table .avatar {
+          border-radius: 50%;
+          vertical-align: middle;
+          margin-right: 10px;
+        }
+           .pagination {
+               float: right;
+               margin: 0 0 5px;
+           }
+           .pagination li a {
+               border: none;
+               font-size: 13px;
+               min-width: 30px;
+               min-height: 30px;
+               color: #999;
+               margin: 0 2px;
+               line-height: 30px;
+               border-radius: 2px !important;
+               text-align: center;
+               padding: 0 6px;
+           }
+           .pagination li a:hover {
+               color: #666;
+           }
+           .pagination li.active a, .pagination li.active a.page-link {
+               background: #03A9F4;
+           }
+           .pagination li.active a:hover {
+               background: #0397d6;
+           }
+        .pagination li.disabled i {
+               color: #ccc;
+           }
+           .pagination li i {
+               font-size: 16px;
+               padding-top: 6px
+           }
+           .hint-text {
+               float: left;
+               margin-top: 10px;
+               font-size: 13px;
+           }
+        /* Custom checkbox */
+        .custom-checkbox {
+          position: relative;
+        }
+        .custom-checkbox input[type="checkbox"] {
+          opacity: 0;
+          position: absolute;
+          margin: 5px 0 0 3px;
+          z-index: 9;
+        }
+        .custom-checkbox label:before{
+          width: 18px;
+          height: 18px;
+        }
+        .custom-checkbox label:before {
+          content: '';
+          margin-right: 10px;
+          display: inline-block;
+          vertical-align: text-top;
+          background: white;
+          border: 1px solid #bbb;
+          border-radius: 2px;
+          box-sizing: border-box;
+          z-index: 2;
+        }
+        .custom-checkbox input[type="checkbox"]:checked + label:after {
+          content: '';
+          position: absolute;
+          left: 6px;
+          top: 3px;
+          width: 6px;
+          height: 11px;
+          border: solid #000;
+          border-width: 0 3px 3px 0;
+          transform: inherit;
+          z-index: 3;
+          transform: rotateZ(45deg);
+        }
+        .custom-checkbox input[type="checkbox"]:checked + label:before {
+          border-color: #03A9F4;
+          background: #03A9F4;
+        }
+        .custom-checkbox input[type="checkbox"]:checked + label:after {
+          border-color: #fff;
+        }
+        .custom-checkbox input[type="checkbox"]:disabled + label:before {
+          color: #b8b8b8;
+          cursor: auto;
+          box-shadow: none;
+          background: #ddd;
+        }
+        /* Modal styles */
+        .modal .modal-dialog {
+          max-width: 400px;
+        }
+        .modal .modal-header, .modal .modal-body, .modal .modal-footer {
+          padding: 20px 30px;
+        }
+        .modal .modal-content {
+          border-radius: 3px;
+        }
+        .modal .modal-footer {
+          background: #ecf0f1;
+          border-radius: 0 0 3px 3px;
+        }
+           .modal .modal-title {
+               display: inline-block;
+           }
+        .modal .form-control {
+          border-radius: 2px;
+          box-shadow: none;
+          border-color: #dddddd;
+        }
+        .modal textarea.form-control {
+          resize: vertical;
+        }
+        .modal .btn {
+          border-radius: 2px;
+          min-width: 100px;
+        }
+        .modal form label {
+          font-weight: normal;
+        }
+
+
+             /* {% comment %} table {% endcomment %} */
+      </style>
+      <meta charset="UTF-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      />
+      <meta http-equiv="x-ua-compatible" content="ie=edge" />
+      <title>Veriprofile</title>
+      <!-- Font Awesome -->
+      <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        rel="stylesheet"
+      />
+      <!-- Google Fonts -->
+      <link
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+        rel="stylesheet"
+      />
+      <!-- MDB -->
+      <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
+        rel="stylesheet"
+      />
+    </head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Veriprofile</title>
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body  hx-ext="ws" ws-connect="/ws/notifications/">
+    {% include 'messages.html' %}
+    <!--Main Navigation-->
+    <header>
+      <!-- Sidebar -->
+      <nav
+        id="sidebarMenu"
+        class="collapse d-lg-block sidebar collapse bg-white"
+      >
+        <div class="position-sticky">
+          <div class="list-group list-group-flush mx-3 mt-4">
+            <a
+              href="{% url 'insights' %}"
+              class="list-group-item list-group-item-action py-2 ripple active"
+              aria-current="true"
+            >
+              <i class="fas fa-chart-line fa-fw me-3"></i><span>Insights </span>
+            </a>
+            <a
+              href="#"
+              class="list-group-item list-group-item-action py-2 ripple"
+            >
+              <i class="fas fa-users fa-fw me-3"></i><span>Users & Groups</span>
+            </a>
+            <a
+              href="#"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-folder fa-fw me-3"></i><span>Content</span></a
+            >
+            <a
+              href="#"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-chart-line fa-fw me-3"></i
+              ><span>Governance</span></a
+            >
+            <a
+              href="#"
+              class="list-group-item list-group-item-action py-2 ripple"
+            >
+              <i class="fas fa-chart-pie fa-fw me-3"></i
+              ><span>Report Manager</span>
+            </a>
+            <a
+              href="#"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-gear fa-fw me-3"></i
+              ><span>App Settings</span></a
+            >
+            <a
+              href="#"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-globe fa-fw me-3"></i
+              ><span>Permissions</span></a
+            >
+            <a
+              href="#"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-building fa-fw me-3"></i
+              ><span>Account & Billing</span></a
+            >
+            <a
+              href="#"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-pen-to-square fa-fw me-3"></i
+              ><span>Update</span></a
+            >
+          </div>
+        </div>
+      </nav>
+      <!-- Sidebar -->
+
+      <!-- Navbar -->
+      <nav
+        class="navbar navbar-expand-lg px-4 py-0 shadow-none sticky-top d-lg-block d-none fixed-top"
+        style="background-color: #fff"
+      >
+        <!-- Container wrapper -->
+        <div class="container-fluid p-0">
+          <!-- Collapsible wrapper -->
+          <div class="navbar-collapse" id="navbarSupportedContent">
+            <!-- Navbar brand -->
+            <a
+              class="navbar-brand mt-2 mt-lg-0 p-0"
+              href="{% url 'home' %}"
+              style="letter-spacing: 2px !important"
+            >
+              <div class="d-flex align-items-center">
+                <div class="">
+                  <img
+                    src="{% static 'VERIPROFILE LOGO.png' %}"
+                    class=""
+                    style="height: 90px !important"
+                  />
+                </div>
+              </div>
+            </a>
+            <!-- Left links -->
+            <ul
+              class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center"
+            >
+              <li class="nav-item d-flex">
+                <div
+                  class="d-flex form-inputs formInput me-3 align-items-center"
+                >
+                  <input
+                    class="form-control rounded-pill w-100"
+                    type="text"
+                    placeholder=""
+                  />
+                  <i class="fa fa-search mx-2"></i>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link Navlinks mx-2" href="{% url 'all_plans' %}"
+                  ><i class="fa fa-star text-warning fs-5"></i
+                ></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link Navlinks mx-2" href="{% url 'my_plans' %}"
+                  ><i class="fa fa-bell fs-5"></i
+                ></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link Navlinks mx-2" href="{% url 'my_plans' %}"
+                  ><i class="fa-solid fa-language fs-5"></i
+                ></a>
+              </li>
+              <li class="nav-item">
+                {% if user.is_authenticated %} {% if user.is_superuser %}
+                <a class="mb-0 mx-2 text-primary fw-bold"
+                  >Hi! {{ user.username }}</a
+                >
+                {% endif %} {% endif %}
+              </li>
+              <li class="nav-item">
+                <div class="dropdown">
+                  <a
+                    class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                    href="#"
+                    id="navbarDropdownMenuAvatar"
+                    role="button"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img
+                      src="{% static 'DummyImg.png' %}"
+                      class="rounded-circle"
+                      height="28"
+                      alt="Black and White Portrait of a Man"
+                      loading="lazy"
+                    />
+                    <i class="fa-solid fa-caret-down text-dark mx-1"></i>
+                  </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end dropdownMenu mt-3 py-3 shadow-lg"
+                    aria-labelledby="navbarDropdownMenuAvatar"
+                  >
+                    <li>
+                      <a class="dropdown-item" href="#"
+                        ><img
+                          src="{% static 'Leftside Icons/L1_dashboard_FILL0_wght400_GRAD0_opsz48.png' %}"
+                          height="20"
+                        />
+                        &nbsp; Forum</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#"
+                        ><i class="fa-solid fa-user-group"></i> &nbsp; Talk to
+                        Contribute</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#"
+                        ><i class="fa-solid fa-message"></i> &nbsp; Messages</a
+                      >
+                    </li>
+                    <hr class="my-2" />
+                    <p
+                      class="my-0 mx-3"
+                      style="font-size: 12px !important ; font-weight: 500"
+                    >
+                      Business
+                    </p>
+                    <li>
+                      <a class="dropdown-item" href="#"
+                        ><i class="fa-solid fa-city"></i> &nbsp; Register
+                        Company</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#"
+                        ><i class="fa-solid fa-heart"></i> &nbsp; Human
+                        Resource</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#"
+                        ><i class="fa-solid fa-gear"></i> &nbsp; Preferences</a
+                      >
+                    </li>
+                    {% comment %}
+                    <li>
+                      <a class="dropdown-item" href="{% url 'signout' %}"
+                        ><i class="fa-solid fa-right-from-bracket"></i> &nbsp;
+                        Logout</a
+                      >
+                    </li>
+                    {% endcomment %}
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <nav
+        class="navbar navbar-expand-lg px-4 py-0 shadow-none sticky-top d-block d-lg-none fixed-top"
+        style="background-color: #fff"
+      >
+        <div class="p-0">
+          <div class="d-flex align-items-center justify-content-between">
+            <a
+              class="navbar-brand mt-2 mt-lg-0 p-0"
+              href="{% url 'home' %}"
+              style="letter-spacing: 2px !important"
+            >
+              <div class="d-flex align-items-center">
+                <div class="">
+                  <img
+                    src="{% static 'VERIPROFILE LOGO.png' %}"
+                    class=""
+                    style="height: 90px !important"
+                  />
+                </div>
+              </div>
+            </a>
+            <a class="nav-link Navlinks mx-2 mt-3" href="{% url 'my_plans' %}"
+              ><i class="fa fa-bell fs-4"></i
+            ></a>
+            <!-- Toggle button -->
+            <button
+              class="navbar-toggler mt-3"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="list-group list-group-flush mx-3 mt-4">
+              <a
+                href="#"
+                class="list-group-item list-group-item-action py-2 ripple active"
+                aria-current="true"
+              >
+                <i class="fas fa-tachometer-alt fa-fw me-3"></i
+                ><span>Main dashboard</span>
+              </a>
+              <a
+                href="#"
+                class="list-group-item list-group-item-action py-2 ripple"
+              >
+                <i class="fas fa-chart-area fa-fw me-3"></i
+                ><span>Webiste traffic</span>
+              </a>
+              <a
+                href="#"
+                class="list-group-item list-group-item-action py-2 ripple"
+                ><i class="fas fa-lock fa-fw me-3"></i><span>Password</span></a
+              >
+              <a
+                href="#"
+                class="list-group-item list-group-item-action py-2 ripple"
+                ><i class="fas fa-chart-line fa-fw me-3"></i
+                ><span>Analytics</span></a
+              >
+              <a
+                href="#"
+                class="list-group-item list-group-item-action py-2 ripple"
+              >
+                <i class="fas fa-chart-pie fa-fw me-3"></i><span>SEO</span>
+              </a>
+              <a
+                href="#"
+                class="list-group-item list-group-item-action py-2 ripple"
+                ><i class="fas fa-chart-bar fa-fw me-3"></i
+                ><span>Orders</span></a
+              >
+              <a
+                href="#"
+                class="list-group-item list-group-item-action py-2 ripple"
+                ><i class="fas fa-globe fa-fw me-3"></i
+                ><span>International</span></a
+              >
+              <a
+                href="#"
+                class="list-group-item list-group-item-action py-2 ripple"
+                ><i class="fas fa-building fa-fw me-3"></i
+                ><span>Partners</span></a
+              >
+              <a
+                href="#"
+                class="list-group-item list-group-item-action py-2 ripple"
+                ><i class="fas fa-calendar fa-fw me-3"></i
+                ><span>Calendar</span></a
+              >
+              <a
+                href="#"
+                class="list-group-item list-group-item-action py-2 ripple"
+                ><i class="fas fa-users fa-fw me-3"></i><span>Users</span></a
+              >
+              <a
+                href="#"
+                class="list-group-item list-group-item-action py-2 ripple"
+                ><i class="fas fa-money-bill fa-fw me-3"></i
+                ><span>Sales</span></a
+              >
+            </div>
+          </div>
+          <div class="nav-item d-flex w-100 my-2">
+            <div class="d-flex form-inputs formInput w-100">
+              <input
+                class="form-control rounded-pill w-100"
+                type="text"
+                placeholder=""
+              />
+              <i class="fa fa-search mx-3"></i>
+            </div>
+          </div>
+          <div class="pagedown p-2">
+            <div class="d-flex align-items-center justify-content-between">
+              <a class="nav-link Navlinks mx-2" href="{% url 'all_plans' %}"
+                ><i class="fa fa-star text-dark fs-1 mx-2"></i
+              ></a>
+              <div class="dropdown">
+                <a
+                  class="dropdown-toggle d-flex align-items-center hidden-arrow mx-2"
+                  href="#"
+                  id="navbarDropdownMenuAvatar"
+                  role="button"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="{% static 'DummyImg.png' %}"
+                    class="rounded-circle"
+                    height="28"
+                    alt="Black and White Portrait of a Man"
+                    loading="lazy"
+                  /><i class="fa-solid fa-caret-up text-danger"></i>
+                </a>
+                <ul
+                  class="dropdown-menu dropdown-menu-end dropdownMenu mt-3"
+                  aria-labelledby="navbarDropdownMenuAvatar"
+                >
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="fa-solid fa-user-pen"></i> &nbsp; Manage
+                      Profile</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="fa-solid fa-message"></i> &nbsp; Talk to
+                      Admin</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="fa-solid fa-gear"></i> &nbsp; Preferences</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="fa-solid fa-heart"></i> &nbsp; Your
+                      Followers</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'signout' %}"
+                      ><i class="fa-solid fa-right-from-bracket"></i> &nbsp;
+                      Logout</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <!-- Navbar -->
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main style="margin-top: 58px">
+      <div class="container pt-5">
+        <h2
+          class="font-weight-bold mb-2 mt-3 mt-lg-0 text-center text-lg-start"
+        >
+          Top Profile
+        </h2>
+        <p class="font-italic text-muted mb-4">
+          Lorem ipsum dolor sit amet, elit, sed do eiusmod tempor incididunt.
+        </p>
+
+        {% for profile in top_profiles %}
+        <div>
+          <!-- Display profile information as needed -->
+          <h5>{{ profile.first_name }}</h5>
+          <p>Unique Viewer Count: {{ profile.viewer_count }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </main>
+    <!--Main layout-->
+
+    <script>
+      // Graph
+      var ctx = document.getElementById("myChart");
+
+      var myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+          ],
+          datasets: [
+            {
+              data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+              lineTension: 0,
+              backgroundColor: "transparent",
+              borderColor: "#007bff",
+              borderWidth: 4,
+              pointBackgroundColor: "#007bff",
+            },
+          ],
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: false,
+                },
+              },
+            ],
+          },
+          legend: {
+            display: false,
+          },
+        },
+      });
+    </script>
+
+    {% comment %} table {% endcomment %}
+    <script>
+      $(document).ready(function () {
+        // Activate tooltip
+        $('[data-toggle="tooltip"]').tooltip();
+
+        // Select/Deselect checkboxes
+        var checkbox = $('table tbody input[type="checkbox"]');
+        $("#selectAll").click(function () {
+          if (this.checked) {
+            checkbox.each(function () {
+              this.checked = true;
+            });
+          } else {
+            checkbox.each(function () {
+              this.checked = false;
+            });
+          }
+        });
+        checkbox.click(function () {
+          if (!this.checked) {
+            $("#selectAll").prop("checked", false);
+          }
+        });
+      });
+    </script>
+    {% comment %} table {% endcomment %}
+
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"
+    ></script>
+  </body>
+</html>

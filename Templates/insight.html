@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/search.js' %}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.11/iconfont/material-icons.min.css" />
+    <style>
+        @import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+
+        /* Bootstrap Icons */
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+        @import url('https://fonts.cdnfonts.com/css/segoe-ui-4');
+        @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Open+Sans&family=Poppins&display=swap");
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Nunito+Sans:opsz@6..12&family=Open+Sans&family=Poppins&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Exo+2&family=Josefin+Sans:wght@500&family=Nunito+Sans:opsz@6..12&family=Open+Sans&family=Poppins&display=swap');
+
+
+        .dataTables_filter,
+        .dataTables_length,
+        .dataTables_paginate,
+        .dataTables_info {
+            display: none !important;
+        }
+
+
+        /* CSS styles for the notification icon */
+        .notification-icon {
+            font-size: 24px;
+            /* Adjust the size as needed */
+            color: #007bff;
+            /* Icon color */
+        }
+
+        /* CSS styles for the unread count badge */
+        .unread-count-badge {
+            background-color: #dc3545;
+            /* Badge background color */
+            color: white;
+            /* Text color */
+            font-size: 14px;
+            /* Font size */
+            padding: 2px 6px;
+            /* Padding around the text */
+            border-radius: 50%;
+            /* Round the badge */
+            position: absolute;
+            /* Position it relative to the icon */
+            top: 0;
+            /* Adjust the top position as needed */
+            right: 0;
+            /* Adjust the right position as needed */
+        }
+
+        .multi-button {
+            border-radius: 10px;
+            border-radius: 10px;
+            width: 100% !important;
+        }
+
+        .multi-button_button {
+            font-family: "Courier New";
+            font-size: 10px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            background-color: #0024d3;
+        }
+
+
+        .multi-button_button:first-child {
+            border-radius: 10px 0 0 10px;
+        }
+
+        .multi-button_button:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+
+
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        * {
+            font-family: "Poppins";
+        }
+
+        .input-box {
+            position: relative !important;
+        }
+
+        .input-box i {
+            position: absolute !important;
+            right: 50px !important;
+            top: 12px !important;
+            color: #84888b !important;
+        }
+
+
+        .formControl {
+            height: 40px !important;
+            width: 400px !important;
+            /* background-color: #eeeeee69 !important; */
+        }
+
+        .form-control:focus {
+            /* background-color: #eeeeee69 !important; */
+            box-shadow: none !important;
+            border-color: #2e2e2e !important;
+        }
+
+        .dropdown-menu li {
+            position: relative;
+        }
+
+        .dropdown-menu .dropdown-submenu {
+            display: none;
+            position: absolute;
+            left: 100%;
+            top: -7px;
+        }
+
+        .dropdown-menu .dropdown-submenu-left {
+            right: 100%;
+            left: auto;
+        }
+
+        .dropdown-menu>li:hover>.dropdown-submenu {
+            display: block;
+        }
+
+        .green-dot {
+            width: 10px;
+            height: 10px;
+            background-color: green;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .red-dot {
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* #filterOptions {
+      display: none;
+    } */
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .fixed-top {
+            position: fixed !important;
+        }
+
+        a {
+            text-decoration: none !important;
+        }
+
+        .profile-pictures {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Add your custom CSS styles here */
+        .hidden {
+            display: none;
+        }
+
+
+        /* Additional CSS for select inputs */
+        .custom-select {
+            width: 100%;
+        }
+
+        .profile-picture {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            margin-left: -12px;
+            /* Adjust this value for overlapping effect */
+            z-index: 1;
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        @media screen and (max-width: 900px) {
+            .left-sidebar {
+                flex-basis: 100% !important;
+                align-self: flex-start !important;
+            }
+
+            .main-content {
+                flex-basis: 100% !important;
+            }
+
+            .right-sidebar {
+                position: sticky !important;
+                top: 73px !important;
+                flex-basis: 100% !important;
+                align-self: flex-start !important;
+            }
+
+            .userImg {
+                position: relative !important;
+            }
+
+            .userLock {
+                position: absolute !important;
+                right: 24px !important;
+                bottom: 24px !important;
+            }
+        }
+
+        .sidenavlinks {
+            font-size: 14px !important;
+            padding-top: 4px !important;
+            padding-bottom: 4px !important;
+            border-radius: 30px !important;
+            -webkit-border-radius: 30px !important;
+            /* For safari */
+            -moz-border-radius: 30px !important;
+            margin-bottom: 5px !important;
+            /* For mozilla */
+        }
+
+        .sidebar {
+            min-height: 100% !important;
+            /* padding: 20px; */
+        }
+
+        #dateText {
+            font-weight: bold;
+            color: #000 !important;
+            font-size: 16px;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            dy: 10px;
+        }
+
+        @media screen and (min-width: 900px) {
+            /* table {
+        table-layout: fixed !important;
+        width: 100% !important;
+      }
+
+      th {
+        width: 25% !important;
+      } */
+
+            main {
+                margin-top: 66px !important;
+            }
+
+            .left-sidebar {
+                position: sticky !important;
+                top: 73px !important;
+                flex-basis: 22% !important;
+                align-self: flex-start !important;
+                margin-left: 10px !important;
+            }
+
+            .main-content {
+                flex-basis: 60% !important;
+            }
+
+            .right-sidebar {
+                position: sticky !important;
+                top: 73px !important;
+                flex-basis: 22% !important;
+                align-self: flex-start !important;
+            }
+
+            .content {
+                flex: 1;
+                display: flex;
+            }
+
+            .userImg {
+                position: relative !important;
+            }
+
+            .userLock {
+                position: absolute !important;
+                right: 27px !important;
+                bottom: 10px !important;
+            }
+        }
+
+        .SidebarLinks {
+            font-size: 15px !important;
+            font-weight: normal !important;
+            color: gray !important;
+        }
+
+        input[type="checkbox"] {
+            accent-color: green;
+            width: 20px;
+            /*Desired width*/
+            height: 20px;
+            /*Desired width*/
+        }
+
+        @media screen and (max-width: 900px) {
+            .social-icons {
+                display: none !important;
+            }
+
+            .veriProfileLogo {
+                width: 100% !important;
+            }
+
+            .logodiv {
+                width: 20% !important;
+            }
+
+            .navbar-brand {
+                font-size: 24px !important;
+                font-weight: 600 !important;
+                color: #166ec6 !important;
+                text-transform: uppercase !important;
+                text-shadow: 0 0 1px black !important;
+                letter-spacing: 3px !important;
+            }
+        }
+
+        @media screen and (min-width: 900px) {
+            .veriProfileLogo {
+                width: 100% !important;
+            }
+
+            .logodiv {
+                width: 13% !important;
+            }
+
+            .navbar-brand {
+                font-size: 23px !important;
+                font-weight: 600 !important;
+                color: #166ec6 !important;
+                text-transform: uppercase !important;
+                text-shadow: 0 0 1px black !important;
+                letter-spacing: 3px !important;
+            }
+        }
+
+        @media screen and (max-width: 900px) {
+            .form-inputs .form-control {
+                background-color: #f1f1f1 !important;
+            }
+
+            main {
+                margin-top: 110px !important;
+            }
+        }
+
+        table,
+        tr,
+        th,
+        td {
+            border: 1px solid #f4f3f3 !important;
+        }
+
+        @media (min-width: 900px) {
+            .formInput {
+                width: 515px !important;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .formInput {
+                width: 500px !important;
+            }
+        }
+
+        .dropdownMenu {
+            border-radius: 0 !important;
+        }
+
+        .username {
+            color: #234fa7 !important;
+            font-weight: bold !important;
+            font-size: 25px !important;
+        }
+
+        .scrolldiv {
+            position: sticky;
+            top: 100px;
+            align-self: flex-start;
+        }
+
+        .intro {
+            color: #343434 !important;
+            font-size: 17px !important;
+        }
+
+        .introPara {
+            font-size: 18px !important;
+            color: gray !important;
+            text-align: justify !important;
+        }
+
+        @media screen and (min-width: 900px) {
+            .content2 {
+                display: none !important;
+            }
+
+            .table-title .btn {
+                float: right !important;
+            }
+        }
+
+        @media screen and (max-width: 900px) {
+            .content1 {
+                display: none !important;
+            }
+        }
+
+        .pagedown {
+            display: flex;
+            text-align: center;
+            position: fixed;
+            justify-content: center;
+            align-items: center;
+            bottom: 7px;
+            right: 20px;
+            width: 90% !important;
+            transition: background-color 0.3s ease 0s, opacity 0.5s ease 0s,
+                visibility 0.5s ease 0s;
+            /* {% comment %} border: 1px solid gray !important; {% endcomment %} */
+            background-color: #0024d3 !important;
+            z-index: 1000;
+        }
+
+        .filter-input {
+            border: 0;
+            width: 100px !important;
+        }
+
+        .filter-input:focus {
+            border: 0px solid #fff !important;
+            outline: none !important;
+        }
+
+        body {
+            background-color: #fbfbfb;
+        }
+
+        @media (min-width: 991.98px) {
+            main {
+                padding-left: 240px;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 30px;
+            /* bottom: 0; */
+            left: 0;
+            padding-right: 0;
+            padding-left: 0;
+            width: 250px;
+            z-index: 600;
+            margin-top: 63px !important;
+        }
+
+        @media (max-width: 991.98px) {
+            .sidebar {
+                width: 100%;
+            }
+        }
+
+        .sidebar .active {
+            background: transparent linear-gradient(90deg, #f3f6ff 0%, #e7e9f5 100%) 0% 0% no-repeat padding-box !important;
+        }
+
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: 0.5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+            /* Scrollable contents if viewport is shorter than content. */
+        }
+
+        /* {% comment %} table {% endcomment %} */
+        body {
+            color: #566787;
+            background: #f5f5f5;
+            font-size: 13px;
+        }
+
+        .table-wrapper {
+            background: #fff;
+            padding: 20px 15px;
+            margin: 20px 0;
+            border-radius: 3px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgb(212, 209, 209);
+        }
+
+        .table-title {
+            padding-bottom: 15px;
+            background: #435d7d;
+            color: #fff;
+            padding: 16px 25px;
+            /* margin: -20px -25px 10px; */
+            margin-bottom: 10px !important;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .table-title h2 {
+            margin: 5px 0 0;
+            font-size: 24px;
+        }
+
+        .table-title .btn-group {
+            float: right;
+        }
+
+        .table-title .btn {
+            color: #fff;
+            font-size: 13px;
+            border: none;
+            min-width: 50px;
+            border-radius: 2px;
+            border: none;
+            outline: none !important;
+            margin-left: 10px;
+        }
+
+        .table-title .btn i {
+            float: left;
+            font-size: 21px;
+            margin-right: 5px;
+        }
+
+        .table-title .btn span {
+            float: left;
+            margin-top: 2px;
+        }
+
+        table.table tr th,
+        table.table tr td {
+            border-color: #e9e9e9;
+        }
+
+        table.table-striped tbody tr:nth-of-type(odd) {
+            background-color: #fcfcfc;
+        }
+
+        table.table-striped.table-hover tbody tr:hover {
+            background: #f5f5f5;
+        }
+
+        table.table th i {
+            font-size: 13px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        table.table td:last-child i {
+            opacity: 0.9;
+            font-size: 22px;
+            margin: 0 5px;
+        }
+
+        table.table td a {
+            /* font-weight: bold; */
+            color: #566787;
+            display: inline-block;
+            text-decoration: none;
+            outline: none !important;
+        }
+
+        table.table td a:hover {
+            color: #2196f3;
+        }
+
+        table.table td a.edit {
+            color: #ffc107;
+        }
+
+        table.table td a.delete {
+            color: #f44336;
+        }
+
+        table.table td i {
+            font-size: 19px;
+        }
+
+        table.table .avatar {
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .pagination {
+            float: right;
+            margin: 0 0 5px;
+        }
+
+        .pagination li a {
+            border: none;
+            font-size: 13px;
+            min-width: 30px;
+            min-height: 30px;
+            color: #999;
+            margin: 0 2px;
+            line-height: 30px;
+            border-radius: 2px !important;
+            text-align: center;
+            padding: 0 6px;
+        }
+
+        .pagination li a:hover {
+            color: #666;
+        }
+
+        .pagination li.active a,
+        .pagination li.active a.page-link {
+            background: #03a9f4;
+        }
+
+        .pagination li.active a:hover {
+            background: #0397d6;
+        }
+
+        .pagination li.disabled i {
+            color: #ccc;
+        }
+
+        .pagination li i {
+            font-size: 16px;
+            padding-top: 6px;
+        }
+
+        .hint-text {
+            float: left;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        /* Custom checkbox */
+        .custom-checkbox {
+            position: relative;
+        }
+
+        .custom-checkbox input[type="checkbox"] {
+            opacity: 0;
+            position: absolute;
+            z-index: 9;
+        }
+
+        .custom-checkbox label:before {
+            width: 18px;
+            height: 18px;
+        }
+
+        .custom-checkbox label:before {
+            content: "";
+            display: inline-block;
+            /* vertical-align: text-top; */
+            background: white;
+            border: 1px solid #bbb;
+            border-radius: 2px;
+            box-sizing: border-box;
+            z-index: 2;
+        }
+
+        .custom-checkbox input[type="checkbox"]:checked+label:after {
+            content: "";
+            position: absolute;
+            left: 6px;
+            bottom: 9px;
+            width: 6px;
+            height: 11px;
+            border: solid #000;
+            border-width: 0 3px 3px 0;
+            transform: inherit;
+            z-index: 3;
+            transform: rotateZ(45deg);
+        }
+
+        .custom-checkbox input[type="checkbox"]:checked+label:before {
+            border-color: #03a9f4;
+            background: #03a9f4;
+        }
+
+        .custom-checkbox input[type="checkbox"]:checked+label:after {
+            border-color: #fff;
+        }
+
+        .custom-checkbox input[type="checkbox"]:disabled+label:before {
+            color: #b8b8b8;
+            cursor: auto;
+            box-shadow: none;
+            background: #ddd;
+        }
+
+        /* Modal styles */
+        .modal .modal-dialog {
+            max-width: 400px;
+        }
+
+        .modal .modal-header,
+        .modal .modal-body,
+        .modal .modal-footer {
+            padding: 20px 30px;
+        }
+
+        .modal .modal-content {
+            border-radius: 3px;
+        }
+
+        .modal .modal-footer {
+            background: #ecf0f1;
+            border-radius: 0 0 3px 3px;
+        }
+
+        .modal .modal-title {
+            display: inline-block;
+        }
+
+        .modal .form-control {
+            border-radius: 2px;
+            box-shadow: none;
+            border-color: #dddddd;
+        }
+
+        .modal textarea.form-control {
+            resize: vertical;
+        }
+
+        .modal .btn {
+            border-radius: 2px;
+            min-width: 100px;
+        }
+
+        .modal form label {
+            font-weight: normal;
+        }
+
+        .dropend .dropdown-toggle::after {
+            vertical-align: 0;
+            margin-top: 2px !important;
+        }
+
+        .input-box {
+            position: relative !important;
+        }
+
+        .input-box i {
+            position: absolute !important;
+            left: 13px !important;
+            top: 16px !important;
+            color: #ced4da !important;
+        }
+
+        .input-box-table {
+            position: relative !important;
+        }
+
+        .input-box-table i {
+            position: absolute !important;
+            right: 54px !important;
+            top: 13px !important;
+            color: #ced4da !important;
+        }
+
+        .searchbar {
+            height: 50px !important;
+            width: 400px !important;
+            background-color: #eeeeee69 !important;
+        }
+
+        .searchbar:focus {
+            background-color: #eeeeee69 !important;
+            box-shadow: none !important;
+            border-color: #eee !important;
+        }
+
+        .btn-group {
+            margin-bottom: 10px;
+        }
+
+        .btn.checked {
+            background-color: #403d37;
+        }
+
+        /* Isotope Grid Styles */
+        /* --------------------------------------- */
+        .grid {
+            background: #f5f1ec;
+            max-width: 1200px;
+        }
+
+        /* clear fix */
+        .grid:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        /* Isotope Item Styles */
+        /* --------------------------------------- */
+
+
+
+        /* {% comment %} table {% endcomment %} */
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Veriprofile</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
+</head>
+
+<body hx-ext="ws" ws-connect="/ws/notifications/">
+    {% include 'messages.html' %}
+    <!--Main Navigation-->
+    <header>
+        <!-- Sidebar -->
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white shadow pt-4">
+            <div class="position-sticky">
+                <div class="list-group list-group-flush mx-2">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active ps-2 my-1" href="{% url 'insight' %}">
+                                <i class="bi bi-bar-chart"></i> Insight
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ps-2 my-1" href="{% url 'view_profiles' %}">
+                                <i class="bi bi-house"></i> User Profiles
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ps-2 my-1" href="#">
+                                <i class="bi bi-chat"></i> Employee Profiles
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ps-2 my-1" href="{% url 'verification_center' %}">
+                                <i class="bi bi-chat"></i> Verification Center
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ps-2 my-1" href="{% url 'assesment_center' %}">
+                                <i class="bi bi-bookmarks"></i> Assessment Center
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Sidebar -->
+
+        <nav class="navbar navbar-expand-lg px-2 shadow-none sticky-top d-lg-block d-none fixed-top" style="
+          height: 90px;
+          background: linear-gradient(#0303c9 0%, #0707aa 100%);
+          box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+          ">
+            <!-- Container wrapper -->
+            <div class="container-fluid p-0">
+                <!-- Collapsible wrapper -->
+                <div class="navbar-collapse" id="navbarSupportedContent">
+                    <!-- Navbar brand -->
+                    <a class="navbar-brand p-0" href="{% url 'home' %}">
+                        <div class="d-flex align-items-center">
+                            <div class="">
+                                <img src="{% static 'logo.veriprofile.com.svg' %}" class="w-100" style="width: 265px;
+                              height: 70px;
+                              background: transparent;" />
+                            </div>
+                        </div>
+                    </a>
+                    <div class="d-flex">
+                        <div class="input-box">
+                            <input type="text" class="form-control ps-5 fs-6 searchbar" style="width: 482px;
+                          height: 74px;
+                          border-radius: 8px;
+                          background: #f1f9fc !important;
+                          border: 1px solid #b9b9b9;font-family: Poppins;
+                          font-weight: normal !important;
+                          font-size: 19px !important;
+                          text-align: left;
+                          color: #191919;" placeholder="Search" />
+                            <i class="fa fa-search text-dark" style="color: #220bcd !important;"></i>
+                        </div>
+                        <div class="d-flex align-items-center ms-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="35.298" height="42.005"
+                                viewBox="0 0 50.298 58.005">
+                                <g id="gEMuCw.tif" transform="translate(-909.907 -130.7)">
+                                    <g id="Group_295" data-name="Group 295" transform="translate(909.907 130.7)">
+                                        <path id="Path_626" data-name="Path 626"
+                                            d="M957.858,188.705H912.242c-.042-.08-.064-.200-.131-.235a3.961,3.961,0,0,1-2.2-3.893c.027-11.169.012-22.339.013-33.508q0-5.778.009-11.557a1.422,1.422,0,0,1,1.048-1.528,4.631,4.631,0,0,1,1.368-.251c1.3-.033,2.593-.012,3.944-.012,0-.992-.012-1.905,0-2.818a4.518,4.518,0,0,1,3.4-4.126,4.21,4.21,0,0,1,2.479.251,4.5,4.5,0,0,1,2.786,4.154c0,.829,0,.658,0,2.5h6.574c.052-1.158.022-2.283.169-3.385A4.288,4.288,0,0,1,937.364,131a4.344,4.344,0,0,1,2.89,4.313c0,.787,0,1.574,0,2.374h6.064c0-.924-.008-1.817,0-2.709.028-2.764,3.1-5.21,5.924-3.908a4.226,4.226,0,0,1,2.712,4.049c.008.849,0,1.7,0,2.515a.866.866,0,0,0,.191.075c.937.006,1.875-.013,2.812.017,1.319.042,2.248.756,2.246,1.726q-.051,22.746-.031,45.493a3.719,3.719,0,0,1-1.982,3.411A1.756,1.756,0,0,0,957.858,188.705Zm-.969-35.3H913.213c-.012.214-.031.393-.031.571q0,15.252,0,30.5c0,.984.063,1.041,1.028,1.041H955.9c.951,0,.988-.037.988-1.011q0-15.16,0-30.321Zm-34.2-15.72a25.6,25.6,0,0,0-.023-2.934,1.993,1.993,0,0,0-2.064-1.775,2.039,2.039,0,0,0-2.072,1.788,27.564,27.564,0,0,0-.022,2.921Zm15.35.008c0-.275,0-.477,0-.678,0-.712.026-1.426-.009-2.137a2.09,2.09,0,0,0-1.981-1.89,2,2,0,0,0-2.155,1.592,29.574,29.574,0,0,0-.024,3.112Zm14.722,0c0-1,.06-1.934-.016-2.859A2.041,2.041,0,0,0,950.8,133a1.936,1.936,0,0,0-2.135,1.437,24.047,24.047,0,0,0-.034,3.266Z"
+                                            transform="translate(-909.907 -130.7)" fill="white" />
+                                        <text x="50%" y="50%" dy="10" class="text-light" id="dateText" fill="white">
+                                            [Date]
+                                        </text>
+                                    </g>
+                                </g>
+                            </svg>
+                            <span class="px-2 py-1 rounded-end mt-2 shadow-sm" id="monthText" style="
+                  font-size: 14px;
+                  font-weight: 600;
+                  letter-spacing: 2px;
+                  color: #000000;
+                  background-color: white;
+                ">JANUARY 2019</span>
+                        </div>
+                    </div>
+                    <!-- Left links -->
+                    <ul class="navbar-nav ms-auto d-flex align-items-center">
+                        <li class="nav-item">
+                            <a class="nav-link text-light mx-3 p-2 rounded-circle d-flex align-items-center justify-content-center"
+                                style="background-color: #031d9c;" href=""><span class="material-symbols-outlined"
+                                    style="font-size: 19px;">
+                                    g_translate
+                                </span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light mx-3 p-2 rounded-circle d-flex align-items-center justify-content-center"
+                                style="background-color: #031d9c;" href=""><span class="material-symbols-outlined"
+                                    style="font-size: 19px;">
+                                    star
+                                </span></a>
+                        </li>
+                        <li class="nav-item" style="border-right: 2px solid #b9b9b9">
+                            <div class="dropdown">
+                                <a class="nav-link text-light p-2 mx-3 rounded-circle d-flex align-items-center justify-content-center"
+                                    style="background-color: #031d9c;" type="button" id="dropdownMenuButton"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    <!-- Assuming you have an icon element for notifications -->
+                                    <span class="material-symbols-outlined text-light notification-icon"
+                                        style="font-size: 19px;">
+                                        notifications_active
+                                    </span>
+                                    <!-- Display the unread count in a badge -->
+                                    <span class="badge unread-count-badge me-2 rounded-circle"
+                                        style="margin-top: -10px;">{{ notification_count }}</span>
+                                </a>
+                                <ul class="dropdown-menu px-3" id="notification-dropdown"
+                                    aria-labelledby="dropdownMenuButton"
+                                    style="width: 300px !important;text-overflow: ellipsis">
+                                    <li>
+                                        <a class="dropdown-item fw-bold px-0 mb-2"
+                                            style="color: #0024d3; font-size: 17px;" href="#">
+                                            Notifications
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <a href=""
+                                                class="badge text-light bg-primary px-0 px-3 p-2 rounded-pill">Unread</a>
+                                            <a href="" class="text-dark ms-3 px-0">Recently Read</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="mb-0 mt-3" style="color: #0024d3; font-weight: 600;">Most recent
+                                            </p>
+                                            <a href="" class="mb-0 mt-3"
+                                                style="color: #0024d3; font-weight: 400;font-size: 13px;">View All</a>
+                                        </div>
+                                        <hr class="my-1">
+
+                                        {% for notification in hr_notifications %}
+                                        <a class="dropdown-item px-0" style="font-size: 12px;font-weight: 600;">
+                                            {% if notification.notification_type == "Warning" %}
+                                            <i class="fa fa-warning text-danger me-1"></i>
+                                            <span class="notification-title text-dark">{{ notification.notification_type }}</span><span class="ms-2 fw-normal">By Admin</span>
+                                            <p class="notification-title mb-0 mt-1 text-danger"
+                                                style="font-weight: 700;font-size: 13px;">{{ notification.notification_title }}</p>
+                                            {% elif notification.notification_type == "Update" %}
+                                            <i class="fa fa-user text-info me-1"></i>
+                                            <span class="notification-title text-dark">{{ notification.notification_type }}</span><span class="ms-2 fw-normal">By Admin</span>
+                                            <p class="notification-title mb-0 mt-1 text-info"
+                                                style="font-weight: 700;font-size: 13px;">{{ notification.notification_title }}</p>
+                                            {% endif %}
+                                            <p class="dropdown-item px-0 mb-1 w-100 mb-0"
+                                                style="font-size: 13px; font-weight: 500; white-space: normal;">
+                                                {{ notification.message }}
+                                            </p>
+                                            <p class="text-danger text-end" style="font-size: 11px;">{{ notification.time_elapsed }}</p>
+                                        </a>
+
+                                        <!-- <p class="text-danger mb-1" style="font-size: 13px; font-weight: 600;">{{ notification.notification_title }}</p> -->
+                                        <!-- {{ notification.count}} -->
+                                        {% endfor %}
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </li>
+                        <li class="nav-item">
+                            {% for h in hr %}
+                            <a class="mb-0 mx-2 fw-bold" style="color: #ffffff; font-size: 15px">Hi! {{ h.first_name }}</a>
+                            <img src="{% static 'admin-white.png' %}" class="rounded-circle  border border-1"
+                                height="30px" style="width: 30px !important;" alt="Black and White Portrait of a Man"
+                                loading="lazy" />
+                        </li>
+                        {% endfor %}
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
+                                    id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="fa-solid fa-angle-down fw-bold text-light fs-5 mx-1"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdownMenu shadow-lg"
+                                    aria-labelledby="navbarDropdownMenuAvatar">
+                                    <li>
+                                        <a class="dropdown-item text-dark fw-bold text-center" href="#">
+                                            Hi, HR!
+                                        </a>
+                                    </li>
+                                    <hr class="my-0">
+                                    <li>
+                                        <a class="dropdown-item text-center" style="font-size: 12px;font-weight: 600;"
+                                            href="#">View
+                                            Profile</a>
+                                        <div class="multi-button mt-1 d-flex align-items-center justify-content-center">
+                                            <button class="multi-button_button py-1 px-2" style="margin-right: 2px;">Add
+                                                Account</button>
+                                            <button class="multi-button_button py-1 px-2">Sign Out</button>
+                                        </div>
+                                    </li>
+                                    <hr class="my-2">
+                                    <li>
+                                        <a class="dropdown-item" style="font-size: 12px;font-weight: 500;"
+                                            href="#">Refer & Earn</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" style="font-size: 12px;font-weight: 500;"
+                                            href="#">Account Settings</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" style="font-size: 12px;font-weight: 500;"
+                                            href="#">Privacy Policy</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" style="font-size: 12px;font-weight: 500;"
+                                            href="#">Referal Business
+                                            Policy</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" style="font-size: 12px;font-weight: 500;"
+                                            href="#">Terms & Conditions</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" style="font-size: 12px;font-weight: 500;" href="#">Get
+                                            Help</a>
+                                    </li>
+                                    <div class="px-1 rounded rounded-4 mt-2">
+                                        <li class="rounded-top links" style="background-color: #0024d3;">
+                                            <a class="dropdown-item"
+                                                style="font-size: 12px;font-weight: 500; color: white;" href="#">Upgrade
+                                                Profile</a>
+                                        </li>
+                                        <li class="links" style="background-color: #0024d3;">
+                                            <a class="dropdown-item"
+                                                style="font-size: 12px;font-weight: 500; color: white;" href="#">
+                                                Change Profile Type</a>
+                                        </li>
+                                        <li class="rounded-bottom links" style="background-color: #0024d3;">
+                                            <a class="dropdown-item"
+                                                style="font-size: 12px;font-weight: 500; color: white;" href="#">Move
+                                                to Business Account
+                                            </a>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand-lg px-2 shadow-none sticky-top d-block d-lg-none fixed-top" style="
+        background: linear-gradient(#0303c9 0%, #0707aa 100%);
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+        ">
+            <div class="p-0">
+                <div class="d-flex align-items-center justify-content-between">
+                    <a class="navbar-brand p-0" href="{% url 'home' %}">
+                        <div class="d-flex align-items-center">
+                            <div class="">
+                                <img src="{% static 'logo.veriprofile.com.svg' %}" class="w-100" style="width: 265px;
+                                height: 70px;
+                                background: transparent;" class="" style="height: 60px !important" />
+                            </div>
+                        </div>
+                    </a>
+                    <a class="nav-link Navlinks me-3" href="">
+                        <div class="nav-item" style="border-right: 2px solid #b9b9b9">
+                            <div class="dropdown">
+                                <a class="nav-link text-light mx-3 rounded-circle d-flex align-items-center justify-content-center"
+                                    style="background-color: #031d9c;" type="button" id="dropdownMenuButton"
+                                    data-mdb-toggle="dropdown" aria-expanded="false">
+                                    <!-- Assuming you have an icon element for notifications -->
+                                    <span class="material-symbols-outlined text-light notification-icon">
+                                        notifications_active
+                                    </span>
+                                    <!-- Display the unread count in a badge -->
+                                    <span class="badge unread-count-badge me-2 rounded-circle"
+                                        style="margin-top: -10px;">{{ notification_count }}</span>
+                                </a>
+                                <ul class="dropdown-menu px-3" id="notification-dropdown"
+                                    aria-labelledby="dropdownMenuButton"
+                                    style="width: 280px !important;text-overflow: ellipsis">
+                                    <li class="mt-2">
+                                        <a class="fw-bold px-0 my-2" style="color: #0024d3; font-size: 17px;" href="#">
+                                            Notifications
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="mt-3">
+                                            <a href="" class="badge bg-primary px-0 px-3 p-2 rounded-pill">Unread</a>
+                                            <a href="" class="text-dark ms-3 px-0">Recently Read</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="mb-0 mt-3" style="color: #0024d3; font-weight: 600;">Most recent
+                                            </p>
+                                            {% for u in hr %}
+                                            <a href="" class="mb-0 mt-3"
+                                                style="color: #0024d3; font-weight: 400;font-size: 13px;">View All</a>
+                                            {% endfor %}
+
+                                        </div>
+                                        <hr class="my-1">
+
+                                        {% for notification in hr_notifications|slice:":2" %}
+                                        <a class="px-0" style="font-size: 12px;font-weight: 600;">
+                                            {% if notification.notification_type == "Warning" %}
+                                            <i class="fa fa-warning text-danger me-1"></i>
+                                            <span class="notification-title text-dark">{{ notification.notification_type }}</span><span class="ms-2 fw-normal">By Admin</span>
+                                            <p class="notification-title mb-0 mt-1 text-danger"
+                                                style="font-weight: 700;font-size: 13px;">{{ notification.notification_title }}</p>
+                                            {% elif notification.notification_type == "Update" %}
+                                            <i class="fa fa-user text-info me-1"></i>
+                                            <span class="notification-title text-dark">{{ notification.notification_type }}</span><span class="ms-2 fw-normal">By Admin</span>
+                                            <p class="notification-title mb-0 mt-1 text-info"
+                                                style="font-weight: 700;font-size: 13px;">{{ notification.notification_title }}</p>
+                                            {% endif %}
+                                            <p class="px-0 mb-1 w-100 mb-0 text-dark"
+                                                style="font-size: 13px; font-weight: 500; white-space: normal;">
+                                                {{ notification.message }}
+                                            </p>
+                                            <p class="text-danger text-end" style="font-size: 11px;">{{ notification.time_elapsed }}</p>
+                                        </a>
+                                        {% endfor %}
+
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </a>
+                    <!-- Toggle button -->
+                    <button class="navbar-toggler text-light me-3" type="button" data-mdb-toggle="collapse"
+                        data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="list-group list-group-flush mx-2">
+                        <ul class="navbar-nav">
+                            <li class="nav-item border-bottom">
+                                <a class="nav-link text-light active ps-2 my-1" href="{% url 'insight' %}" style="font-size: 18px !important;">
+                                    <i class="bi bi-bar-chart me-2"></i> Insight
+                                </a>
+                            </li>
+                            <li class="nav-item border-bottom">
+                                <a class="nav-link text-light ps-2 my-1" href="{% url 'view_profiles' %}" style="font-size: 18px !important;">
+                                    <i class="bi bi-house me-2"></i> User Profiles
+                                </a>
+                            </li>
+                            <li class="nav-item border-bottom">
+                                <a class="nav-link text-light ps-2 my-1" href="#" style="font-size: 18px !important;">
+                                    <i class="bi bi-chat me-2"></i> Employee Profiles
+                                </a>
+                            </li>
+                            <li class="nav-item border-bottom">
+                                <a class="nav-link text-light ps-2 my-1" href="{% url 'verification_center' %}" style="font-size: 18px !important;">
+                                    <i class="bi bi-chat me-2"></i> Verification Center
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light ps-2 my-1" href="{% url 'assesment_center' %}" style="font-size: 18px !important;">
+                                    <i class="bi bi-bookmarks me-2"></i> Assessment Center
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="d-lg-flex mt-1">
+                    <div class="input-box position-relative">
+                      <input type="text" class="form-control ps-5 fs-6 searchbar w-100" style="
+                                    height: 74px;
+                                    position: relative !important; 
+                                    border-radius: 8px;
+                                    background: #f1f9fc !important;
+                                    border: 1px solid #b9b9b9;font-family: Poppins;
+                                    font-weight: normal !important;
+                                    font-size: 19px !important;
+                                    text-align: left;
+                                    color: #191919;" placeholder="Search" />
+                      <i class="fa fa-search text-dark ps-3" style="color: #220bcd !important;top: 17px; position: absolute;"></i>
+                    </div>
+                <div class="pagedown p-2">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <a class="nav-link text-light mx-3 rounded-circle d-flex align-items-center justify-content-center"
+                                style="background-color: #031d9c;" href=""><span class="material-symbols-outlined"
+                                    style="font-size: 19px;">
+                                    g_translate
+                                </span></a>
+                        </div>
+                        <div>
+                            <a class="nav-link text-light mx-3 rounded-circle d-flex align-items-center justify-content-center"
+                                style="background-color: #031d9c;" href=""><span class="material-symbols-outlined"
+                                    style="font-size: 19px;">
+                                    star
+                                </span></a>
+                        </div>
+                        <div class="nav-item">
+                            {% for h in hr %}
+                            <a class="mb-0 mx-2 fw-bold" style="color: #ffffff; font-size: 15px">Hi! {{ h.first_name }}</a>
+                            <img src="{% static 'admin-white.png' %}" class="rounded-circle  border border-1"
+                                height="30px" style="width: 30px !important;" alt="Black and White Portrait of a Man"
+                                loading="lazy" />
+                            {% endfor %}
+                        </div>
+                        <div>
+                            <div class="dropdown">
+                                <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
+                                    id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="fa-solid fa-angle-up fw-bold text-light fs-5 mx-1"></i>
+                                </a>
+                                <ul style="width: 250px;" class="dropdown-menu dropdown-menu-end dropdownMenu shadow-lg"
+                                    aria-labelledby="navbarDropdownMenuAvatar">
+                                    {% for h in hr %}
+                                    <li>
+                                        <a class="dropdown-item text-dark fw-bold text-center" href="#">
+                                            Hi! {{h.first_name}}
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                    <hr class="my-0">
+                                    <li>
+                                        <a class="dropdown-item text-center py-1"
+                                            style="font-size: 12px;font-weight: 600;" href="#">View
+                                            Profile</a>
+                                        <div class="multi-button mt-1 d-flex align-items-center justify-content-center">
+                                            <button class="multi-button_button py-1 px-2" style="margin-right: 2px;">Add
+                                                Account</button>
+                                            <a href="{% url 'signout' %}"><button
+                                                    class="multi-button_button py-1 px-2">Sign Out</button></a>
+                                        </div>
+                                    </li>
+                                    <hr class="my-2">
+                                    <li>
+                                        <a class="dropdown-item py-1" style="font-size: 12px;font-weight: 500;"
+                                            href="#">Refer & Earn</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item py-1" style="font-size: 12px;font-weight: 500;"
+                                            href="#">Account Settings</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item py-1" style="font-size: 12px;font-weight: 500;"
+                                            href="#">Privacy Policy</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item py-1" style="font-size: 12px;font-weight: 500;"
+                                            href="#">Referal Business
+                                            Policy</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item py-1" style="font-size: 12px;font-weight: 500;"
+                                            href="#">Terms &
+                                            Conditions</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item py-1" style="font-size: 12px;font-weight: 500;"
+                                            href="#">Get
+                                            Help</a>
+                                    </li>
+                                    <div class="px-1 rounded rounded-4 mt-2">
+                                        <li class="rounded-top links" style="background-color: #0024d3;">
+                                            <a class="dropdown-item"
+                                                style="font-size: 12px;font-weight: 500; color: white;" href="#">Upgrade
+                                                Profile</a>
+                                        </li>
+                                        <li class="links" style="background-color: #0024d3;">
+                                            <a class="dropdown-item"
+                                                style="font-size: 12px;font-weight: 500; color: white;" href="#">
+                                                Change Profile Type</a>
+                                        </li>
+                                        <li class="rounded-bottom links" style="background-color: #0024d3;">
+                                            <a class="dropdown-item"
+                                                style="font-size: 12px;font-weight: 500; color: white;" href="#">Move
+                                                to Business Account
+                                            </a>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar -->
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main class="py-5 mx-3">
+        <div class="container-fluid">
+            <!-- Card stats -->
+            <div class="row g-6 mb-4 mt-3">
+                <div class="col-xl-4 col-sm-6 col-12">
+                    <div class="card shadow border-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total
+                                        Registered Users</span>
+                                    <span class="h3 font-bold mb-0">{{users.count}}</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-tertiary text-white text-lg rounded-circle">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-12">
+                    <div class="card shadow border-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="h6 font-semibold text-muted text-sm d-block mb-2">Verified
+                                        Users</span>
+                                    <span class="h3 font-bold mb-0">{{verified_users.count}}</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-primary text-white text-lg rounded-circle">
+                                        <i class="bi bi-person-check"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-12">
+                    <div class="card shadow border-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="h6 font-semibold text-muted text-sm d-block mb-2">Non Verified
+                                        Users</span>
+                                    <span class="h3 font-bold mb-0">{{non_verified_users.count}}</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
+                                        <i class="bi bi-person-x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-6 mb-4 mt-3">
+                <div class="col-xl-4 col-sm-6 col-12">
+                    <div class="card shadow border-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="h6 font-semibold text-muted text-sm d-block mb-2">Messages</span>
+                                    <span class="h3 font-bold mb-0">-</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-tertiary text-white text-lg rounded-circle">
+                                        <i class="bi bi-chat"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-12">
+                    <div class="card shadow border-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="h6 font-semibold text-muted text-sm d-block mb-2">Pending
+                                        Assesments</span>
+                                    <span class="h3 font-bold mb-0">-</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-primary text-white text-lg rounded-circle">
+                                        <i class="bi bi-clipboard-x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-12">
+                    <div class="card shadow border-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="h6 font-semibold text-muted text-sm d-block mb-2">Complete
+                                        Assesments</span>
+                                    <span class="h3 font-bold mb-0">-</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
+                                        <i class="bi bi-clipboard-check"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-6 mb-4 mt-3">
+                <div class="col-xl-4 col-sm-6 col-12">
+                    <div class="card shadow border-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="h6 font-semibold text-muted text-sm d-block mb-2">Online
+                                        Users</span>
+                                    <span class="h3 font-bold mb-0">-</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-tertiary text-white text-lg rounded-circle">
+                                        <i class="bi bi-laptop"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-12">
+                    <div class="card shadow border-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="h6 font-semibold text-muted text-sm d-block mb-2">Online
+                                        Visitors</span>
+                                    <span class="h3 font-bold mb-0">-</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-primary text-white text-lg rounded-circle">
+                                        <svg xmlns="http://www.w3.org/2000/ svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-person-workspace" viewBox="0 0 16 16">
+                                            <path
+                                                d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H4Zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                                            <path
+                                                d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2H2Z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-12">
+                    <div class="card shadow border-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="h6 font-semibold text-muted text-sm d-block mb-2">Recently
+                                        Added Users</span>
+                                    <span class="h3 font-bold mb-0">-</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
+                                        <i class="bi bi-clock-history"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <!-- date dynamic -->
+    <script>
+        function updateDate() {
+            const dateText = document.getElementById("dateText");
+            const currentDate = new Date();
+            const year = currentDate.getFullYear();
+            const month = currentDate.toLocaleString("default", { month: "long" });
+            const dayOfMonth = currentDate.getDate();
+
+            dateText.textContent = `${dayOfMonth}`;
+            document.getElementById("monthText").innerHTML = `${month} ${year}`;
+        }
+
+        // Update the date when the page loads
+        updateDate();
+
+        // You can also set up a timer to continuously update the date
+        setInterval(updateDate, 1000); // Update every second
+    </script>
+    <!-- date dynamic -->
+    <!--Main layout-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
+</body>
+
+
+</html>

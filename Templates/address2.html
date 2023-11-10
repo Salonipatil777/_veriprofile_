@@ -1,0 +1,298 @@
+<script>
+    $(document).ready(function () {
+        //-------------------------------SELECT CASCADING-------------------------//
+        var selectedCountry = (selectedRegion = selectedCity = "");
+        // This is a demo API key for testing purposes. You should rather request your API key (free) from http://battuta.medunes.net/
+        var BATTUTA_KEY = "00000000000000000000000000000000";
+        // Populate country select box from battuta API
+        url =
+            "https://battuta.medunes.net/api/country/all/?key=" +
+            BATTUTA_KEY +
+            "&callback=?";
+
+        // EXTRACT JSON DATA.
+        $.getJSON(url, function (data) {
+            console.log(data);
+            $.each(data, function (index, value) {
+                // APPEND OR INSERT DATA TO SELECT ELEMENT.
+                $("#country").append(
+                    '<option value="' + value.code + '">' + value.name + "</option>"
+                );
+            });
+        });
+        // Country selected --> update region list .
+        $("#country").change(function () {
+            selectedCountry = this.options[this.selectedIndex].text;
+            countryCode = $("#country").val();
+            // Populate country select box from battuta API
+            url =
+                "https://battuta.medunes.net/api/region/" +
+                countryCode +
+                "/all/?key=" +
+                BATTUTA_KEY +
+                "&callback=?";
+            $.getJSON(url, function (data) {
+                $("#region option").remove();
+                $('#region').append('<option value="">Please select your region</option>');
+                // Function to remove prefixes from state names
+                function removeStatePrefix(stateName) {
+                    if (stateName.startsWith("State of ")) {
+                        stateName = stateName.replace("State of ", "");
+                    }
+                    if (stateName.startsWith("Union Territory of ")) {
+                        stateName = stateName.replace("Union Territory of ", "");
+                    }
+                    if (stateName.startsWith("National Capital Territory of ")) {
+                        stateName = stateName.replace("National Capital Territory of ", "");
+                    }
+                    return stateName;
+                }
+
+                $.each(data, function (index, value) {
+                    var stateName = removeStatePrefix(value.region);
+                    $("#region").append('<option value="' + value.region + '">' + stateName + "</option>");
+                });
+
+            });
+        });
+        // Region selected --> updated city list
+        $("#region").on("change", function () {
+            selectedRegion = this.options[this.selectedIndex].text;
+            // Populate country select box from battuta API
+            countryCode = $("#country").val();
+            region = $("#region").val();
+            url =
+                "https://battuta.medunes.net/api/city/" +
+                countryCode +
+                "/search/?region=" +
+                region +
+                "&key=" +
+                BATTUTA_KEY +
+                "&callback=?";
+            $.getJSON(url, function (data) {
+                console.log(data);
+                $("#city option").remove();
+                $('#city').append('<option value="">Please select your city</option>');
+                $.each(data, function (index, value) {
+                    // APPEND OR INSERT DATA TO SELECT ELEMENT.
+                    $("#city").append(
+                        '<option value="' + value.city + '">' + value.city + "</option>"
+                    );
+                });
+            });
+        });
+        // city selected --> update location string
+        $("#city").on("change", function () {
+            selectedCity = this.options[this.selectedIndex].text;
+            $("#location").html(
+                "Locatation: Country: " +
+                selectedCountry +
+                ", Region: " +
+                selectedRegion +
+                ", City: " +
+                selectedCity
+            );
+        });
+    });
+
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        //-------------------------------SELECT CASCADING-------------------------//
+        var selectedCountry = (selectedRegion = selectedCity = "");
+        // This is a demo API key for testing purposes. You should rather request your API key (free) from http://battuta.medunes.net/
+        var BATTUTA_KEY = "00000000000000000000000000000000";
+        // Populate country select box from battuta API
+        url =
+            "https://battuta.medunes.net/api/country/all/?key=" +
+            BATTUTA_KEY +
+            "&callback=?";
+
+        // EXTRACT JSON DATA.
+        $.getJSON(url, function (data) {
+            console.log(data);
+            $.each(data, function (index, value) {
+                // APPEND OR INSERT DATA TO SELECT ELEMENT.
+                $("#country1").append(
+                    '<option value="' + value.code + '">' + value.name + "</option>"
+                );
+            });
+        });
+        // Country selected --> update region list .
+        $("#country1").change(function () {
+            selectedCountry = this.options[this.selectedIndex].text;
+            countryCode = $("#country1").val();
+            // Populate country select box from battuta API
+            url =
+                "https://battuta.medunes.net/api/region/" +
+                countryCode +
+                "/all/?key=" +
+                BATTUTA_KEY +
+                "&callback=?";
+            $.getJSON(url, function (data) {
+                $("#region1 option").remove();
+                $('#region1').append('<option value="">Please select your region</option>');
+                // Function to remove prefixes from state names
+                function removeStatePrefix(stateName) {
+                    if (stateName.startsWith("State of ")) {
+                        stateName = stateName.replace("State of ", "");
+                    }
+                    if (stateName.startsWith("Union Territory of ")) {
+                        stateName = stateName.replace("Union Territory of ", "");
+                    }
+                    if (stateName.startsWith("National Capital Territory of ")) {
+                        stateName = stateName.replace("National Capital Territory of ", "");
+                    }
+                    return stateName;
+                }
+
+                $.each(data, function (index, value) {
+                    var stateName = removeStatePrefix(value.region);
+                    $("#region1").append('<option value="' + value.region + '">' + stateName + "</option>");
+                });
+
+            });
+        });
+        // Region selected --> updated city list
+        $("#region1").on("change", function () {
+            selectedRegion = this.options[this.selectedIndex].text;
+            // Populate country select box from battuta API
+            countryCode = $("#country1").val();
+            region = $("#region1").val();
+            url =
+                "https://battuta.medunes.net/api/city/" +
+                countryCode +
+                "/search/?region=" +
+                region +
+                "&key=" +
+                BATTUTA_KEY +
+                "&callback=?";
+            $.getJSON(url, function (data) {
+                console.log(data);
+                $("#city1 option").remove();
+                $('#city1').append('<option value="">Please select your city</option>');
+                $.each(data, function (index, value) {
+                    // APPEND OR INSERT DATA TO SELECT ELEMENT.
+                    $("#city1").append(
+                        '<option value="' + value.city + '">' + value.city + "</option>"
+                    );
+                });
+            });
+        });
+        // city selected --> update location string
+        $("#city1").on("change", function () {
+            selectedCity = this.options[this.selectedIndex].text;
+            $("#location").html(
+                "Locatation: Country: " +
+                selectedCountry +
+                ", Region: " +
+                selectedRegion +
+                ", City: " +
+                selectedCity
+            );
+        });
+    });
+
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        //-------------------------------SELECT CASCADING-------------------------//
+        var selectedCountry = (selectedRegion = selectedCity = "");
+        // This is a demo API key for testing purposes. You should rather request your API key (free) from http://battuta.medunes.net/
+        var BATTUTA_KEY = "00000000000000000000000000000000";
+        // Populate country select box from battuta API
+        url =
+            "https://battuta.medunes.net/api/country/all/?key=" +
+            BATTUTA_KEY +
+            "&callback=?";
+
+        // EXTRACT JSON DATA.
+        $.getJSON(url, function (data) {
+            console.log(data);
+            $.each(data, function (index, value) {
+                // APPEND OR INSERT DATA TO SELECT ELEMENT.
+                $("#country2").append(
+                    '<option value="' + value.code + '">' + value.name + "</option>"
+                );
+            });
+        });
+        // Country selected --> update region list .
+        $("#country2").change(function () {
+            selectedCountry = this.options[this.selectedIndex].text;
+            countryCode = $("#country2").val();
+            // Populate country select box from battuta API
+            url =
+                "https://battuta.medunes.net/api/region/" +
+                countryCode +
+                "/all/?key=" +
+                BATTUTA_KEY +
+                "&callback=?";
+            $.getJSON(url, function (data) {
+                $("#region2 option").remove();
+                $('#region2').append('<option value="">Please select your region</option>');
+                // Function to remove prefixes from state names
+                function removeStatePrefix(stateName) {
+                    if (stateName.startsWith("State of ")) {
+                        stateName = stateName.replace("State of ", "");
+                    }
+                    if (stateName.startsWith("Union Territory of ")) {
+                        stateName = stateName.replace("Union Territory of ", "");
+                    }
+                    if (stateName.startsWith("National Capital Territory of ")) {
+                        stateName = stateName.replace("National Capital Territory of ", "");
+                    }
+                    return stateName;
+                }
+
+                $.each(data, function (index, value) {
+                    var stateName = removeStatePrefix(value.region);
+                    $("#region2").append('<option value="' + value.region + '">' + stateName + "</option>");
+                });
+
+            });
+        });
+        // Region selected --> updated city list
+        $("#region2").on("change", function () {
+            selectedRegion = this.options[this.selectedIndex].text;
+            // Populate country select box from battuta API
+            countryCode = $("#country2").val();
+            region = $("#region2").val();
+            url =
+                "https://battuta.medunes.net/api/city/" +
+                countryCode +
+                "/search/?region=" +
+                region +
+                "&key=" +
+                BATTUTA_KEY +
+                "&callback=?";
+            $.getJSON(url, function (data) {
+                console.log(data);
+                $("#city2 option").remove();
+                $('#city2').append('<option value="">Please select your city</option>');
+                $.each(data, function (index, value) {
+                    // APPEND OR INSERT DATA TO SELECT ELEMENT.
+                    $("#city2").append(
+                        '<option value="' + value.city + '">' + value.city + "</option>"
+                    );
+                });
+            });
+        });
+        // city selected --> update location string
+        $("#city2").on("change", function () {
+            selectedCity = this.options[this.selectedIndex].text;
+            $("#location").html(
+                "Locatation: Country: " +
+                selectedCountry +
+                ", Region: " +
+                selectedRegion +
+                ", City: " +
+                selectedCity
+            );
+        });
+    });
+
+</script>

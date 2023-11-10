@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+
+    <style>
+        /* Webpixels CSS */
+        /* Utility and component-centric Design System based on Bootstrap for fast, responsive UI development */
+        /* URL: https://github.com/webpixels/css */
+
+        @import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+
+        /* Bootstrap Icons */
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+        @import url('https://fonts.cdnfonts.com/css/segoe-ui-4');
+        @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Open+Sans&family=Poppins&display=swap");
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Nunito+Sans:opsz@6..12&family=Open+Sans&family=Poppins&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Exo+2&family=Josefin+Sans:wght@500&family=Nunito+Sans:opsz@6..12&family=Open+Sans&family=Poppins&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .fixed-top {
+            position: fixed !important;
+        }
+
+        a {
+            text-decoration: none !important;
+        }
+
+
+        .profile-pictures {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-picture {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            margin-left: -12px;
+            /* Adjust this value for overlapping effect */
+            z-index: 1;
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+
+
+        @media screen and (max-width: 900px) {
+            .social-icons {
+                display: none !important;
+            }
+
+            .veriProfileLogo {
+                width: 100% !important;
+            }
+
+            .navbar-brand {
+                font-family: 'Exo 2', sans-serif;
+                font-size: 24px !important;
+                font-weight: 600 !important;
+                color: #166ec6 !important;
+                text-transform: uppercase !important;
+                text-shadow: 0 0 1px black !important;
+                letter-spacing: 3px !important;
+            }
+        }
+
+        @media screen and (min-width: 900px) {
+            .veriProfileLogo {
+                width: 100% !important;
+            }
+
+            .navbar-brand {
+                /* {% comment %} font-family: "Josefin Sans", sans-serif; {% endcomment %} */
+                font-family: 'Exo 2', sans-serif;
+                font-size: 23px !important;
+                font-weight: 600 !important;
+                color: #166ec6 !important;
+                text-transform: uppercase !important;
+                text-shadow: 0 0 1px black !important;
+                letter-spacing: 3px !important;
+            }
+        }
+
+
+        @media screen and (max-width:900px) {
+            .form-inputs .form-control {
+                background-color: #f1f1f1 !important;
+            }
+
+            main {
+                margin-top: 110px !important;
+            }
+        }
+
+        .form-inputs {
+            position: relative;
+        }
+
+        .form-inputs .form-control {
+            height: 40px;
+            background-color: #efffff !important;
+        }
+
+        .form-inputs .form-control:focus {
+            box-shadow: none;
+            border: 1px solid #000;
+        }
+
+        .form-inputs i {
+            position: absolute;
+            right: 10px;
+            top: 11px;
+        }
+
+        @media (min-width: 900px) {
+            .formInput {
+                width: 515px !important;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .formInput {
+                width: 500px !important;
+            }
+        }
+
+        .dropdownMenu {
+            /* {% comment %} border:1px solid #000 !important; {% endcomment %} */
+            border-radius: 0 !important;
+        }
+
+        .username {
+            color: #234FA7 !important;
+            font-weight: bold !important;
+            font-size: 25px !important;
+            font-family: 'Segoe UI', sans-serif !important;
+        }
+
+        .pagedown {
+            text-align: center;
+            position: fixed;
+            bottom: 15px;
+            right: 20px;
+            width: 90% !important;
+            transition: background-color 0.3s ease 0s, opacity 0.5s ease 0s,
+                visibility 0.5s ease 0s;
+            /* {% comment %} border: 1px solid gray !important; {% endcomment %} */
+            background-color: white !important;
+            z-index: 1000;
+        }
+
+        body {
+            background-color: #fbfbfb;
+        }
+
+
+        .fit-image {
+            width: 100%;
+            object-fit: cover;
+        }
+
+
+
+        #msform {
+            text-align: center;
+            position: relative;
+        }
+
+        #msform fieldset {
+            background: white;
+            border: 0 none;
+            border-radius: 0.5rem;
+            box-sizing: border-box;
+            width: 100%;
+            margin: 0;
+            padding-bottom: 20px;
+            position: relative;
+        }
+
+        .form-card {
+            text-align: left;
+        }
+
+        #msform fieldset:not(:first-of-type) {
+            display: none;
+        }
+
+        #msform input,
+        select,
+        #msform textarea {
+            padding: 8px 15px 8px 15px;
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            margin-bottom: 25px;
+            margin-top: 2px;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: montserrat;
+            color: #2c3e50;
+            background-color: #eceff1;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+        #msform input:focus,
+        #msform textarea:focus {
+            -moz-box-shadow: none !important;
+            -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+            border: 1px solid #673ab7;
+            outline-width: 0;
+        }
+
+        #msform .action-button {
+            width: 100px;
+            background: #673ab7;
+            font-weight: bold;
+            color: white;
+            border: 0 none;
+            border-radius: 0px;
+            cursor: pointer;
+            padding: 10px 5px;
+            margin: 10px 0px 10px 5px;
+            float: right;
+        }
+
+        #msform .action-button:hover,
+        #msform .action-button:focus {
+            background-color: #311b92;
+        }
+
+        #msform .action-button-previous {
+            width: 100px;
+            background: #616161;
+            font-weight: bold;
+            color: white;
+            border: 0 none;
+            border-radius: 0px;
+            cursor: pointer;
+            padding: 10px 5px;
+            margin: 10px 5px 10px 0px;
+            float: right;
+        }
+
+        #msform .action-button-previous:hover,
+        #msform .action-button-previous:focus {
+            background-color: #000000;
+        }
+
+        .card {
+            z-index: 0;
+            border: none;
+            position: relative;
+        }
+
+        .fs-title {
+            font-size: 25px;
+            color: #673ab7;
+            margin-bottom: 15px;
+            font-weight: normal;
+            text-align: left;
+        }
+
+        .purple-text {
+            color: #673ab7;
+            font-weight: normal;
+        }
+
+        .steps {
+            font-size: 18px;
+            color: gray;
+            margin-bottom: 10px;
+            font-weight: normal;
+            text-align: right;
+        }
+
+        .fieldlabels {
+            color: gray;
+            text-align: left;
+        }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Veriprofile</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body  hx-ext="ws" ws-connect="/ws/notifications/">
+    {% include 'messages.html' %}
+
+    <!-- Dashboard -->
+    <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
+        <!-- Vertical Navbar -->
+        <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg"
+            id="navbarVertical">
+            <div class="container-fluid">
+                <!-- Toggler -->
+                <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Brand -->
+                <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
+                    <img src="https://preview.webpixels.io/web/img/logos/clever-primary.svg" alt="..." />
+                </a>
+                <!-- User menu (mobile) -->
+                <div class="navbar-user d-lg-none">
+                    <!-- Dropdown -->
+                    <div class="dropdown">
+                        <!-- Toggle -->
+                        <a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <div class="avatar-parent-child">
+                                <img alt="Image Placeholder"
+                                    src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
+                                    class="avatar avatar- rounded-circle" />
+                                <span class="avatar-child avatar-badge bg-success"></span>
+                            </div>
+                        </a>
+                        <!-- Menu -->
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
+                            <a href="#" class="dropdown-item">Profile</a>
+                            <a href="#" class="dropdown-item">Settings</a>
+                            <a href="#" class="dropdown-item">Billing</a>
+                            <hr class="dropdown-divider" />
+                            <a href="#" class="dropdown-item">Logout</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse ps-3" id="sidebarCollapse">
+                    <!-- Navigation -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="">
+                                <i class="bi bi-bar-chart"></i> Insight
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'view_profiles' name=name code=code  %}">
+                                <i class="bi bi-house"></i> User Profiles
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-chat"></i> Employee Profiles
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'verification_center' %}">
+                                <i class="bi bi-chat"></i> Verification Center
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'assesment_center' %}">
+                                <i class="bi bi-bookmarks"></i> Assesment Center
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Divider -->
+                    <hr class="navbar-divider my-3 opacity-20" />
+                    <!-- Navigation -->
+
+                    <!-- Push content down -->
+                    <div class=""></div>
+                    <!-- User (md) -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'hr_logout' %}">
+                                <i class="bi bi-box-arrow-left"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Main content -->
+        <div class="h-screen flex-grow-1 overflow-y-lg-auto">
+            <nav class="navbar navbar-expand-lg px-4 py-0 shadow-none fixed-top d-lg-block d-none fixed-top"
+                style="background-color: #fff">
+                <!-- Container wrapper -->
+                <div class="container-fluid p-0">
+                    <!-- Collapsible wrapper -->
+                    <div class="navbar-collapse" id="navbarSupportedContent">
+                        <!-- Navbar brand -->
+                        <a class="navbar-brand mt-2 mt-lg-0 p-0" href="{% url 'home' %}"
+                            style="letter-spacing: 2px !important">
+                            <div class="d-flex align-items-center">
+                                <div class="">
+                                    <img src="{% static 'VERIPROFILE LOGO.png' %}" class=""
+                                        style="height:90px !important;" />
+                                </div>
+                            </div>
+                        </a>
+                        <!-- Left links -->
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
+                            <li class="nav-item d-flex">
+                                <div class="d-flex form-inputs formInput me-3 align-items-center">
+                                    <input class="form-control rounded-pill w-100" type="text" placeholder="" />
+                                    <i class="fa fa-search mx-2"></i>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link Navlinks mx-2" href="{% url 'all_plans' %}"><i
+                                        class="fa fa-star text-warning fs-5"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link Navlinks mx-2" href="{% url 'my_plans' %}"><i
+                                        class="fa fa-bell fs-5"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link Navlinks mx-2" href="{% url 'my_plans' %}"><i
+                                        class="fa-solid fa-language fs-5"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                {% if user.is_authenticated %} {% if user.is_superuser %}
+                                <a class="mb-0 mx-2 text-primary fw-bold">Hi! {{ user.username }}</a>
+                                {% endif %} {% endif %}
+                            </li>
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
+                                        id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <img src="{% static 'DummyImg.png' %}" class="rounded-circle"
+                                            style="height: 20px !important" alt="Black and White Portrait of a Man"
+                                            loading="lazy" />
+                                        <i class="fa-solid fa-caret-down text-dark mx-1"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdownMenu mt-3 py-3 shadow-lg"
+                                        aria-labelledby="navbarDropdownMenuAvatar">
+                                        <li>
+                                            <a class="dropdown-item" href="#"><img
+                                                    src="{% static 'Leftside Icons/L1_dashboard_FILL0_wght400_GRAD0_opsz48.png' %}"
+                                                    height="20" />
+                                                &nbsp; Forum</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#"><i class="fa-solid fa-user-group"></i>
+                                                &nbsp; Talk to
+                                                Contribute</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#"><i class="fa-solid fa-message"></i> &nbsp;
+                                                Messages</a>
+                                        </li>
+                                        <hr class="my-2" />
+                                        <p class="my-0 mx-3" style="font-size: 12px !important ; font-weight: 500">
+                                            Business
+                                        </p>
+                                        <li>
+                                            <a class="dropdown-item" href="#"><i class="fa-solid fa-city"></i> &nbsp;
+                                                Register
+                                                Company</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#"><i class="fa-solid fa-heart"></i> &nbsp;
+                                                Human
+                                                Resource</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> &nbsp;
+                                                Preferences</a>
+                                        </li>
+                                        {% comment %}
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'signout' %}"><i
+                                                    class="fa-solid fa-right-from-bracket"></i> &nbsp;
+                                                Logout</a>
+                                        </li>
+                                        {% endcomment %}
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Header -->
+            <header class="bg-surface-primary border-bottom pt-6">
+                <div class="container-fluid">
+                    <div class="mb-npx">
+                        <div class="row align-items-center">
+                            <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+                                <!-- Title -->
+                                <h1 class="h2 mb-0 ls-tight">Application</h1>
+                            </div>
+                            <!-- Actions -->
+                            <div class="col-sm-6 col-12 text-sm-end">
+                                <div class="mx-n1">
+                                    <a href="#" class="btn d-inline-flex btn-sm btn-neutral border-base mx-1">
+                                        <span class="pe-2">
+                                            <i class="bi bi-pencil"></i>
+                                        </span>
+                                        <span>Edit</span>
+                                    </a>
+                                    <a href="#" class="btn d-inline-flex btn-sm btn-primary mx-1">
+                                        <span class="pe-2">
+                                            <i class="bi bi-plus"></i>
+                                        </span>
+                                        <span>Create</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Nav -->
+                    </div>
+                </div>
+            </header>
+            <!-- Main -->
+            <main class="py-6 bg-surface-secondary">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 text-center p-0 mt-3 mb-2">
+                            <div class="card px-4 pt-4 pb-0 mt-3 mb-3 mx-3">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <h4 id="heading" class="fw-bold">Add User</h4>
+                                </div>
+                                <form id="msform" method="post" action="{% url 'add_user' name=name code=code %}"
+                                    enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <!-- progressbar -->
+                                    <br />
+                                    <!-- fieldsets -->
+                                    <fieldset>
+                                        <div class="form-card">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">First Name: *</label>
+                                                    <input type="text" name="first_name" placeholder="" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Middle Name: *</label>
+                                                    <input type="text" name="middle_name" placeholder="" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Last Name: *</label>
+                                                    <input type="text" name="last_name" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Email: *</label>
+                                                    <input type="email" name="email" placeholder="" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Password: *</label>
+                                                    <input type="password" name="password" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Gender: *</label>
+                                                    <select class="select mt-1" name="gender">
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Transgender">Transgender</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Marital Status: *</label>
+                                                    <select class="select mt-1" name="marital_status">
+                                                        <option value="Married">Married</option>
+                                                        <option value="Unmarried">Unmarried</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Date of Birth: *</label>
+                                                    <input type="date" id="date_of_birth" name="date_of_birth"
+                                                        placeholder="" pattern="\d{4}-\d{2}-\d{2}" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Contact Number: *</label>
+                                                    <input type="number" name="mobile" placeholder="" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Nationality: *</label>
+                                                    <input type="text" name="nationality" placeholder="" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Religion : * (Better not to tell)</label>
+                                                    <input type="text" name="religion" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label class="fieldlabels">Address: *</label>
+                                                    <input type="text" name="address" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Current position: *</label>
+                                                    <input type="text" name="current_position" placeholder="" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Personal Website (if any): *</label>
+                                                    <input type="text" name="personal_website" placeholder="" />
+                                                    <input type="hidden" name="profile_created_by" placeholder=""
+                                                        value="{{hr_user.first_name}} {{hr_user.last_name}}, HR" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Time Zone :</label>
+                                                    <input type="text" name="time_zone" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Preferred Language: *</label>
+                                                    <input type="text" name="preferred_language" placeholder="" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Languages Known : *</label>
+                                                    <input type="text" name="languages_known" placeholder="" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Special Link :</label>
+                                                    <input type="text" name="wikipedia" placeholder="Wikipedia" />
+                                                </div>
+                                            </div>
+                                            <p>Social Links</p>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">LinkedIn Profile URL: *</label>
+                                                    <input type="text" name="linkedin" placeholder="" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Facebook Profile URL : *</label>
+                                                    <input type="text" name="facebook" placeholder="" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">YouTube Channel URL :</label>
+                                                    <input type="text" name="youtube" placeholder="" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">TED URL :</label>
+                                                    <input type="text" name="ted" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="button" name="next" class="next action-button" value="Next" />
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="form-card">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Degrees (e.g., Bachelor's, Master's, PhD)
+                                                        :</label>
+                                                    <input type="text" name="degrees" placeholder="" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Institutions Attended :
+                                                    </label>
+                                                    <input type="text" name="institutions_attended" placeholder="" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Graduation Dates : </label>
+                                                    <input type="date" name="graduation_dates" placeholder=""
+                                                        pattern="\d{4}-\d{2}-\d{2}" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">GPA or Academic Achievements :
+                                                    </label>
+                                                    <input type="text" name="gpa_academic_achivements" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div id="loadingIndicator" style="display: none">
+                                                Loading...
+                                            </div>
+
+                                            <h2 class="fs-title">Current Occupation :</h2>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Job Title :</label>
+                                                    <select id="jobTitleSelect" name="selected_job_title">
+                                                        <option value="">Select a job title...</option>
+                                                        {% for title in job_titles %}
+                                                        <option value="{{ title }}">{{ title }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Company : </label>
+                                                    <input type="text" name="company" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Industry : </label>
+                                                    <input type="text" name="industry" placeholder="" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Joining Date : </label>
+                                                    <input type="date" name="joining_date" placeholder=""
+                                                        pattern="\d{4}-\d{2}-\d{2}" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Job Location : </label>
+                                                    <input type="text" name="job_location" placeholder="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="button" name="next" class="next action-button" value="Next" />
+                                        <input type="button" name="previous" class="previous action-button-previous"
+                                            value="Previous" />
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="form-card">
+                                            <p class="fs-5">Work Experience</p>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Job Title :</label>
+                                                    <input type="text" name="job_title1" placeholder="" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Company : </label>
+                                                    <input type="text" name="company_name" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Joining Date : </label>
+                                                    <input type="date" name="joining_date1" placeholder=""
+                                                        pattern="\d{4}-\d{2}-\d{2}" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Quit Date : </label>
+                                                    <input type="date" name="quit_date" placeholder=""
+                                                        pattern="\d{4}-\d{2}-\d{2}" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Industry : </label>
+                                                    <input type="text" name="industry_name" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Location : </label>
+                                                    <input type="text" name="location" placeholder="" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Role : </label>
+                                                    <input type="text" name="role" placeholder="" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Responsibilities : </label>
+                                                    <input type="text" name="responsibilities" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Certifications : </label>
+                                                    <textarea type="text" name="certifications" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Licenses : </label>
+                                                    <textarea type="text" name="licenses" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Awards and Honors : </label>
+                                                    <textarea type="text" name="awards" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Publications : </label>
+                                                    <textarea type="text" name="publications" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Researches : </label>
+                                                    <textarea type="text" name="researches" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Projects : </label>
+                                                    <textarea type="text" name="projects" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Portfolio : </label>
+                                                    <textarea type="text" name="portfolio" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="button" name="next" class="next action-button" value="Next" />
+                                        <input type="button" name="previous" class="previous action-button-previous"
+                                            value="Previous" />
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="form-card">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Volunteer Work and Community Involvement
+                                                        :</label>
+                                                    <textarea type="text" name="volunteer_work" placeholder="">
+                                </textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Professional Memberships and Associations
+                                                        :
+                                                    </label>
+                                                    <textarea type="text" name="professional_memberships"
+                                                        placeholder="">
+                                </textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Availability for Networking or Job
+                                                        Opportunities :
+                                                    </label>
+                                                    <textarea type="text" name="availability_for_networking"
+                                                        placeholder="">
+                                </textarea>
+                                                </div>
+                                            </div>
+
+                                            <h2 class="fs-title">Skills and Expertise :</h2>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Technical Skills (programming languages,
+                                                        software
+                                                        tools, etc.) :
+                                                    </label>
+                                                    <textarea type="text" name="technical_skills" placeholder="">
+                                </textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Soft Skills (communication, leadership,
+                                                        teamwork, etc.)
+                                                        :
+                                                    </label>
+                                                    <textarea type="text" name="soft_skills" placeholder="">
+                                </textarea>
+                                                </div>
+                                            </div>
+
+                                            <p class="fs-5 fw-bold text-dark">Languages :</p>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label class="fieldlabels">Languages Spoken or Proficiency Levels :
+                                                    </label>
+                                                    <input type="text" name="languages_spoken" placeholder="" />
+                                                </div>
+                                            </div>
+                                            <p class="fs-5 fw-bold text-dark">Interests :</p>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Hobbies and Recreational Activities :
+                                                    </label>
+                                                    <textarea type="text" name="hobbies" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Causes and Interests Outside of Work :
+                                                    </label>
+                                                    <textarea type="text" name="causes_and_interest" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                            <p class="fs-5 fw-bold text-dark">References :</p>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label class="fieldlabels">Contact Information of References who can
+                                                        vouch for the
+                                                        user's skills and character :
+                                                    </label>
+                                                    <textarea type="text" name="contact_information" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                            <p class="fs-5 fw-bold text-dark">About :</p>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label class="fieldlabels">A brief summary or biography of the user
+                                                        :
+                                                    </label>
+                                                    <textarea type="text" name="intro" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="button" name="next" class="next action-button" value="Next" />
+                                        <input type="button" name="previous" class="previous action-button-previous"
+                                            value="Previous" />
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="form-card">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Published Articles or Blog Posts
+                                                        :</label>
+                                                    <textarea type="text" name="published_articles" placeholder="">
+                                </textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">GitHub Repository Links :
+                                                    </label>
+                                                    <textarea type="text" name="gitHub_repository_links" placeholder="">
+                                </textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Open-Source Contributions :
+                                                    </label>
+                                                    <textarea type="text" name="open_source_contributions"
+                                                        placeholder="">
+                                </textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Case Studies : </label>
+                                                    <textarea type="text" name="case_studies" placeholder="">
+                                </textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Whitepapers : </label>
+                                                    <textarea type="text" name="whitepapers" placeholder="">
+                                </textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Research Papers : </label>
+                                                    <textarea type="text" name="research_papers" placeholder="">
+                                </textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Artifacts or Creative Works :
+                                                    </label>
+                                                    <textarea type="text" name="artifacts_or_creative_works"
+                                                        placeholder="">
+                                </textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Project Demonstrations or Videos :
+                                                    </label>
+                                                    <textarea type="text" name="project_demonstrations_or_Videos"
+                                                        placeholder="">
+                                </textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Patents or Intellectual Property :
+                                                    </label>
+                                                    <textarea type="text" name="Patents_or_intellectual_property"
+                                                        placeholder="">
+                                </textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Testimonials or Recommendations :
+                                                    </label>
+                                                    <textarea type="text" name="testimonials_or_recommendations"
+                                                        placeholder="">
+                                </textarea>
+                                                </div>
+                                            </div>
+
+                                            <p class="fs-5 fw-bold text-dark">
+                                                Contributions to Open Source :
+                                            </p>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">List of Open-Source Project Contributed
+                                                        To :
+                                                    </label>
+                                                    <textarea type="text" name="Open_Source_Projects" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Links to GitHub Pull Requests :
+                                                    </label>
+                                                    <textarea type="text" name="links_to_gitHub" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Open-Source Organizations Joined :
+                                                    </label>
+                                                    <textarea type="text" name="open_source_organizations_joined"
+                                                        rows="2" placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                            <p class="fs-5 fw-bold text-dark">Speaking Engagements :</p>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Conference Talks : </label>
+                                                    <textarea type="text" name="conference_talks" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Webinar Presentations :
+                                                    </label>
+                                                    <textarea type="text" name="webinar_presentations" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Workshop Facilitations :
+                                                    </label>
+                                                    <textarea type="text" name="workshop_facilitations" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Panel Discussions : </label>
+                                                    <textarea type="text" name="panel_discussions" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                            <p class="fs-5 fw-bold text-dark">
+                                                Mentorship and Teaching :
+                                            </p>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Mentorship Programs Participated In :
+                                                    </label>
+                                                    <textarea type="text" name="mentorship_programs_participated_in"
+                                                        rows="2" placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Online Courses Taught :
+                                                    </label>
+                                                    <textarea type="text" name="online_courses_taught" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Workshops Conducted : </label>
+                                                    <textarea type="text" name="workshops_conducted" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                            <p class="fs-5 fw-bold text-dark">
+                                                Volunteer and Community Involvement :
+                                            </p>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Volunteer Activities and Organizations :
+                                                    </label>
+                                                    <textarea type="text" name="volunteer_activities" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Charitable Initiatives Led or
+                                                        Participated In :
+                                                    </label>
+                                                    <textarea type="text" name="charitable_initiatives" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Community Leadership Roles :
+                                                    </label>
+                                                    <textarea type="text" name="community_leadership_roles" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="button" name="next" class="next action-button" value="Next" />
+                                        <input type="button" name="previous" class="previous action-button-previous"
+                                            value="Previous" />
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="form-card">
+                                            <h2 class="fs-title">Innovations and Inventions :</h2>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Innovations in Products or Services
+                                                        :</label>
+                                                    <textarea type="text" name="innovations_in_products" placeholder="">
+                                </textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">New Inventions or Concepts :
+                                                    </label>
+                                                    <textarea type="text" name="new_inventions" placeholder="">
+                                </textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Prototypes or Proof of Concepts :
+                                                    </label>
+                                                    <textarea type="text" name="prototypes" placeholder="">
+                                </textarea>
+                                                </div>
+                                            </div>
+
+                                            <h2 class="fs-title">Entrepreneurial Ventures :</h2>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Startups Founded or Co-founded :
+                                                    </label>
+                                                    <textarea type="text" name="startups_founded" placeholder="">
+                                </textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Entrepreneurial Achievements :
+                                                    </label>
+                                                    <textarea type="text" name="entrepreneurial_achievements"
+                                                        placeholder="">
+                                </textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Business Ventures : </label>
+                                                    <textarea type="text" name="business_ventures" placeholder="">
+                                </textarea>
+                                                </div>
+                                            </div>
+
+                                            <p class="fs-5 fw-bold text-dark">Published Works :</p>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Books Authored or Co-authored :
+                                                    </label>
+                                                    <textarea type="text" name="books_authored" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Published Research Papers :
+                                                    </label>
+                                                    <textarea type="text" name="published_research_papers" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Magazine Articles : </label>
+                                                    <textarea type="text" name="magazine_articles" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                            <p class="fs-5 fw-bold text-dark">Creative Works: :</p>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Artwork, Photography, or Visual Design :
+                                                    </label>
+                                                    <textarea type="text" name="artwork" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Music Compositions or Performances :
+                                                    </label>
+                                                    <textarea type="text" name="music_composition" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Writing (Fiction, Poetry, Scripts) :
+                                                    </label>
+                                                    <textarea type="text" name="writing" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                            <p class="fs-5 fw-bold text-dark">Problem Solving: :</p>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Challenging Problem-Solving Scenarios :
+                                                    </label>
+                                                    <textarea type="text" name="challenging_problem_solving_scenarios"
+                                                        rows="2" placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Complex Projects Overcome :
+                                                    </label>
+                                                    <textarea type="text" name="complex_projects_overcome" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                            <p class="fs-5 fw-bold text-dark">
+                                                Hackathon or Competition Wins :
+                                            </p>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Hackathons Won : </label>
+                                                    <textarea type="text" name="hackathons_won" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="fieldlabels">Competitions or Challenges Won :
+                                                    </label>
+                                                    <textarea type="text" name="competitions_or_challenges_won" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                            <p class="fs-5 fw-bold text-dark">
+                                                Extracurricular Activities :
+                                            </p>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Sports Achievements : </label>
+                                                    <textarea type="text" name="sports_achievements" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Leadership Roles in Student Organizations
+                                                        :
+                                                    </label>
+                                                    <textarea type="text" name="leadership_roles" rows="2"
+                                                        placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="fieldlabels">Awards in Non-professional Fields :
+                                                    </label>
+                                                    <textarea type="text" name="awards_in_non_professional_fields"
+                                                        rows="2" placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                            <p class="fs-5 fw-bold text-dark">Industry Categories :</p>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <select class="select mt-1" name="industry_categories">
+                                                        <option value="Technology">Technology</option>
+                                                        <option value="Healthcare">Healthcare</option>
+                                                        <option value="Finance">Finance</option>
+                                                        <option value="Education">Education</option>
+                                                        <option value="Marketing">Marketing</option>
+                                                        <option value="Design">Design</option>
+                                                        <option value="Engineering">Engineering</option>
+                                                        <option value="Non-profit">Non-profit</option>
+                                                        <option value="Research">Research</option>
+                                                        <option value="Entertainment">Entertainment</option>
+                                                        <option value="Environmental">Environmental</option>
+                                                        <option value="Agriculture">Agriculture</option>
+                                                        <option value="Architecture">Architecture</option>
+                                                        <option value="Automotive">Automotive</option>
+                                                        <option value="Biotechnology">Biotechnology</option>
+                                                        <option value="Construction">Construction</option>
+                                                        <option value="Consumer Goods">Consumer Goods</option>
+                                                        <option value="Energy">Energy</option>
+                                                        <option value="Food and Beverage">
+                                                            Food and Beverage
+                                                        </option>
+                                                        <option value="Government and Public Administration">
+                                                            Government and Public Administration
+                                                        </option>
+                                                        <option value="Hospitality and Tourism">
+                                                            Hospitality and Tourism
+                                                        </option>
+                                                        <option value="Human Resources">Human Resources</option>
+                                                        <option value="Legal Services">Legal Services</option>
+                                                        <option value="Manufacturing">Manufacturing</option>
+                                                        <option value="Media and Communications">
+                                                            Media and Communications
+                                                        </option>
+                                                        <option value="Real Estate">Real Estate</option>
+                                                        <option value="Retail">Retail</option>
+                                                        <option value="Social Services">Social Services</option>
+                                                        <option value="Sports and Recreation">
+                                                            Sports and Recreation
+                                                        </option>
+                                                        <option value="Transportation">Transportation</option>
+                                                        <option value="Aerospace">Aerospace</option>
+                                                        <option value="Chemicals">Chemicals</option>
+                                                        <option value="Consulting">Consulting</option>
+                                                        <option value="Education Technology (EdTech)">
+                                                            Education Technology (EdTech)
+                                                        </option>
+                                                        <option value="Fashion and Apparel">
+                                                            Fashion and Apparel
+                                                        </option>
+                                                        <option value="Financial Technology (FinTech)">
+                                                            Financial Technology (FinTech)
+                                                        </option>
+                                                        <option value="Gaming and eSports">
+                                                            Gaming and eSports
+                                                        </option>
+                                                        <option value="Healthcare Technology (HealthTech)">
+                                                            Healthcare Technology (HealthTech)
+                                                        </option>
+                                                        <option value="Information Technology Services">
+                                                            Information Technology Services
+                                                        </option>
+                                                        <option value="Insurance">Insurance</option>
+                                                        <option value="Internet and E-commerce">
+                                                            Internet and E-commerce
+                                                        </option>
+                                                        <option value="Pharmaceuticals">Pharmaceuticals</option>
+                                                        <option value="Renewable Energy">
+                                                            Renewable Energy
+                                                        </option>
+                                                        <option value="Telecommunications">
+                                                            Telecommunications
+                                                        </option>
+                                                        <option value="Venture Capital and Private Equity">
+                                                            Venture Capital and Private Equity
+                                                        </option>
+                                                        <option value="Other">
+                                                            Other (for industries not covered by the above
+                                                            categories)
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12 my-3">
+                                                    <div class="form-card">
+                                                        <h4 class="fs-title">Profile Pic</h4>
+                                                        <input type="file" name="image" placeholder="Choose image" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="submit" name="next" class="next action-button" value="Submit" />
+                                        <input type="button" name="previous" class="previous action-button-previous"
+                                            value="Previous" />
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script>
+        // Show the loading indicator before fetching data
+        const loadingIndicator = document.getElementById("loadingIndicator");
+        loadingIndicator.style.display = "block";
+
+        fetch(
+            "https://raw.githubusercontent.com/jneidel/job-titles/master/job-titles.json"
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                // Populate the select element with options
+                data.forEach((title) => {
+                    const option = document.createElement("option");
+                    option.value = title;
+                    option.textContent = title;
+                    jobTitleSelect.appendChild(option);
+                });
+
+                // Hide the loading indicator once data is fetched
+                loadingIndicator.style.display = "none";
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+                loadingIndicator.style.display = "none"; // Hide the indicator on error as well
+            });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var current_fs, next_fs, previous_fs; //fieldsets
+            var opacity;
+            var current = 1;
+            var steps = $("fieldset").length;
+
+            setProgressBar(current);
+
+            $(".next").click(function () {
+                current_fs = $(this).parent();
+                next_fs = $(this).parent().next();
+
+                //Add Class Active
+                $("#progressbar li")
+                    .eq($("fieldset").index(next_fs))
+                    .addClass("active");
+
+                //show the next fieldset
+                next_fs.show();
+                //hide the current fieldset with style
+                current_fs.animate(
+                    { opacity: 0 },
+                    {
+                        step: function (now) {
+                            // for making fielset appear animation
+                            opacity = 1 - now;
+
+                            current_fs.css({
+                                display: "none",
+                                position: "relative",
+                            });
+                            next_fs.css({ opacity: opacity });
+                        },
+                        duration: 500,
+                    }
+                );
+                setProgressBar(++current);
+            });
+
+            $(".previous").click(function () {
+                current_fs = $(this).parent();
+                previous_fs = $(this).parent().prev();
+
+                //Remove class active
+                $("#progressbar li")
+                    .eq($("fieldset").index(current_fs))
+                    .removeClass("active");
+
+                //show the previous fieldset
+                previous_fs.show();
+
+                //hide the current fieldset with style
+                current_fs.animate(
+                    { opacity: 0 },
+                    {
+                        step: function (now) {
+                            // for making fielset appear animation
+                            opacity = 1 - now;
+
+                            current_fs.css({
+                                display: "none",
+                                position: "relative",
+                            });
+                            previous_fs.css({ opacity: opacity });
+                        },
+                        duration: 500,
+                    }
+                );
+                setProgressBar(--current);
+            });
+
+            function setProgressBar(curStep) {
+                var percent = parseFloat(100 / steps) * curStep;
+                percent = percent.toFixed();
+                $(".progress-bar").css("width", percent + "%");
+            }
+
+            $(".submit").click(function () {
+                return false;
+            });
+        });
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
+</body>
+
+</html>

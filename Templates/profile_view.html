@@ -1,0 +1,19 @@
+<!-- media_references/templates/media_references/profile_view.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+
+    <title>User Profile</title>
+</head>
+<body  hx-ext="ws" ws-connect="/ws/notifications/">
+    <h2>User Profile</h2>
+    <ul>
+        {% for reference in media_references %}
+            <li>{{ reference.reference_link }}</li>
+        {% empty %}
+            <li>No media references yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,365 @@
+      <!-- Right Sidebar -->
+      <div class="sidebar right-sidebar">
+        <div>
+          {% if daily_inspiration %}
+          <div class="d-flex align-items-center justify-content-between">
+            <p
+              class="mb-2"
+              style="font-size: 13px; font-weight: 600; color: black"
+            >
+              Daily Inspiration
+            </p>
+            <p
+              class="mb-2"
+              type="button"
+              data-mdb-toggle="modal"
+              data-mdb-target="#exampleModaldailyinspirationimg"
+              style="
+                font-size: 13px;
+                font-weight: 600;
+                color: rgb(150, 145, 145);
+              "
+            >
+              View All
+            </p>
+
+            <!-- Modal -->
+            {% for img in daily_inspiration %}
+            <div
+              class="modal fade"
+              id="exampleModaldailyinspirationimg"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLabel">
+                      {{today}}
+                    </h6>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-mdb-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="">
+                      <div class="row row-cols-1 row-cols-md-3 g-2">
+                        {% for img in daily_inspiration %} {% if img.date == today %}
+                        <div class="col">
+                          <img
+                            src="{{ img.image.url }}"
+                            alt="not found"
+                            class="w-100 rounded-2"
+                            alt=""
+                          />
+                        </div>
+                        {% endif %} {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+          {% if random_image %}
+          <div class="rounded rounded-5 border border-dark">
+            <div class="col">
+              <img
+                src="{{ random_image.image.url }}"
+                alt="not found"
+                class="w-100 rounded-top"
+                alt=""
+              />
+            </div>
+            <div class="d-flex align-items-center justify-content-center mt-2">
+              <p
+                class="pe-4 mb-2"
+                style="font-size: 14px; border-right: 1px solid black"
+              >
+                <i class="fa fa-download me-2"></i>
+                <a
+                  href="{{ random_image.image.url }}"
+                  class="text-dark"
+                  download="random_image.jpg"
+                  >Save</a
+                >
+              </p>
+              <a
+                href=""
+                class="ms-4 mb-2 text-dark"
+                type="button"
+                data-mdb-toggle="modal"
+                data-mdb-target="#exampleModal7"
+                style="font-size: 14px"
+              >
+                <i class="fa fa-share-nodes me-2"></i>Share
+              </a>
+              <div
+                class="modal fade"
+                id="exampleModal7"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Share With
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-mdb-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <!-- Facebook Share -->
+                      <a
+                        href=""
+                        target="_blank"
+                      >
+                        <i class="fa fa-facebook mx-3 fs-3"></i>
+                      </a>
+                      <!-- WhatsApp Share -->
+                      <a
+                        href="https://wa.me/?text={{ random_image.image.url }}"
+                        target="_blank"
+                      >
+                        <i class="fa fa-whatsapp text-success mx-3 fs-3"></i>
+                      </a>
+                      <!-- Instagram Share -->
+                      <a href="https://www.instagram.com/" target="_blank">
+                        <i class="fa fa-instagram text-danger mx-3 fs-3"></i>
+                      </a>
+                    </div>
+
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-mdb-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          <div class="my-3">
+            <p
+              class="mb-0"
+              style="color: black; font-size: 15px; font-weight: 600"
+            >
+              Trend Cloud
+            </p>
+            <p class="mb-2" style="color: rgb(131, 130, 130); font-size: 12px">
+              Currently Trending in India
+            </p>
+            <div
+              class="p-3 py-4 rounded-5"
+              style="background-color: rgb(226, 223, 223)"
+            >
+              <p class="mb-0" style="font-size: 12px">
+                #Ganesh #BJP #india #tkinter #primemember #veriprofile #elonmusk
+              </p>
+            </div>
+          </div>
+          <div class="my-3">
+            <p
+              class="mb-0"
+              style="color: black; font-size: 15px; font-weight: 600"
+            >
+              Image Gallery
+            </p>
+            <p class="mb-2" style="color: rgb(131, 130, 130); font-size: 12px">
+              Recently Uploaded
+            </p>
+            <div class="d-flex justify-content-between mb-1">
+              <a
+                class=""
+                type="button"
+                style="font-size: 14px"
+                data-mdb-toggle="modal"
+                data-mdb-target="#exampleModalgallery"
+                >Upload</a
+              >
+              <a
+                href=""
+                type="button"
+                style="font-size: 14px"
+                data-mdb-toggle="modal"
+                data-mdb-target="#exampleModalgalleryall"
+                class="mb-0 text-primary"
+                style="font-size: 14px"
+                >View All</a
+              >
+            </div>
+            <!-- Modal -->
+            <div
+              class="modal fade"
+              id="exampleModalgallery"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-mdb-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="mb-4">
+                      <div class="wrap p-4 mx-3">
+                        <h5 class="text-light mb-3">Upload Images</h5>
+                        <form
+                          action="{% url 'user_gallery' %}"
+                          name="form"
+                          method="post"
+                          enctype="multipart/form-data"
+                        >
+                          {% csrf_token %}
+                          <!-- FILE UPLOAD BEGIN -->
+                          <div class="file">
+                            <div class="file__input" id="file__input">
+                              <input
+                                type="file"
+                                multiple
+                                name="images[]"
+                                id="customFile"
+                                class="file__input--file"
+                              />
+                              <label
+                                for="customFile"
+                                class="file__input--label"
+                                data-text-btn="Browse"
+                                >Add file :</label
+                              >
+                            </div>
+                          </div>
+                          <!-- FILE UPLOAD END -->
+                          <button type="submit" class="btn btn-danger my-3">
+                            Upload Images
+                          </button>
+                        </form>
+                        <div class="image-previews"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal2 -->
+            <div
+              class="modal fade"
+              id="exampleModalgalleryall"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    Image Gallery
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-mdb-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row row-cols-1 row-cols-md-6 g-3">
+                      {% for g in gallery %}
+                      <div class="col">
+                        <a href="{{g.image.url}}" data-lightbox="gallery">
+                          <img src="{{g.image.url}}" class="w-100 h-100" alt="" />
+                        </a>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-3 g-2">
+              {% for g in gallery|slice:":9" %}
+              <div class="col">
+                <img src="{{ g.image.url }}" class="w-100 h-100" alt="" />
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="my-3">
+          <p
+            class="mb-0"
+            style="color: black; font-size: 15px; font-weight: 600"
+          >
+            Footer Menu
+          </p>
+          <p class="mb-0" style="color: rgb(131, 130, 130); font-size: 13px">
+            Advertise With Us
+          </p>
+          <p class="mb-0" style="color: rgb(131, 130, 130); font-size: 13px">
+            Terms & Conditions and
+          </p>
+          <p class="mb-0" style="color: rgb(131, 130, 130); font-size: 13px">
+            Grievance Redressal Policy
+          </p>
+          <p class="mb-0" style="color: rgb(131, 130, 130); font-size: 13px">
+            Contact Us
+          </p>
+          <p class="mb-0" style="color: rgb(131, 130, 130); font-size: 13px">
+            RSS
+          </p>
+          <p class="mb-0" style="color: rgb(131, 130, 130); font-size: 13px">
+            Cookie Policy
+          </p>
+          <p class="mb-0" style="color: rgb(131, 130, 130); font-size: 13px">
+            Privacy Policy
+          </p>
+        </div>
+        <div class="my-3">
+          <p
+            class="mb-0"
+            style="color: black; font-size: 12px; font-weight: 500"
+          >
+            Copyright &#169; 2023-24
+          </p>
+          <p
+            class="mb-0"
+            style="color: black; font-size: 12px; font-weight: 500"
+          >
+            Universal People Connect LLP (UPCONN)
+          </p>
+          <p
+            class="mb-0"
+            style="color: black; font-size: 12px; font-weight: 500"
+          >
+            All Rights Reserved
+          </p>
+          <p
+            class="mb-0"
+            style="color: black; font-size: 12px; font-weight: 500"
+          >
+            Developed With <i class="fa fa-heart" style="color: red"></i> by
+            Saloni Patil, UPCONN
+          </p>
+        </div>
+      </div>

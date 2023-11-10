@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load social_share %}
+
+{% block content %}
+  <!-- Tabs navs -->
+  <div class="content content1" style="background-color: #f9f9f9">
+    <!-- Left Sidebar -->
+    <div class="sidebar left-sidebar">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="px-0 nav-link active SidebarLinks my-1 d-flex align-items-center" href="#"><img
+              src="{% static 'Qforge.svg' %}" class="me-3" height="35px" alt="" />
+            <span>Qforge</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="px-0 nav-link SidebarLinks my-1 d-flex align-items-center" href="#"><img
+              src="{% static 'A-List.svg' %}" class="me-3" height="35px" alt="" />
+            <span>A-List</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="px-0 nav-link SidebarLinks my-1 d-flex align-items-center" href="#"><img
+              src="{% static 'Success.svg' %}" class="me-3" height="35px" alt="" />
+            <span>Success Stories</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="px-0 nav-link SidebarLinks my-1 d-flex align-items-center" href="#"><img
+              src="{% static 'Advice.svg' %}" class="me-3" height="35px" alt="" />
+            <span>Expert Advice</span></a>
+        </li>
+        <!-- Add more left sidebar menu items as needed -->
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content px-4 pb-4" style="margin-top: 40px !important; background-color: #f9f9f9">
+      <div class="d-flex align-items-center justify-content-between">
+        <h4 class="mb-4" style="font-weight: 600; color:#000">Notifications</h4>
+        <div class="d-flex align-items-center">
+          <div class="dropdown">
+            <button class="p-2 fs-5 rounded-circle border-0 d-flex align-items-center justify-content-center"
+              style="background-color: rgb(211, 203, 242);" type="button" id="dropdownMenuButton"
+              data-mdb-toggle="dropdown" aria-expanded="false">
+              <i class="fa fa-filter"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item filter-button" href="#" data-filter="all" style="font-size: 18px;"><i
+                    class="fa fa-check-circle me-2"></i>All</a></li>
+              <li><a class="dropdown-item filter-button" href="#" data-filter="read" style="font-size: 18px;"><i
+                    class="fa fa-eye me-2"></i>Read</a></li>
+              <li><a class="dropdown-item filter-button" href="#" data-filter="unread" style="font-size: 18px;"><i
+                    class="fa fa-eye-slash me-2"></i>Unread</a></li>
+            </ul>
+          </div>
+          <div class="dropdown ms-3">
+            <button class="fs-5 border-0" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fa fa-ellipsis-v"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li class="dropdown-item px-2">
+                {% for u in userr %}
+                <form method="post"
+                  action="{% url 'notification' %}">
+                  {% csrf_token %}
+                  <button class="border-0" type="submit"
+                    style="font-size: 18px !important;background-color: transparent !important;color: #000;">
+                    <i class="fa fa-envelope me-2"></i>Mark all as read
+                  </button>
+                </form>
+                {% endfor %}
+              </li>
+              <hr class="my-1">
+              <li class="dropdown-item">
+                <a class="nav-link delete-all-notifications"
+                  style="cursor: pointer; font-size: 18px; color: #000;">
+                  <i class="fa fa-trash me-2"></i>Delete All Notifications
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div id="notifications-list">
+        {% for notification in user_notifications %}
+        <div class="notification px-0 mb-2" data-user-id="{{request.user.id}}" data-id="{{ notification.id }}"
+          data-read-status="{{ notification.read_status }}">
+          {% if notification.notification_type == "Warning" %}
+          <i class="fa fa-warning text-danger me-1 mb-2"></i>
+          <span class="notification-title text-dark mb-2">{{ notification.notification_type }}</span><span
+            class="ms-2 fw-normal">By Admin</span>
+          <p class="notification-title mb-2 mt-1 text-danger" style="font-weight: 700; font-size: 15px">
+            {{ notification.notification_title }}
+          </p>
+          {% elif notification.notification_type == "Update" %}
+          <i class="fa fa-user text-info me-1 mb-2"></i>
+          <span class="notification-title text-dark mb-2">{{ notification.notification_type }}</span><span
+            class="ms-2 fw-normal mb-2">By Admin</span>
+          <p class="notification-title mb-0 mt-1 text-info mb-2" style="font-weight: 700; font-size: 15px">
+            {{ notification.notification_title }}
+          </p>
+          {% endif %}
+          <p class="px-0 mb-1 w-100 mb-2" style="font-size: 14px; font-weight: 500; white-space: normal">
+            {{ notification.message }}
+          </p>
+          <p class="text-danger text-end" style="font-size: 12px">
+            {{ notification.time_elapsed }}
+          </p>
+          <hr>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- <p class="text-danger mb-1" style="font-size: 13px; font-weight: 600;">{{ notification.notification_title }}</p> -->
+      <!-- {{ notification.count}} -->
+
+
+      {% for u in userr %}
+      <a href="{% url 'userdashboard' %}">Back to your profile <i
+          class="fa fa-arrow-alt-circle-right"></i></a>
+      {% endfor %}
+    </div>
+
+  {% include 'right_sidebar.html' %}
+  </div>
+  <div class="content content2">
+    <!-- Main Content -->
+    <div class="main-content p-3"></div>
+
+    <!-- Right Sidebar -->
+    <div class="sidebar right-sidebar">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link SidebarLinks my-1" href="#"> Job Portals </a>
+        </li>
+        <li class="nav-item SidebarLinks my-1">
+          <a class="nav-link" href="#"> Endorse </a>
+        </li>
+        <li class="nav-item SidebarLinks my-1">
+          <a class="nav-link" href="#"> Contribute </a>
+        </li>
+        <li class="nav-item SidebarLinks my-1">
+          <a class="nav-link" href="#"> Veriprofile Plans </a>
+        </li>
+        <li class="nav-item SidebarLinks my-1">
+          <a class="nav-link" href="#"> Download as PDF </a>
+        </li>
+        <li class="nav-item SidebarLinks my-1">
+          <a class="nav-link" href="#"> Register Company </a>
+        </li>
+        <li class="nav-item SidebarLinks my-1">
+          <a class="nav-link" href="#"> Why us </a>
+        </li>
+        <li class="nav-item SidebarLinks my-1">
+          <a class="nav-link" href="#"> Join us </a>
+        </li>
+        <!-- Add more right sidebar menu items as needed -->
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- notification filter  -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const filterButtons = document.querySelectorAll(".filter-button");
+      const notifications = document.querySelectorAll("#notifications-list .notification");
+
+
+      function filterNotifications(filter) {
+        notifications.forEach(function (notification) {
+          const readStatus = notification.getAttribute("data-read-status");
+          const shouldDisplay = filter === "all" || (filter === "read" && readStatus === 'True') || (filter === "unread" && readStatus === 'False');
+          notification.style.display = shouldDisplay ? "block" : "none";
+        });
+      }
+
+      filterButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          const filter = button.getAttribute("data-filter");
+          filterNotifications(filter);
+        });
+      });
+    });
+  </script>
+
+  <!-- delete notifications  -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const deleteAllButton = document.querySelector(".delete-all-notifications");
+      const notificationsList = document.getElementById("notifications-list");
+  
+      deleteAllButton.addEventListener("click", function () {
+        // Create an array to store the removed notification IDs
+        const removedNotificationIds = [];
+  
+        // Iterate over each notification element and store its ID in the array
+        notificationsList.querySelectorAll(".notification").forEach(function (notification) {
+          const notificationId = notification.getAttribute("data-id");
+          removedNotificationIds.push(notificationId);
+  
+          // Remove the notification element from the page
+          notification.remove();
+        });
+  
+        // Store the removed notification IDs in local storage
+        localStorage.setItem("removedNotifications", JSON.stringify(removedNotificationIds));
+      });
+  
+      // Check if there are removed notification IDs in local storage
+      const removedNotificationIds = JSON.parse(localStorage.getItem("removedNotifications"));
+      if (removedNotificationIds) {
+        // Remove the notifications with IDs from the local storage
+        removedNotificationIds.forEach(function (notificationId) {
+          const removedNotification = document.querySelector(`.notification[data-id="${notificationId}"]`);
+          if (removedNotification) {
+            removedNotification.remove();
+          }
+        });
+      }
+    });
+  </script>
+
+
+{% endblock %}

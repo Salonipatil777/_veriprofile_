@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load social_share %}
+
+{% block content %}
+    {% for u in userr %}
+    <div class="image-containerr position-relative">
+      {% if u.cover_image %}
+      <img
+        src="{{ u.cover_image.url }}"
+        alt="Cover Image"
+        class="w-100"
+        style="height: 200px !important"
+      />
+      {% else %}
+      <img
+        src="{% static 'Default Cover Image.png' %}"
+        alt="Default Image"
+        class="w-100"
+        style="height: 200px !important"
+      />
+      {% endif %}
+
+      <form
+        action="{% url 'upload_cover' u.id %}"
+        class="position-absolute bottom-0 end-0 m-2"
+        method="post"
+        enctype="multipart/form-data"
+        id="image-form"
+        style="padding-top: 10px"
+      >
+        {% csrf_token %}
+        <input
+          type="file"
+          id="id_file"
+          name="cover_image"
+          class="not-visible"
+          accept="image/*"
+          hidden
+        />
+        <label
+          for="id_file"
+          class="btn rounded-circle m-0 p-2 d-flex align-items-center justify-content-center"
+          style="width: 40px;background-color: #031d9c; color:white;"
+          ><span class="material-symbols-outlined"> add_a_photo </span></label
+        >
+        <div id="alert-box"></div>
+        <!-- Add this modal structure at the end of your HTML body -->
+        <div
+          class="modal fade"
+          id="cropModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="cropModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="cropModalLabel">Crop Image</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-mdb-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div
+                class="modal-body p-lg-5 mx-auto"
+                style="
+                  padding: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  height: 100%;
+                "
+              >
+                <div id="cropper-container" class="mx-auto" style="width: 100%">
+                  <img
+                    src=""
+                    id="crop-image"
+                    style="max-width: 100%; width: 100%"
+                  />
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-mdb-dismiss="modal"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="crop-confirm-btn"
+                >
+                  Crop & Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    {% endfor %}
+    <div class="scrollBar2 d-none d-lg-block"><span class="d-none"></span></div>
+    <ul
+      class="nav nav-tabs w-100 d-flex justify-content-center mb-1 pt-1"
+      style="
+        background-color: #fff;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) !important;
+      "
+      id="ex1"
+      role="tablist"
+    >
+      <li class="nav-item me-lg-5" role="presentation">
+        <a
+          class="nav-link px-2 px-lg-4 active d-flex align-items-center py-2"
+          id="ex1-tab-1"
+          data-mdb-toggle="tab"
+          href="#ex1-tabs-1"
+          role="tab"
+          aria-controls="ex1-tabs-1"
+          aria-selected="true"
+          style="font-size: 16px !important; font-weight: 600; color: black"
+          ><span class="material-icons me-2 fs-4"> person_3 </span> Profile</a
+        >
+      </li>
+      <li class="nav-item mx-lg-5 px-lg-5 px-2" role="presentation">
+        <a
+          class="nav-link px-2 px-lg-3 d-flex align-items-center py-2"
+          id="ex1-tab-2"
+          data-mdb-toggle="tab"
+          href="#ex1-tabs-2"
+          role="tab"
+          aria-controls="ex1-tabs-2"
+          aria-selected="false"
+          style="font-size: 16px !important; font-weight: 600; color: black"
+          ><span class="material-icons me-2 fs-4"> groups_3 </span>Colleagues</a
+        >
+      </li>
+      <li class="nav-item ms-lg-5" role="presentation">
+        <a
+          class="nav-link px-2 px-lg-4 d-flex align-items-center py-2"
+          id="ex1-tab-3"
+          data-mdb-toggle="tab"
+          href="#ex1-tabs-3"
+          role="tab"
+          aria-controls="ex1-tabs-3"
+          aria-selected="false"
+          style="font-size: 16px !important; font-weight: 600; color: black"
+          ><span class="material-icons me-2 fs-4"> feed </span> News</a
+        >
+      </li>
+    </ul>
+    <!-- Tabs navs -->
+    <div class="scrollBar1"><span class="d-none"></span></div>
+
+    <div class="content content1" style="background-color: #f9f9f9">
+      <!-- Left Sidebar -->
+      <div class="sidebar left-sidebar">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a
+              class="px-0 nav-link active SidebarLinks my-1 d-flex align-items-center"
+              href="#"
+              ><img
+                src="{% static 'Qforge.svg' %}"
+                class="me-3"
+                height="35px"
+                alt=""
+              />
+              <span>Qforge</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="px-0 nav-link SidebarLinks my-1 d-flex align-items-center"
+              href="#"
+              ><img
+                src="{% static 'A-List.svg' %}"
+                class="me-3"
+                height="35px"
+                alt=""
+              />
+              <span>A-List</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="px-0 nav-link SidebarLinks my-1 d-flex align-items-center"
+              href="#"
+              ><img
+                src="{% static 'Success.svg' %}"
+                class="me-3"
+                height="35px"
+                alt=""
+              />
+              <span>Success Stories</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="px-0 nav-link SidebarLinks my-1 d-flex align-items-center"
+              href="#"
+              ><img
+                src="{% static 'Advice.svg' %}"
+                class="me-3"
+                height="35px"
+                alt=""
+              />
+              <span>Expert Advice</span></a
+            >
+          </li>
+          <!-- Add more left sidebar menu items as needed -->
+        </ul>
+      </div>
+      <!-- Main Content -->
+      {% include 'main-content.html' %}
+      {% include 'right_sidebar.html' %}
+
+    </div>
+
+    <div class="content content2" style="background-color: #f9f9f9">
+      <!-- Main Content -->
+      {% include 'main-content2.html' %}
+
+    </div>
+    {% endblock %}
+

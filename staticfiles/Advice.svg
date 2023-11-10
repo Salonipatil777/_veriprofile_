@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="50.8mm" height="50.8mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 5080 5080"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:url(#id0);fill-rule:nonzero}
+    .fil1 {fill:url(#id1);fill-rule:nonzero}
+    .fil2 {fill:url(#id2);fill-rule:nonzero}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="5490.15" y1="2837.28" x2="424.81" y2="2242.71">
+   <stop offset="0" style="stop-opacity:1; stop-color:#BDBCC2"/>
+   <stop offset="0.560784" style="stop-opacity:1; stop-color:#D2D2D5"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#E8E8E8"/>
+  </linearGradient>
+  <linearGradient id="id1" gradientUnits="userSpaceOnUse" x1="2279.3" y1="4349.84" x2="1729.07" y2="2708.11">
+   <stop offset="0" style="stop-opacity:1; stop-color:#EB5A4E"/>
+   <stop offset="0.439216" style="stop-opacity:1; stop-color:#F39541"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#FCD033"/>
+  </linearGradient>
+  <linearGradient id="id2" gradientUnits="userSpaceOnUse" x1="1755.96" y1="2480.11" x2="1203.31" y2="1549.24">
+   <stop offset="0" style="stop-opacity:1; stop-color:#707AFC"/>
+   <stop offset="0.560784" style="stop-opacity:1; stop-color:#85A5E2"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#9AD1C7"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_2073188146992">
+   <rect class="fil0" x="1476.97" y="760.26" width="2961.02" height="3559.45"/>
+   <path class="fil1" d="M1607.8 2738.23l803.94 0 693.58 0c143.58,0 261.06,117.47 261.06,261.06l0 0.01c0,143.58 -117.48,261.05 -261.06,261.05l-693.58 0 0 1059.37 -1769.74 0 0 -615.68c0,-531.19 434.61,-965.81 965.8,-965.81z"/>
+   <ellipse class="fil2" cx="1479.64" cy="2014.67" rx="530.14" ry="545.14"/>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,793 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'bscss/bootstrap.min.css' %}">
+        <script src="{% static 'bsjs/bootstrap.min.js' %}"></script>
+    <style>
+        @import url("https://fonts.cdnfonts.com/css/segoe-ui-4");
+        @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Open+Sans&family=Poppins&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Nunito+Sans:opsz@6..12&family=Open+Sans&family=Poppins&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Exo+2&family=Josefin+Sans:wght@500&family=Nunito+Sans:opsz@6..12&family=Open+Sans&family=Poppins&display=swap");
+
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+        @import url("https://fonts.cdnfonts.com/css/segoe-ui-4");
+        @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Open+Sans&family=Poppins&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Nunito+Sans:opsz@6..12&family=Open+Sans&family=Poppins&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Exo+2&family=Josefin+Sans:wght@500&family=Nunito+Sans:opsz@6..12&family=Open+Sans&family=Poppins&display=swap");
+
+
+
+        .image-container {
+            position: relative !important;
+        }
+
+
+        .imagelabel {
+            display: inline-block !important;
+            background-color: rgba(56, 51, 51, 0.8) !important;
+            border-radius: 5px !important;
+            cursor: pointer !important;
+            font-weight: 600 !important;
+            color: white !important;
+            font-size: 14px !important;
+        }
+
+        #edit-cover-input {
+            display: none !important;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+
+        .profile-pictures {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-picture {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            margin-left: -12px;
+            z-index: 1;
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .userImg {
+            position: relative !important;
+        }
+
+        .userLock {
+            position: absolute !important;
+            right: 27px !important;
+            bottom: 10px !important;
+        }
+
+
+
+        .SidebarLinks {
+            font-size: 15px !important;
+            font-weight: 500 !important;
+            color: #4c4c4c !important;
+        }
+
+        .username {
+            color: #234FA7 !important;
+            font-weight: bold !important;
+            font-size: 25px !important;
+            font-family: 'Segoe UI', sans-serif !important;
+        }
+
+        .intro {
+            font-family: 'Segoe UI', sans-serif !important;
+            color: #343434 !important;
+            font-size: 17px !important;
+        }
+
+        .introPara {
+            font-family: 'Segoe UI', sans-serif !important;
+            font-size: 18px !important;
+            color: gray !important;
+            text-align: justify !important;
+        }
+
+        @media screen and (min-width:900px) {
+            .content2 {
+                display: none !important;
+            }
+        }
+
+        @media screen and (max-width:900px) {
+            .content1 {
+                display: none !important;
+            }
+        }
+    </style>
+    <link href="{% static 'css/user.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../static/css/user.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+        integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.11/iconfont/material-icons.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+    <script src="{% static 'js/search.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+    {% for i in user %}
+    <div class="main-content px-4 pb-4" style="margin-top: 40px !important;">
+
+        <!-- Tabs content -->
+        <div class="tab-content" id="ex1-content">
+            {% for i in user %}
+            <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+                <!-- Tabs content -->
+                <div class="row">
+                    <div class="col-4 userImg">
+                        <img src="{{ i.image.path }}" class="" style="height: 225px; width: 225px;" />
+                        <i class="fa-solid fa-user-lock fs-5 userLock text-light"></i>
+                    </div>
+                    <div class="col-8">
+                        <div class="mx-2">
+                            <h3 class="username mb-0">
+                                {{ i.first_name }} {{i.middle_name}} {{ i.last_name }}
+                            </h3>
+                            <div class="d-flex my-2">
+                                <div>
+                                    {% if i.status == 'Verified' %}
+                                    <h6 class="fs-4 mt-1 username">
+                                        <img src="{% static 'verified badges.png' %}"
+                                            style="width: 140px; cursor: pointer !important" />
+                                        <!-- Modal -->
+                                    </h6>
+                                    {% else %}
+                                    <h6 class="fs-4 mt-1 username">
+                                        <img src="{% static 'Non-verified badge.png' %}" class=""
+                                            style="width: 180px; cursor: pointer !important" />
+                                    </h6>
+                                    {% endif %}
+                                </div>
+                                <div class="d-flex ms-2">
+                                    {% for t in userlevels %}
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ t.level.image.url }}" alt="">
+                                        <p class="fs-6 fw-bold mb-0 ms-2 me-2">{{ t.level.name }}</p>
+                                    </div>
+                                    {% empty %}
+                                    <div class="d-flex align-items-center">
+                                        <img src="{% static '1 Smart.svg' %}" alt="">
+                                        <p class="fs-6 fw-bold mb-0 ms-2 me-2">Smart Profile</p>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+
+
+                            </div>
+                            <p style="font-weight: 500 !important" class="mb-2">
+                                Executive Profile
+                                <span class="text-muted fw-normal">in </span><span class="text-primary">
+                                    {{i.current_position}} </span>
+                            </p>
+                            <h6 class="my-2 d-flex align-items-center" style="font-weight: 500 !important">
+                                <span class="material-symbols-outlined me-1" style="font-size: 15px;">
+                                    location_on
+                                </span> Current Location :
+                                <span class="text-primary ms-1" style="font-size: 14px;">{{ i.address }}</span>
+                            </h6>
+                            <h6 class="my-2 mb-3 d-flex align-items-center" style="font-weight: 500 !important">
+                                <span class="material-symbols-outlined me-1" style="font-size: 15px;">
+                                    add_location_alt
+                                </span> Home Town :
+                                <span class="text-primary ms-1" style="font-size: 14px;">{{ i.address }}</span>
+                            </h6>
+                            <div class="d-md-flex align-items-center">
+                                <a href=""
+                                    class="text-decoration-none text-light btn rounded-4 px-4  p-2 fw-normal rounded-pill"
+                                    style="background-color: #0024d3; font-size: 13px;" target="_blank">
+                                    Connect
+                                </a>
+                                <!-- <a href=""
+                class="text-decoration-none text-primary btn btn-outline-primary rounded-4 px-4 p-2 fw-normal rounded-pill ms-3"
+                target="_blank" style="font-size: 13px;">
+                Ping
+              </a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="mb-0">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- <div class="username fs-5 my-3">About {{ i.first_name }}</div> -->
+                        <p class="introPara mb-2">{{ i.intro }}</p>
+                        <hr class="my-1" />
+                        <div class="row row-cols-md-4 row-cols-1 g-3 mb-3">
+                            <div class="col">
+                                <p class="mb-0 mt-2" style="
+                        font-size: 14px !important;
+                        font-weight: 600 !important;
+                      ">
+                                    <i class="fa-solid fa-hand-holding-heart text-primary fs-5"></i>
+                                    <span class="text-success">160+ </span>Endorsement
+                                </p>
+                            </div>
+                            <div class="col">
+                                <p class="mb-0 mt-2 ms-3" style="
+                        font-size: 14px !important;
+                        font-weight: 600 !important;
+                      ">
+                                    <i class="fa-brands fa-facebook text-primary fs-5"></i>
+                                    <span class="text-success">140 </span>Followers
+                                </p>
+                            </div>
+                            <div class="col">
+                                <p class="mb-0 mt-2" style="
+                        font-size: 14px !important;
+                        font-weight: 600 !important;
+                      ">
+                                    <i class="fa-brands fa-linkedin text-primary fs-5"></i>
+                                    <span class="text-success"> 50+ </span> Followers
+                                </p>
+                            </div>
+                            {% if i.status == 'Verified' %}
+                            <div class="col">
+                                <p class="mb-0 mt-2" style="
+                        font-size: 13px !important;
+                        font-weight: 600 !important;
+                        color: #ff1694 !important;
+                      ">
+                                    Verified Elite Profile
+                                </p>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <hr class="my-1" />
+                        <div class="my-3 d-flex align-items-center text-center">
+                            <div class="text-center">
+                                <a href="{% url 'pdf' %}" type="button"><i
+                                        class="fa-solid fa-cloud-arrow-down fs-5 bg-primary text-light p-3 rounded-circle me-2"></i>
+                                    <p class="mb-0 fw-bold text-primary fs-6 text-center">
+                                        PDF
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="text-center">
+                                <a href="/"><i
+                                        class="fa-brands fa-whatsapp fs-5 bg-success text-light p-3 rounded-circle mx-2"></i>
+                                    <p class="mb-0 fw-bold text-success fs-6 text-center">
+                                        Chat
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="text-center">
+                                <a href="/"><i
+                                        class="fa-solid fa-share-nodes fs-5 bg-danger text-light p-3 rounded-circle mx-2"></i>
+                                    <p class="mb-0 fw-bold text-danger fs-6 text-center">
+                                        Share
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="text-center">
+                                <a href="/"><i
+                                        class="fa-solid fa-user-shield fs-5 bg-warning text-light p-3 rounded-circle mx-2"></i>
+                                    <p class="mb-0 fw-bold text-warning fs-6 text-center">
+                                        Endorse
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="text-center">
+                            </div>
+                        </div>
+                        <hr class="my-1" />
+
+                        <div class="username fs-5">
+                            Qualification
+                            <p class="introPara fw-normal text-muted my-2">
+                                Engineering in
+                                <span class="text-dark">Information Technology</span> from
+                                <span class="introPara text-primary">ABVS University</span>
+                            </p>
+                        </div>
+
+                        <div class="username fs-5">
+                            <p class="introPara fw-normal text-muted">
+                                <span class="text-dark">Advanced Management Program</span>
+                                from
+                                <span class="introPara text-primary">Harvard Business School</span>
+                            </p>
+
+                            <div class="username fs-5 my-4">Career</div>
+                            <div class="row my-4">
+                                <div class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <p class="bg-danger" style="
+                              width: 66px !important;
+                              height: 75px !important;
+                            "></p>
+                                        </div>
+                                        <div class="col-10 ps-4 pe-2">
+                                            <p class="fw-normal text-dark mb-0" style="font-size: 15px !important">
+                                                Senior Developer at
+                                                <span class="text-primary">
+                                                    Mphasist Tech Pvt. Ltd.
+                                                </span>
+                                            </p>
+
+                                            <p class="fw-bold text-dark mb-1" style="font-size: 17px !important">
+                                                Banglore, India
+                                            </p>
+                                            <div class="mb-0 d-flex align-items-center" style="
+                              font-size: 13px !important;
+                              font-weight: 600 !important;
+                            ">
+                                                <div>
+                                                    <i class="fa-solid fa-hand-holding-heart text-primary fs-6"></i>
+                                                </div>
+                                                <div class="profile-pictures ms-4">
+                                                    <div class="profile-picture">
+                                                        <img src="{% static 'user2.jpg' %}" alt="Profile 1" />
+                                                    </div>
+                                                    <div class="profile-picture">
+                                                        <img src="{% static 'user1.jpg' %}" alt="Profile 2" />
+                                                    </div>
+                                                    <div class="profile-picture">
+                                                        <img src="{% static 'girl.png' %}" alt="Profile 3" />
+                                                    </div>
+                                                    <div class="profile-picture">
+                                                        <img src="{% static 'girl.jpg' %}" alt="Profile 3" />
+                                                    </div>
+                                                </div>
+                                                <span class="text-success">160+ </span>Endorsement
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 pe-0">
+                                    <p class="text-muted mb-0" style="font-size: 14px !important; font-weight: 500">
+                                        Joining 12 August 2022
+                                    </p>
+                                    <p class="text-muted" style="font-size: 14px !important; font-weight: 500">
+                                        Quit 19 August 2023
+                                    </p>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="bg-secondary text-dark fs-6 p-2">1 Year</div>
+                                </div>
+                            </div>
+
+                            <div class="row my-4">
+                                <div class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <p class="bg-info" style="
+                              width: 66px !important;
+                              height: 75px !important;
+                            "></p>
+                                        </div>
+                                        <div class="col-10 ps-4 pe-2">
+                                            <p class="fw-normal text-dark mb-0" style="font-size: 15px !important">
+                                                Junior Developer at
+                                                <span class="text-primary"> Lutrade Mine LLP </span>
+                                            </p>
+
+                                            <p class="fw-bold text-dark mb-1" style="font-size: 16px !important">
+                                                Pune, India
+                                            </p>
+                                            <div class="mb-0 d-flex align-items-center" style="
+                              font-size: 13px !important;
+                              font-weight: 600 !important;
+                            ">
+                                                <div>
+                                                    <i class="fa-solid fa-hand-holding-heart text-primary fs-6"></i>
+                                                </div>
+                                                <div class="profile-pictures ms-4">
+                                                    <div class="profile-picture">
+                                                        <img src="{% static 'user2.jpg' %}" alt="Profile 1" />
+                                                    </div>
+                                                    <div class="profile-picture">
+                                                        <img src="{% static 'user1.jpg' %}" alt="Profile 2" />
+                                                    </div>
+                                                    <div class="profile-picture">
+                                                        <img src="{% static 'girl.png' %}" alt="Profile 3" />
+                                                    </div>
+                                                    <div class="profile-picture">
+                                                        <img src="{% static 'girl.jpg' %}" alt="Profile 3" />
+                                                    </div>
+                                                </div>
+                                                <span class="text-success">10+ </span>Endorsement
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <p class="text-muted mb-0" style="font-size: 14px !important; font-weight: 500">
+                                        Joining 3 August 2020
+                                    </p>
+                                    <p class="text-muted" style="font-size: 14px !important; font-weight: 500">
+                                        Quit 10 January 2022
+                                    </p>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="bg-secondary text-dark fs-6 p-2">
+                                        1.5 Years
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row my-4">
+                                <div class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <p class="bg-success" style="
+                              width: 66px !important;
+                              height: 75px !important;
+                            "></p>
+                                        </div>
+                                        <div class="col-10 ps-4 pe-2">
+                                            <p class="fw-normal text-dark mb-0" style="font-size: 15px !important">
+                                                Junior Developer at
+                                                <span class="text-primary"> Sabadre Loop LLP </span>
+                                            </p>
+
+                                            <p class="fw-bold text-dark mb-1" style="font-size: 17px !important">
+                                                Bangalore, India
+                                            </p>
+                                            <p class="mb-0" style="
+                              font-size: 13px !important;
+                              font-weight: 600 !important;
+                            ">
+                                                <i class="fa-solid fa-hand-holding-heart text-primary fs-6"></i>
+                                                <span class="text-success">0 </span>Endorsement
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <p class="text-muted mb-0" style="font-size: 14px !important; font-weight: 500">
+                                        Joining 6 March 2018
+                                    </p>
+                                    <p class="text-muted" style="font-size: 14px !important; font-weight: 500">
+                                        Quit 9 August 2020
+                                    </p>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="bg-secondary text-dark fs-6 p-2">
+                                        2.5 Years
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="username fs-5 my-4">
+                            Skills
+                            <div class="row">
+                                <div class="col-md-7 pe-0">
+                                    <p class="text-dark fw-normal mb-1" style="font-size: 15px !important">
+                                        Programming in Python at
+                                        <span class="fw-bold introPara text-primary" style="font-size: 16px !important">
+                                            Artificial Intelligence
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="col-md-5">
+                                    <p class="text-muted mb-0" style="font-size: 15px !important; font-weight: 600">
+                                        Approved by
+                                        <img src="{% static 'profile1.jpg' %}" class="rounded-circle" height="19" />
+                                        <span class="text-primary">Sunita Williams</span>, HR
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7 pe-0">
+                                    <p class="text-dark fw-normal mb-1" style="font-size: 15px !important">
+                                        Management at
+                                        <span class="fw-bold introPara text-primary" style="font-size: 16px !important">
+                                            Backend Office
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="col-md-5">
+                                    <p class="text-muted mb-0" style="font-size: 15px !important; font-weight: 600">
+                                        Approved by
+                                        <img src="{% static 'profile1.jpg' %}" class="rounded-circle" height="19" />
+                                        <span class="text-primary">Prabhu Deva</span>, HR
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="username fs-5 my-4">
+                            Awards
+                            <div class="row">
+                                <div class="col-md-12 pe-0">
+                                    <p class="text-dark fw-normal mb-1" style="font-size: 16px !important">
+                                        Business Excellence Award by
+                                        <span class="fw-bold introPara text-primary" style="font-size: 16px !important">
+                                            Global India Business Forum
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 pe-0">
+                                    <p class="text-dark fw-normal mb-1" style="font-size: 16px !important">
+                                        Best Manager Award by
+                                        <span class="fw-bold introPara text-primary" style="font-size: 16px !important">
+                                            Bhabha Tech
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="username fs-5 my-4">
+                            Recommendations
+                            <div class="row">
+                                <div class="col-md-12 pe-0">
+                                    <p class="text-dark fw-normal mb-1" style="font-size: 17px !important">
+                                        <i class="fa-solid fa-quote-left"></i> Amitabh is a top
+                                        rung IT professional, who is now a proven leader and
+                                        builder of high-performance teams which have delivered
+                                        superior results consistently under his inspirational
+                                        leadership.
+                                    </p>
+                                    <p class="fw-normal text-primary mt-2" style="font-size: 17px !important">
+                                        <img src="{% static 'girl.jpg' %}" class="rounded-circle border border-dark"
+                                            height="24" />
+                                        Sunita Kalbhor
+                                        <span class="text-muted">, CEO,</span> Bhabha Tech
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="username fs-5 my-4">
+                            Work References
+                            <div class="row">
+                                <div class="col-md-12 pe-0">
+                                    <p class="text-dark fw-normal mb-1" style="font-size: 15px !important">
+                                        UPCONN Website at
+                                        <a href="https://upconn.in">https://upconn.in</a>
+                                    </p>
+                                    <p class="text-dark fw-normal mb-1" style="font-size: 15px !important">
+                                        Qudoes App at
+                                        <a
+                                            href="https://play.google.com/store/apps/details?id=com.ludo.king....">https://play.google.com/store/apps/details?id=com.ludo.king....</a>
+                                    </p>
+                                    <p class="text-dark fw-normal mb-1" style="font-size: 15px !important">
+                                        Quick Book at
+                                        <a
+                                            href="https://fastplaybook.com/book-amitabh-global.pdf">https://fastplaybook.com/book-amitabh-global.pdf</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="username fs-5 my-4">
+                            Media References
+                            <div class="row">
+                                <div class="col-md-12 pe-0">
+                                    <p class="text-dark fw-normal mb-1" style="font-size: 16px !important">
+                                        Creative Content Published at
+                                        <a href="">Sakal Media</a>
+                                    </p>
+                                    <p class="text-dark fw-normal mb-1" style="font-size: 16px !important">
+                                        E-paper Content at
+                                        <a
+                                            href="https://e-paper/media-amitabh-professional-article.pdf">https://e-paper/media-amitabh-professional-article.pdf</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% for m in user_messages %}
+                        <div class="modal fade" id="exampleModalreply" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h6 class="modal-title" id="exampleModalLabel"
+                                            style="font-weight: 600 !important;">Message to {{m.sender}}</h6>
+                                        <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{% url 'userdashboard' i.status i.first_name i.unique_id %}"
+                                            method="post">
+                                            {% csrf_token %}
+                                            <div class="form-outline">
+                                                <textarea class="form-control" name="message" id="textAreaExample"
+                                                    rows="2" required></textarea>
+                                                <label class="form-label" for="textAreaExample">Enter Message</label>
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-danger d-flex align-items-center"
+                                            style="font-size: 13px; font-weight: 600;"><span>Send</span></button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="username fs-5 my-4">
+                            Other Activities
+                            <div class="row">
+                                <div class="col-md-12 pe-0">
+                                    <p class="text-dark fw-normal mb-1" style="font-size: 16px !important">
+                                        <span class="fw-bold">Participated</span> for Group
+                                        Discussion and Seminar at
+                                        <a href="">Uniq University</a>,
+                                        <span class="fw-bold">Pune</span> on 2022
+                                    </p>
+                                    <p class="text-dark fw-normal mb-1" style="font-size: 16px !important">
+                                        <span class="fw-bold">Management</span> for
+                                        <a href="">Youth Innovation Expo</a>,
+                                        <span class="fw-bold">Mumbai </span> on 2020
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% comment %} gallery {% endcomment %}
+                        <div>
+                            <div class="username fs-5 mt-4 mb-3">Gallery</div>
+                            <div class="row g-2">
+                                <div class="col-md-3">
+                                    <div class="row mb-2">
+                                        <img src="{% static 'img1.jpg' %}" class="w-100 h-100" />
+                                    </div>
+                                    <div class="row mt-2">
+                                        <img src="{% static 'img2.jpg' %}" class="w-100 h-100" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="{% static 'img3.jpg' %}" class="w-100 h-100" />
+                                </div>
+                                <div class="col-md-5">
+                                    <img src="{% static 'img4.jpg' %}" class="w-100 h-100" />
+                                </div>
+                            </div>
+                            <div class="row g-2 my-1">
+                                <div class="col-md-4">
+                                    <img src="{% static 'img5.jpg' %}" class="w-100 h-100" />
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="row mb-2">
+                                        <img src="{% static 'img6.jpg' %}" class="w-100 h-100" />
+                                    </div>
+                                    <div class="row mt-2">
+                                        <img src="{% static 'img7.jpg' %}" class="w-100 h-100" />
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <img src="{% static 'img8.jpg' %}" class="w-100 h-100" />
+                                </div>
+                            </div>
+                            <div class="row g-2 my-1">
+                                <div class="col-md-6">
+                                    <img src="{% static 'img9.jpg' %}" class="w-100 h-100" />
+                                </div>
+                                <div class="col-md-6">
+                                    <img src="{% static 'img10.jpg' %}" class="w-100 h-100" />
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} gallery {% endcomment %}
+
+                        <div class="username fs-5 my-4">
+                            Other Activities
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ol class="text-dark fw-normal mb-1" style="font-size: 16px !important">
+                                        <li>
+                                            Amitabh changed the game: A timeline of his corporate
+                                            career.
+                                            <a href="https://www.example.com">Deccan Herald</a>,
+                                            17 September 2019. Archived from the original on 15
+                                            January 2021. Retrieved 13 January 2021.
+                                        </li>
+                                        <li>
+                                            Tiwari, Ravish (27 November 2014). "The low-profile
+                                            <a href="https://www.UPCONN .com">UPCONN </a>apparatchik is the newface of
+                                            power in the
+                                            <a href="https://www.UPCONN .com"> InfoTech </a>".
+                                            India. Retrieved 13 January 2021.
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="username fs-5 my-4">
+                            Corporate Network
+                            <div class="row row-cols-md-2 row-cols-1 g-4">
+                                <div class="col d-flex align-items-center">
+                                    <img src="{% static 'user1.jpg' %}" height="45px" width="45px"
+                                        class="rounded-circle border" />
+                                    <div class="ms-3" style="font-size: 16px !important; font-weight: 600">
+                                        <p class="mb-0">Sunita Calbhor</p>
+                                        <p class="mb-0">
+                                            <span class="text-muted">CEO ,</span> Bhabha Tech
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col d-flex align-items-center">
+                                    <img src="{% static 'user1.jpg' %}" height="45px" width="45px"
+                                        class="rounded-circle border" />
+                                    <div class="ms-3" style="font-size: 16px !important; font-weight: 600">
+                                        <p class="mb-0">Sunita Calbhor</p>
+                                        <p class="mb-0">
+                                            <span class="text-muted">CEO ,</span> Bhabha Tech
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col d-flex align-items-center">
+                                    <img src="{% static 'user1.jpg' %}" height="45px" width="45px"
+                                        class="rounded-circle border" />
+                                    <div class="ms-3" style="font-size: 16px !important; font-weight: 600">
+                                        <p class="mb-0">Sunita Calbhor</p>
+                                        <p class="mb-0">
+                                            <span class="text-muted">CEO ,</span> Bhabha Tech
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col d-flex align-items-center">
+                                    <img src="{% static 'user1.jpg' %}" height="45px" width="45px"
+                                        class="rounded-circle border" />
+                                    <div class="ms-3" style="font-size: 16px !important; font-weight: 600">
+                                        <p class="mb-0">Sunita Calbhor</p>
+                                        <p class="mb-0">
+                                            <span class="text-muted">CEO ,</span> Bhabha Tech
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
+
+</body>
+
+</html>

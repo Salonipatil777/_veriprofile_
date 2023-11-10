@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+
+    <style>
+        .custom-file-container {
+            box-sizing: border-box;
+            position: relative;
+            display: block
+        }
+
+        .custom-file-container * {
+            box-sizing: border-box
+        }
+
+        .custom-file-container .label-container {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px
+        }
+
+        .custom-file-container .clear-button {
+            color: #333;
+            font-size: 26px;
+            height: 26px;
+            line-height: 26px;
+            text-decoration: none;
+            transition: color .2s ease-in-out
+        }
+
+        .custom-file-container .clear-button:hover {
+            color: #777
+        }
+
+        .custom-file-container .input-container {
+            display: inline-block;
+            height: 40px;
+            margin-bottom: 8px;
+            position: relative;
+            width: 100%
+        }
+
+        .custom-file-container .input-container:hover {
+            cursor: pointer
+        }
+
+        .custom-file-container .input-hidden {
+            height: 40px;
+            margin: 0;
+            max-width: 100%;
+            min-width: 300px;
+            opacity: 0
+        }
+
+        .custom-file-container .input-visible {
+            background-clip: padding-box;
+            background-color: #fff;
+            border-radius: 4px;
+            border: 1px solid #c0c0af;
+            color: #333;
+            height: 40px;
+            left: 0;
+            line-height: 1.5;
+            overflow: hidden;
+            padding: 8px 12px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            user-select: none;
+            z-index: 5
+        }
+
+        .custom-file-container .browse-button {
+            background-color: #edede8;
+            border-left: 1px solid #c0c0af;
+            color: #333;
+            display: block;
+            height: 38px;
+            padding: 8px 12px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 6
+        }
+
+        .custom-file-container .image-preview {
+            background-color: #edede8;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 4px;
+            height: 250px;
+            overflow: auto;
+            padding: 4px;
+            transition: .2s ease-in-out;
+            width: 100%
+        }
+
+        .custom-file-container .image-preview-item {
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px #33333340;
+            float: left;
+            height: 90px;
+            margin: 1.858736059%;
+            position: relative;
+            transition: .2s ease-in-out, opacity .2s ease-in-out;
+            width: 29.615861214%
+        }
+
+        .custom-file-container .image-preview-item.multi-item-clear-animation {
+            opacity: 0
+        }
+
+        .custom-file-container .image-preview-item-clear {
+            background: #edede8;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px #33333340;
+            height: 20px;
+            left: -6px;
+            margin-top: -6px;
+            position: absolute;
+            text-align: center;
+            transition: .2s ease-in-out, color .2s ease-in-out;
+            width: 20px
+        }
+
+        .custom-file-container .image-preview-item-clear:hover {
+            background: #e2e2da;
+            cursor: pointer
+        }
+
+        .custom-file-container .image-preview-item-clear-icon {
+            color: #333;
+            display: block;
+            margin-top: -2px
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview/dist/style.css" />
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview/dist/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/file-upload-with-preview@6.0.2/dist/style.min.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body  hx-ext="ws" ws-connect="/ws/notifications/">
+
+    <div class="container mt-5 pt-5">
+        <div class="text-center">
+            <h2>User Information</h2>
+        </div>
+        <form action="" method="post" id="myUniqueUploadId">
+            <div class="form-group col-md-12">
+                <label for="" >Info</label>
+                <input type="text" required class="form-control">
+            </div>
+            <div class="custom-file-container" data-upload-id="myUniqueUploadId">
+                <label for="">Upload file <a href="javascript:void(0)" class="image-clear"
+                        title="Clear Image">&times;</a></label>
+                <label for="" class="label-container">
+                    <input type="file" class="custom-file-input  input-container" accept="*" multiple aria-label="Choose File">
+                    <input type="hidden" name="MAX-FILE-SIZE" value="10485760">
+                    <span class="custom-file-control"></span>
+                </label>
+                <div class="image-preview"></div>
+            </div>
+        </form>
+    </div>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/file-upload-with-preview@6.0.2/dist/file-upload-with-preview.min.js"></script>
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script>
+    <script src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js"></script>
+    <script src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js"></script>
+    <script>
+        var upload = new FileUploadWithPreview("myUniqueUploadId")
+    </script>
+</body>
+
+</html>

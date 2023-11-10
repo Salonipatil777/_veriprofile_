@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>
+        {{name}} 
+        <!-- {{lname}}
+        {{age}} -->
+        <hr>
+        {{request.session.get_session_cookie_age}} <hr>
+        {{request.session.get_expiry_age}} <hr>
+        {{request.session.get_expiry_date}} <hr>
+        {{request.session.get_expire_at_browser_close}} 
+        <!-- {% for key in keys %}
+        {{key}}
+        {% endfor %}
+        <br>
+        {% for item in items %}
+        {{item}}
+        {% endfor %} -->
+        
+    </h1>
+</body>
+</html>

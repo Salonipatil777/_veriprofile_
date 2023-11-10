@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,700" rel="stylesheet" type="text/css" />
+  <style>
+    html,
+    body * {
+      box-sizing: border-box;
+      font-family: "Open Sans", sans-serif;
+    }
+
+    /* {% comment %} body{
+        background: linear-gradient( rgb(255 255 255 / 95%), rgb(237 207 207 / 75%) ), url(https://dl.dropboxusercontent.com/u/22006283/preview/codepen/clouds-cloudy-forest-mountain.jpg) no-repeat center center;
+        height:92vh;
+      } {% endcomment %} */
+
+    .frame {
+      width: 430px;
+      background: linear-gradient(rgba(35, 43, 85, 0.75),
+          rgba(35, 43, 85, 0.95)),
+        url(https://dl.dropboxusercontent.com/u/22006283/preview/codepen/clouds-cloudy-forest-mountain.jpg) no-repeat center center;
+      background-size: cover;
+      margin-left: auto;
+      margin-right: auto;
+      border-top: solid 1px rgba(255, 255, 255, 0.5);
+      border-radius: 5px;
+      box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .nav {
+      width: 100%;
+      height: 100px;
+      padding-top: 40px;
+      opacity: 1;
+      transition: all 0.5s ease;
+    }
+
+    li {
+      padding-left: 10px;
+      font-size: 18px;
+      display: inline;
+      text-align: left;
+      text-transform: uppercase;
+      padding-right: 10px;
+      color: #ffffff;
+    }
+
+    .form-signin {
+      width: 430px;
+      height: 375px;
+      font-size: 16px;
+      font-weight: 300;
+      padding-left: 37px;
+      padding-right: 37px;
+      padding-top: 55px;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .form-signin input,
+    .form-signup input {
+      color: #ffffff;
+      font-size: 13px;
+    }
+
+    .form-styling {
+      width: 100%;
+      height: 35px;
+      padding-left: 15px;
+      border: none;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    label {
+      font-weight: 400;
+      text-transform: uppercase;
+      font-size: 13px;
+      padding-left: 15px;
+      padding-bottom: 10px;
+      color: rgba(255, 255, 255, 0.7);
+      display: block;
+    }
+
+    :focus {
+      outline: none;
+    }
+
+    .form-signin input:focus,
+    textarea:focus,
+    .form-signup input:focus,
+    textarea:focus {
+      background: rgba(255, 255, 255, 0.3);
+      border: none;
+      transition: background 0.5s ease;
+    }
+
+    .card_content {
+      position: relative;
+      padding-right: 12px;
+      margin-right: 8px;
+      margin-left: 8px;
+      max-height: 200px;
+      overflow-y: scroll;
+    }
+
+    .card_content::-webkit-scrollbar {
+      width: 2px;
+    }
+
+    .card_content::-webkit-scrollbar-track {
+      box-shadow: 0;
+      border-radius: 0;
+    }
+
+    .card_content::-webkit-scrollbar-thumb {
+      /* background: orange; */
+      background: #c89b3f;
+      border-radius: 15px;
+    }
+
+    .pricing .card {
+      border: none;
+      border-radius: 1rem;
+      transition: all 0.2s;
+      box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .pricing hr {
+      margin: 1.5rem 0;
+    }
+
+    .pricing .card-title {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+      letter-spacing: .1rem;
+      font-weight: bold;
+    }
+
+    .pricing .card-price {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .pricing .card-price .period {
+      font-size: 0.8rem;
+    }
+
+    .pricing ul li {
+      margin-bottom: 1rem;
+    }
+
+    .pricing .text-muted {
+      opacity: 0.7;
+    }
+
+    .pricing .btn {
+      font-size: 80%;
+      border-radius: 5rem;
+      letter-spacing: .1rem;
+      font-weight: bold;
+      padding: 1rem;
+      opacity: 0.7;
+      transition: all 0.2s;
+    }
+
+    /* Hover Effects on Card */
+
+    @media (min-width: 992px) {
+      .pricing .card:hover {
+        margin-top: -.25rem;
+        margin-bottom: .25rem;
+        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+      }
+
+      .pricing .card:hover .btn {
+        opacity: 1;
+      }
+    }
+  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Veriprofile</title>
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <!-- MDB -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
+</head>
+
+<body class="homebg" hx-ext="ws" ws-connect="/ws/notifications/">
+  {% include 'messages.html' %}
+  <div class="container py-8 py-lg-11">
+    <div class="row">
+      <i class="fa fa-close text-center" aria-hidden="true" style="font-size: 100px;color: red;"></i>
+    </div>
+    <div class="row">
+      <h1 class="entry-title text-center">Order Payment Failed !</h1>
+    </div>
+    <div class="row">
+      <p class="text-center">Please try again,Your order has not been received</p>
+    </div>
+    <br>
+    <div class="row">
+      <a href="{% url 'userdashboard' %}" class="btn btn-primary" style="width: 20%;margin-left: 470px;">Back to
+        profile</a>
+    </div>
+  </div>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
+</body>
+
+</html>

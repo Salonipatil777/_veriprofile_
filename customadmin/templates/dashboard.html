@@ -1,0 +1,412 @@
+{% extends "admin.html" %}
+{% load static %}
+
+
+
+  <!--Main layout-->  
+  {% block content %}
+    <div class="container mt-1 py-5 px-1 ps-lg-4 pe-lg-2">
+      <!-- Section: Main chart -->
+      <div class="container ps-0 text-center">
+        <div class="d-flex align-items-center">
+          <p class="mb-3 mt-3 mt-lg-1 text-center text-lg-start me-4" style="
+                    color: #d1dde6;
+                    font-size: 38px;
+                    font: normal normal 300 38px/57px Poppins;
+                  ">
+            <i class="bi bi-person-square"></i><i class="fa-solid fa-grip-lines-vertical ms-1"></i>
+            Users
+          </p>
+          <form method="get" action="{% url 'filter_data' %}" id="refreshForm">
+            <div class="">
+              <button type="submit" id="refreshBtn" class="btn rounded-circle"
+                style="background-color: #d1dde6; color: white; margin-top: -7px;"><i
+                  class="fa fa-refresh"></i></button>
+            </div>
+          </form>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <button id="advanceFilterBtn" class="btn text-light rounded-3 text-capitalize d-lg-flex align-items-center"
+              style="background-color: #052ae0;"><i class="bi bi-filter me-1 fs-5"></i><span
+                style="font-weight: 600; font-size: 13px;">Advance
+                Filter</span></button>
+          </div>
+          <!-- Advanced Filter Button -->
+
+          <div class="col-md-10 mt-1">
+            <!-- Filter Form -->
+            <form method="get" action="{% url 'filter_data' %}" id="filterForm">
+              <div id="filterOptions" class="hidden">
+                <div class="row" style="display: flex !important; justify-content: space-between !important;">
+                  <div class="col-md-5 px-3">
+                    <div class="">
+                      <select id="filterSelect" class="form-select form-control" name="filter_field">
+                        <option disabled selected>Select an option</option>
+                        <option value="unique_id">UID</option>
+                        <option value="Name">Name</option>
+                        <option value="join_veriprofile_at">Registration Date</option>
+                        <option value="profile_created_by">Created By</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 px-1">
+                    <div id="additionalFilters">
+                      <!-- Name filter -->
+                      <div class="filter hidden" data-filter="Name">
+                        <div class="row">
+                          <div class="col-md-6 px-1">
+                            <div class="mb-3">
+                              <select class="form-select form-control" name="name_filter">
+                                <option disabled selected>Select</option>
+                                <option value="first_name">First Name</option>
+                                <option value="last_name">Last Name</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6 px-1">
+                            <div class="mb-3">
+                              <input type="text" class="form-control" placeholder="Search" name="name_search">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Registration Date filter -->
+                      <div class="filter hidden" data-filter="join_veriprofile_at">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <select class="form-select form-control" name="date_filter">
+                                <option disabled selected>Select</option>
+                                <option value="is">is</option>
+                                <option value="above">above</option>
+                                <option value="below">below</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <input type="date" class="form-control" name="date_filter_input">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Created By filter -->
+                      <div class="filter hidden" data-filter="profile_created_by">
+                        <div class="mb-3">
+                          <input type="text" class="form-control" placeholder="Search Created By"
+                            name="profile_created_by_search">
+                        </div>
+                      </div>
+                      <!-- UID filter -->
+                      <div class="filter hidden" data-filter="unique_id">
+                        <div class="mb-3">
+                          <input type="text" class="form-control" placeholder="Search UID" name="unique_id_search">
+                        </div>
+                        <div class="mb-3">
+                          <select hidden class="form-select" name="unique_id_filter">
+                            <option value="exact">Exact Match</option>
+                            <!-- Add other filter options as needed -->
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1 px-1">
+                    <button type="submit" id="filterButton" class="btn btn-success"><i class="fa fa-check"></i></button>
+                  </div>
+                </div>
+                <!-- Container for additional input boxes -->
+              </div>
+            </form>
+          </div>
+        </div>
+
+
+
+        <!-- Your table code remains the same -->
+
+
+
+
+        <!-- Your table and data rendering code here -->
+
+
+
+
+        <div class="my-4 d-lg-flex align-items-center justify-content-between">
+          <div>
+            <button class="btn text-light rounded-3 text-capitalize d-lg-flex align-items-center py-2" type="button"
+              id="dropdownMenuButton2" data-mdb-toggle="dropdown" aria-expanded="false"
+              style="background-color: #05d9e0;"><i class="fa fa-caret-down me-2 fs-5 fw-bold"></i><span
+                style="font-weight: 600; font-size: 13px;">Bulk Action
+              </span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+              <li>
+                <a class="dropdown-item fw-bold border-bottom" style="font-size: 14px;" href="">
+                  <i class="fa fa-user" style="font-size: 17px;"></i> View Profile</a>
+              </li>
+              <li>
+                <a class="dropdown-item" style="font-size: 13px;" href="#"><i class="bi bi-person-check"
+                    style="font-size: 17px;"></i> Change Level</a>
+              </li>
+              <li>
+                <a class="dropdown-item" style="font-size: 13px;" href="#"><i class="bi bi-flag"
+                    style="font-size: 17px;"></i> Add to Suspension Que</a>
+              </li>
+              <li><a class="dropdown-item" style="font-size: 13px;" href="#"><i class="bi bi-person-check"
+                    style="font-size: 17px;"></i> Suspent Account</a></li>
+              <li><a class="dropdown-item" style="font-size: 13px;" href="#"><i class="bi bi-chat-left"
+                    style="font-size: 17px;"></i> Connect to Chatter</a></li>
+              <li>
+                <a class="dropdown-item" style="font-size: 13px;" href="#"><i class="bi bi-bell"
+                    style="font-size: 17px;"></i> Send Notification</a>
+              </li>
+              <li>
+                <a class="dropdown-item" style="font-size: 13px;" href="#"><i class="bi bi-flag"
+                    style="font-size: 17px;"></i> Send to Verification Center</a>
+              </li>
+              <li>
+                <a class="dropdown-item" style="font-size: 13px;" href="#"><i class="bi bi-person-check"
+                    style="font-size: 17px;"></i> Send to Assesment Center</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p class="mb-0 d-lg-flex align-items-center  my-3 my-lg-0" style="color: #052ae0; font-size: 14px;">
+              <i class="fa-solid fa-filter fs-5 me-1"></i><span>Filter</span>
+            </p>
+          </div>
+          <div>
+            <div class="btn-group shadow mt-2 rounded-3" role="group" data-filter-group="color" aria-label="Kind">
+              <button type="button" class="btn btn-sm shadow btn-filter text-capitalize"
+                style="padding: 7px 10px;font-weight: 700;font-size: 13px;">Status</button>
+              <button type="button" class="btn btn-sm shadow-sm btn-filtered text-capitalize text-success"
+                data-status="Verified">Verified</button>
+              <button type="button" class="btn btn-sm shadow-sm btn-filtered text-capitalize text-danger"
+                data-status="Not-verified">Not Verified</button>
+
+            </div>
+          </div>
+          <div>
+            <div class="btn-group shadow mt-2 rounded-3" role="group" data-filter-group="color" aria-label="Kind">
+              <button type="button" class="btn btn-sm shadow btn-filter text-capitalize"
+                style="padding: 8px 13px;font-weight: 700;font-size: 13px;">Created By</button>
+              <input id="profileCreatedBy" class="shadow-sm text-capitalize border-0 filter-input"
+                style="padding: 7px 13px;font-size: 12px;" type="text" placeholder="type name" />
+            </div>
+          </div>
+          <div>
+            <div class="btn-group shadow mt-2 rounded-3" role="group" data-filter-group="color" aria-label="Kind">
+              <button type="button" class="btn btn-sm shadow btn-filter text-capitalize"
+                style="padding: 8px 13px;font-weight: 700;font-size: 13px;">Last Activity</button>
+              <input class="shadow-sm text-capitalize border-0 filter-input" style="padding: 7px 13px;font-size: 12px;"
+                type="date" id="from-date" placeholder="From-" />
+              <input class="shadow-sm text-capitalize border-0 filter-input" style="padding: 7px 13px;font-size: 12px;"
+                type="date" id="to-date" placeholder="To-" />
+            </div>
+          </div>
+          <!-- <div>
+            <div class="btn-group shadow mt-2 rounded-3" role="group" data-filter-group="color" aria-label="Kind">
+              <button type="button" class="btn btn-sm shadow btn-filter text-capitalize"
+                style="padding: 8px 13px;font-weight: 700;font-size: 13px;">Time of Activity</button>
+              <input class="shadow-sm text-capitalize border-0 filter-input" style="padding: 7px 10px;font-size: 12px;"
+                type="tel" placeholder="" />
+            </div>
+          </div> -->
+        </div>
+        <div class="">
+          <div class="table-responsive">
+            <table id="example" class="table table-hover table-nowrap">
+              <thead class="thead-light">
+                <tr class="border-top">
+                  <th class="">
+                    <span class="custom-checkbox">
+                      <input type="checkbox" id="selectAll">
+                      <label for="selectAll"></label>
+                    </span>
+                  </th>
+                  <th scope="col" style="color: #0222c1;font-weight: 600;font-size: 12px;"
+                    class="py-3 text-uppercase px-1">
+                    L</th>
+                  <th scope="col" style="color: #0222c1;font-weight: 600;font-size: 12px;"
+                    class="py-3 text-uppercase px-1">
+                    UID</th>
+                  <th scope="col" style="color: #0222c1;font-weight: 600;font-size: 12px;"
+                    class="py-3 text-uppercase px-1">
+                    First Name</th>
+                  <th scope="col" style="color: #0222c1;font-weight: 600;font-size: 12px;"
+                    class="py-3 text-uppercase px-1">
+                    Last Name</th>
+                  <th scope="col" style="color: #0222c1;font-weight: 600;font-size: 12px;"
+                    class="py-3 text-uppercase px-1">
+                    Status</th>
+                  <th scope="col" style="color: #0222c1;font-weight: 600;font-size: 12px;"
+                    class="py-3 text-uppercase px-1">
+                    Registration
+                    Date</th>
+                  <th scope="col" style="color: #0222c1;font-weight: 600;font-size: 12px;"
+                    class="py-3 text-uppercase px-1">
+                    Profile Created
+                    by</th>
+                  <th scope="col" style="color: #0222c1;font-weight: 600;font-size: 12px;"
+                    class="py-3 text-uppercase px-1">
+                    Last Activity
+                  </th>
+                  <th scope="col" style="color: #0222c1;font-weight: 600;font-size: 12px;"
+                    class="py-3 text-uppercase px-1">
+                    Time
+                  </th>
+                  <th scope="col" style="color: #0222c1;font-weight: 600;font-size: 12px;"
+                    class="py-3 text-uppercase px-1">
+                    Place</th>
+                  <!-- <th scope="col" style="color: #0222c1;font-weight: 600;font-size: 12px;"
+                    class="py-3 text-uppercase px-1">
+                    Endorsements
+                  </th> -->
+                  <th scope="col" style="color: #0222c1;font-weight: 600;font-size: 12px;"
+                    class="py-3 text-uppercase px-1">
+                    Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in users %}
+                <tr style="font-size: 12px;" data-verification-status="{{ i.status }}">
+                  <td class="mt-3">
+                    <div class="mt-2">
+                      <span class="custom-checkbox">
+                        <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                        <label for="checkbox1"></label>
+                      </span>
+                    </div>
+                  </td>
+                  <td class="py-3 px-1">
+                    {% with level_found=False %}
+                    {% for userlevel in userlevels %}
+                    {% if userlevel.user == i %}
+                    {{ userlevel.level.name|slice:":1" }}
+                    {% with level_found=True %}
+                    {% endwith %}
+                    {% endif %}
+                    {% endfor %}
+                    {% endwith %}
+                  </td>
+                  <td class="py-3 px-1">
+                    <a class="text-heading font-semibold" href="#">
+                      {{i.unique_id}}
+                    </a>
+                  </td>
+                  <td class="py-3 px-1">
+                    <a class="text-heading font-semibold" href="#">
+                      {{i.first_name}}
+                    </a>
+                  </td>
+                  <td class="py-3 px-1">
+                    <a class="text-heading font-semibold" href="#">
+                      {{i.last_name}}
+                    </a>
+                  </td>
+                  <td class="py-3 px-1">
+                    {% if i.status == "Verified" %}
+                    <!-- Display specific content or formatting for "Verified" status -->
+                    <span class="green-dot"></span> Verified {% else %}
+                    <!-- Display content or formatting for other statuses -->
+                    <span class="red-dot"></span> Not Verified {% endif %}
+                  </td>
+                  <td class="py-3 px-1">{{i.join_veriprofile_at}}</td>
+                  <td class="py-3 px-1">{{i.profile_created_by}}</td>
+                  <td class="py-3 px-1 last-activity">
+                    {% for loginhistory in i.loginhistory_set.all %}
+                    {{ loginhistory.logout_time|date:"M. j, Y" }}
+                    {% endfor %}
+                  </td>
+                  <td class="py-3 px-1 last-activity">
+                    {% for loginhistory in i.loginhistory_set.all %}
+                    {{ loginhistory.logout_time|time:"H:i" }}
+                    {% endfor %}
+                  </td>
+                  <td class="py-3 px-1">{{i.address}}</td>
+                  <!-- <td class="py-3 px-1"></td> -->
+                  <td class="text-center">
+                    <i class="bi bi-three-dots-vertical fs-6" type="button" id="dropdownMenuButton"
+                      data-mdb-toggle="dropdown" aria-expanded="false"></i>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <li>
+                        <a class="dropdown-item fw-bold border-bottom" style="font-size: 14px;"
+                          href="{% url 'public_view' i.status i.first_name i.unique_id %}">
+                          <i class="fa fa-user" style="font-size: 17px;"></i> View Profile</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" style="font-size: 13px;" href="#"><i class="bi bi-chat-left"
+                            style="font-size: 17px;"></i> Change Level
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" style="font-size: 13px;" href="#"><i class="bi bi-bell"
+                            style="font-size: 17px;"></i> Add to Suspension Que</a>
+                      </li>
+                      <li><a class="dropdown-item" style="font-size: 13px;" href="#"><i class="bi bi-person-check"
+                            style="font-size: 17px;"></i> Suspent Account</a></li>
+                      <li><a class="dropdown-item" style="font-size: 13px;" href="#"><i class="bi bi-chat-left"
+                            style="font-size: 17px;"></i> Connect to Chatter</a></li>
+                      <li>
+                        <a class="dropdown-item" style="font-size: 13px;" href="#"><i class="bi bi-bell"
+                            style="font-size: 17px;"></i> Send Notification</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" style="font-size: 13px;" href="#"><i class="bi bi-flag"
+                            style="font-size: 17px;"></i> Send to Verification Center</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" style="font-size: 13px;" href="#"><i class="bi bi-chat-left"
+                            style="font-size: 17px;"></i> Send to Assesment Center</a>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="clearfix">
+            <div class="hint-text">
+              page {{page.number}}/{{page.paginator.num_pages}}
+            </div>
+            <ul class="pagination">
+              <li class="page-item mx-1">
+                {% if page.has_previous %}
+                <a class="page-link" href="{% url 'dashboard' %}?page={{page.previous_page_number}}"
+                  aria-label="Previous">
+                  <span aria-hidden="true">Previous</span>
+                </a>
+                {% endif %}
+              </li>
+              {% for num_page in page.paginator.page_range %}
+              <br />
+              {% if page.number == num_page %}
+              <li class="page-item active mx-1">
+                <a class="page-link" href="{% url 'dashboard' %}?page={{num_page}}">{{num_page}}</a>
+              </li>
+              {% else %}
+              <li class="page-item mx-1">
+                <a class="page-link" href="{% url 'dashboard' %}?page={{num_page}}">{{num_page}}</a>
+              </li>
+
+              {% endif %}
+              <br />
+              {% endfor %}
+              <li class="page-item">
+                {% if page.has_next %}
+                <a class="page-link" href="{% url 'dashboard' %}?page={{page.next_page_number}}" aria-label="Next">
+                  <span aria-hidden="true">Next</span>
+                </a>
+                {% endif %}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endblock %}
+  <!--Main layout-->

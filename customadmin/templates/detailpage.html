@@ -1,0 +1,404 @@
+{% extends "admin.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+
+
+
+</style>
+<header>
+  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+    <div class="position-sticky">
+      <div class="list-group list-group-flush mx-2">
+        <a href="{% url 'insights' %}"
+          class="list-group-item list-group-item-action sidenavlinks border-0 ripple d-flex align-items-center mx-2"
+          aria-current="true">
+          <span class="material-symbols-outlined me-3"> analytics </span><span>Insights </span>
+        </a>
+        <a href="{% url 'dashboard' %}"
+          class="list-group-item list-group-item-action sidenavlinks border-0 ripple d-flex align-items-center mx-2 active">
+          <span class="material-symbols-outlined me-3"> recent_actors </span><span>Users</span>
+        </a>
+        <a href="#"
+          class="list-group-item list-group-item-action sidenavlinks border-0 ripple d-flex align-items-center mx-2"><span
+            class="material-symbols-outlined me-3">
+            article_shortcut </span><span>Contents</span></a>
+        <a href="#"
+          class="list-group-item list-group-item-action sidenavlinks border-0 ripple d-flex align-items-center mx-2">
+          <span class="material-symbols-outlined me-3"> forum </span><span>Chatter</span></a>
+        <a href="{% url 'notifications' %}"
+          class="list-group-item list-group-item-action sidenavlinks border-0 ripple d-flex align-items-center mx-2"><span
+            class="material-symbols-outlined me-3">
+            notification_important </span><span>Notifications</span></a>
+        <div class="dropend">
+          <a class="nav-link dropdown-toggle list-group-item list-group-item-action sidenavlinks border-0 ripple d-flex align-items-center mx-2"
+            href="#" id="navbarDropdownMenuLink1" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+            <span class="material-symbols-outlined me-3"><span class="material-symbols-outlined">
+                perm_media
+              </span>
+            </span>
+            <span>Media</span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+            <li>
+              <a class="dropdown-item" href="{% url 'daily_inspiration' %}">Daily Inspiration</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Referal Images</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Referal Videos</a>
+            </li>
+          </ul>
+        </div>
+        <a href="#"
+          class="list-group-item list-group-item-action sidenavlinks border-0 ripple d-flex align-items-center mx-2">
+          <span class="material-symbols-outlined me-3"> summarize </span><span>Report Manager</span>
+        </a>
+        <a href="#"
+          class="list-group-item list-group-item-action sidenavlinks border-0 ripple d-flex align-items-center mx-2">
+          <span class="material-symbols-outlined me-3">
+            admin_panel_settings </span><span>Permissions</span></a>
+        <a href="#"
+          class="list-group-item list-group-item-action sidenavlinks border-0 ripple d-flex align-items-center mx-2"><span
+            class="material-symbols-outlined me-3"> receipt_long </span><span>Account &
+            Billing</span></a>
+        <div class="dropend">
+          <a class="nav-link dropdown-toggle list-group-item list-group-item-action sidenavlinks border-0 ripple d-flex align-items-center mx-2"
+            href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+            <span class="material-symbols-outlined me-3">settings_applications
+            </span>
+            <span>App Settings</span>
+          </a>
+          <a href="#"
+            class="list-group-item list-group-item-action sidenavlinks border-0 ripple d-flex align-items-center mx-2">
+            <span class="material-symbols-outlined me-3">
+              local_library </span><span>Knowledge</span></a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item" href="#">Panel settings</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Feature settings</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Permissions</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Media</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Handover</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"> Report Issues </a>
+            </li>
+          </ul>
+        </div>
+        <a href="#"
+          class="list-group-item list-group-item-action sidenavlinks border-0 ripple d-flex align-items-center mx-2"><span
+            class="material-symbols-outlined me-3"> support </span><span>Help</span></a>
+        <a href="#"
+          class="list-group-item list-group-item-action sidenavlinks border-0 ripple d-flex align-items-center mx-2"><span
+            class="material-symbols-outlined me-3">
+            system_update_alt </span><span>Update</span></a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!--Main layout-->
+
+{% for i in users %}
+<div class="mx-5 mt-5">
+  {% for u in users %}
+  <div class="row mb-3 mx-auto" data-user-id="{{ u.id }}">
+    <div class="col-2 userImg">
+      <img src="{{ u.image.url }}" class="w-100 h-100" />
+    </div>
+    <div class="col-8 mt-1">
+      <div class="mx-2">
+        {% if u.first_name and u.last_name %}
+        <h3 class="username mb-0" style="font-size: 21px !important;color: rgb(1, 9, 125);">
+          {{ u.first_name }} {{ u.last_name }}
+        </h3>
+        {% else %}
+        <h3 class="username mb-0" style="font-size: 21px !important;color: rgb(1, 9, 125);">
+          {{ u.username }}
+        </h3>
+        {%endif %}
+
+        <h6
+          class="mt-2 d-flex align-items-center"
+          style="font-weight: 500 !important"
+        >
+        Email :
+          <span class="text-primary ms-1" style="font-size: 14px"
+            >{{ u.email }}</span
+          >
+        </h6>
+
+        {% if u.contact %}
+        <h6
+          class="mt-2 d-flex align-items-center"
+          style="font-weight: 500 !important"
+        >
+        Contact :
+          <span class="text-primary ms-1" style="font-size: 14px"
+            >{{ u.contact }}</span
+          >
+        </h6>
+        {%endif %}
+
+        {% if u.location %}
+        <h6
+          class="mt-2 d-flex align-items-center"
+          style="font-weight: 500 !important"
+        >
+          Current Location :
+          <span class="text-primary ms-1" style="font-size: 14px"
+            >{{ u.location }}</span
+          >
+        </h6>
+        {%endif %}
+
+        {% if i.home_country %}
+        <h6
+          class="my-3 mb-4 d-flex align-items-center"
+          style="font-weight: 500 !important"
+        >
+
+          Home Town :
+          <span class="text-primary ms-1" style="font-size: 14px"
+            >{{ u.home_country }} {{ u.home_city }}</span
+          >
+        </h6>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <hr>
+
+  <form method="post" action="{% url 'detailpage' i.id %}" id="verificationForm">
+    {% csrf_token %}
+    <div class="container pe-lg-5">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <p class="list-group-item list-group-item-action sidenavlinks border-0 d-flex align-items-center mx-2">
+            <span class="material-symbols-outlined me-3">
+              cinematic_blur </span><span>Basic Details </span>
+          </p>
+        </div>
+        <div class="ms-3">
+          <label class="switch">
+            <input type="checkbox" id="is_basic_details_verified" class="is_basic_details_verified verification-checkbox" name="is_basic_details_verified" {% if i.is_basic_details_verified %}checked{% endif %} />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <hr class="my-1">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <p class="list-group-item list-group-item-action sidenavlinks border-0 d-flex align-items-center mx-2">
+            <span class="material-symbols-outlined me-3">
+              <span class="material-symbols-outlined">
+                contact_mail
+              </span> </span><span>Addresses</span>
+          </p>
+        </div>
+
+        <div class="ms-3">
+          <label class="switch">
+            <input type="checkbox" id="" class="is_address_verified verification-checkbox" name="is_address_verified" {% if i.is_address_verified %}checked{% endif %} />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <hr class="my-1">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <p class="list-group-item list-group-item-action sidenavlinks border-0 d-flex align-items-center mx-2">
+            <span class="material-symbols-outlined me-3"> school </span><span>Qualification</span>
+          </p>
+        </div>
+        <div class="ms-3">
+          <label class="switch">
+            <input type="checkbox" id="is_qualification_verified" class="is_qualification_verified verification-checkbox" name="is_qualification_verified" {% if i.is_qualification_verified %}checked{% endif %} />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+      </div>
+
+      <hr class="my-1">
+
+
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <p class="list-group-item list-group-item-action sidenavlinks border-0 d-flex align-items-center mx-2">
+            <span class="material-symbols-outlined me-3"> work </span><span>Occupation</span>
+          </p>
+        </div>
+        <div class="ms-3">
+          <label class="switch">
+            <input type="checkbox" id="is_occupation_verified" class="is_occupation_verified verification-checkbox" name="is_occupation_verified" {% if i.is_occupation_verified %}checked{% endif %} />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+      </div>
+
+
+      <hr class="my-1">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <p class="list-group-item list-group-item-action sidenavlinks border-0 d-flex align-items-center mx-2">
+            <span class="material-symbols-outlined me-3">
+              <span class="material-symbols-outlined">
+                cognition
+              </span> </span><span>Experience</span>
+          </p>
+        </div>
+        <div class="ms-3">
+          <label class="switch">
+            <input type="checkbox" id="is_experience_verified" class="is_experience_verified verification-checkbox" name="is_experience_verified" {% if i.is_experience_verified %}checked{% endif %} />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+      </div>
+
+      <hr class="my-1">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <p class="list-group-item list-group-item-action sidenavlinks border-0 d-flex align-items-center mx-2">
+            <span class="material-symbols-outlined me-3">
+              <span class="material-symbols-outlined">
+                military_tech
+              </span> </span><span>Honors</span>
+          </p>
+        </div>
+        <div class="ms-3">
+          <label class="switch">
+            <input type="checkbox" id="is_honors_verified" class="is_honors_verified verification-checkbox" name="is_honors_verified" {% if i.is_honors_verified %}checked{% endif %} />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+
+      <hr class="my-1">
+
+
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <p class="list-group-item list-group-item-action sidenavlinks border-0 d-flex align-items-center mx-2">
+            <span class="material-symbols-outlined me-3">
+              <span class="material-symbols-outlined">
+                engineering
+              </span> </span><span>Skillsets</span>
+          </p>
+        </div>
+        <div class="ms-3">
+          <label class="switch">
+            <input type="checkbox" id="is_skillsets_verified" class="is_skillsets_verified verification-checkbox" name="is_skillsets_verified" {% if i.is_skillsets_verified %}checked{% endif %} />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+
+      <hr class="my-1">
+
+
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <p class="list-group-item list-group-item-action sidenavlinks border-0 d-flex align-items-center mx-2">
+            <span class="material-symbols-outlined me-3"> fact_check </span><span>Proof of Works</span>
+          </p>
+        </div>
+
+        <div class="ms-3">
+          <label class="switch">
+            <input type="checkbox" id="is_proofofwork_verified" class="is_proofofwork_verified verification-checkbox" name="is_proofofwork_verified" {% if i.is_proofofwork_verified %}checked{% endif %} />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+
+      <hr class="my-1">
+
+
+      
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <p class="list-group-item list-group-item-action sidenavlinks border-0 d-flex align-items-center mx-2">
+            <span class="material-symbols-outlined me-3"> diversity_2 </span><span>social Work</span>
+          </p>
+        </div>
+        <div class="ms-3">
+          <label class="switch">
+            <input type="checkbox" id="is_socialwork_verified" class="is_socialwork_verified verification-checkbox" name="is_socialwork_verified" {% if i.is_socialwork_verified %}checked{% endif %} />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+      </div>
+
+
+      <hr class="my-1">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <p class="list-group-item list-group-item-action sidenavlinks border-0 d-flex align-items-center mx-2">
+            <span class="material-symbols-outlined me-3">
+              person_raised_hand </span><span>Innovations</span>
+          </p>
+        </div>
+        <div class="ms-3">
+          <label class="switch">
+            <input type="checkbox" id="is_innovations_verified" class="is_innovations_verified verification-checkbox" name="is_innovations_verified" {% if i.is_innovations_verified %}checked{% endif %} />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+      </div>
+
+      <hr class="my-1">
+
+
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <p class="list-group-item list-group-item-action sidenavlinks border-0 d-flex align-items-center mx-2">
+            <span class="material-symbols-outlined me-3">
+              stack_star </span><span>Program Attended</span>
+          </p>
+        </div>
+        <div class="ms-3">
+          <label class="switch">
+            <input type="checkbox" id="is_program_attend_verified" class="is_program_attend_verified verification-checkbox" name="is_program_attend_verified" {% if i.is_program_attend_verified %}checked{% endif %} />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <hr class="my-1">
+
+      <input type="hidden" name="status" value="{% if i.is_basic_details_verified and i.is_address_verified and i.is_qualification_verified and i.is_occupation_verified and i.is_experience_verified and i.is_honors_verified and i.is_skillsets_verified and i.is_proofofwork_verified and i.is_socialwork_verified and i.is_innovations_verified and i.is_program_attend_verified %}Verified{% else %}Non-verified{% endif %}" />
+
+      
+    </div>
+  </form>
+</div>
+    {% endfor %}
+<!--Main layout-->
+
+
+{% endblock %}

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+
+    body {
+        max-height: 100vh !important;
+        width: 100%;
+      }
+      
+              .error-message {
+                  color: rgb(229, 4, 4);
+                  font-size: 11px !important;
+              }
+        .or {
+            position: relative;
+        }
+
+
+        .btn-primary{
+            background-color: #0303C9 !important;
+            color: white !important;        
+        }
+        
+
+        .or:before {
+            content: '';
+            height: 1px;
+            background: linear-gradient(to right, silver, silver, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), silver, silver);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            z-index: 0;
+        }
+
+        .show-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%) !important;
+            cursor: pointer;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veriprofile - Signup</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container mt-4">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div style="max-width:420px;">
+                <a href="{% url 'social:begin' 'google-oauth2' %}">
+                    <button type="submit" class="btn btn-primary rounded-pill w-100 font-weight-bold mt-2"><i
+                            class="fa-brands fa-google me-2" aria-hidden="true"></i> Login With Google</button>
+                </a>
+                <p class="my-2 mb-0 text-center text-dark or">or</p>
+
+                <form class="bg-white border py-4 px-5" method="post" action="{% url 'quick_signup' %}"
+                    onsubmit="return validateForm();">
+                    {% csrf_token %}
+
+                    <div class="text-center mb-3">
+                        <p class="text-muted fw-bold">SignUp Form</p>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" id="email" name="email"
+                            placeholder="Email">
+                        <label for="email">Email</label>
+                        <div id="emailError" class="error-message"></div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" id="username" name="username" placeholder="userName">
+                        <label for="username">Username</label>
+                        <div id="fullnameError" class="error-message"></div>
+                    </div>
+
+                    <div class=" mb-3">
+                        <div class="form-floating" style="position: relative;">
+                            <input class="form-control" type="password" id="password" name="password"
+                                placeholder="Password">
+                            <label for="password">Password</label>
+                            <span class="show-password" id="showPassword"><i class="fa fa-eye"></i></span>
+                        </div>
+                        <div id="passwordError" class="error-message"></div>
+                    </div>
+                    <div class=" mb-3">
+                        <div class="form-floating">
+                            <input class="form-control" type="password" id="password2" name="c_password"
+                                placeholder="Confirm Password">
+                            <label for="password2">Confirm Password</label>
+                            <div id="password2Error" class="error-message"></div>
+                            <span class="show-password" id="showPassword2"><i class="fa fa-eye"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-2">
+                        <button class="btn fw-bold btn-primary w-100 bg-gradient text-light" style="background-color: #1405bc;">Agree & Join</button>
+                    </div>
+
+                    <div class="bg-white py-2 px-3 text-center border mt-1">
+                        <p class="m-0">Have an account? <a href="{% url 'signin' %}">Log In</a></p>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <!-- password -->
+    <script>
+        const passwordInput = document.getElementById("password");
+        const showPasswordButton = document.getElementById("showPassword");
+        const eyeIcon = showPasswordButton.querySelector("i");
+
+        showPasswordButton.addEventListener("click", function () {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text"; // Show password as plain text
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password"; // Hide password
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        });
+    </script>
+    <!-- password -->
+
+    <!-- Confirm password -->
+    <script>
+        const passwordInput2 = document.getElementById("password2");
+        const showPasswordButton2 = document.getElementById("showPassword2");
+        const eyeIcon2 = showPasswordButton2.querySelector("i");
+
+        showPasswordButton2.addEventListener("click", function () {
+            if (passwordInput2.type === "password") {
+                passwordInput2.type = "text"; // Show password as plain text
+                eyeIcon2.classList.remove("fa-eye");
+                eyeIcon2.classList.add("fa-eye-slash");
+            } else {
+                passwordInput2.type = "password"; // Hide password
+                eyeIcon2.classList.remove("fa-eye-slash");
+                eyeIcon2.classList.add("fa-eye");
+            }
+        });
+    </script>
+    <!-- Confirm password -->
+
+    <!-- validateForm -->
+    <script>
+        function validateForm() {
+            const email = document.getElementById('email');
+            const username = document.getElementById('username');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('password2');
+            let isValid = true;
+    
+            // Regular expressions for validation
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$/;
+            const usernamePattern = /^[A-Za-z_@]{1,10}$/;
+    
+            // Reset error messages and classes
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('fullnameError').textContent = '';
+            document.getElementById('passwordError').textContent = '';
+            document.getElementById('password2Error').textContent = '';
+            email.classList.remove('error');
+            username.classList.remove('error');
+            password.classList.remove('error');
+            confirmPassword.classList.remove('error');
+    
+            if (email.value === '') {
+                document.getElementById('emailError').textContent = 'Please enter your email.';
+                email.classList.add('error');
+                isValid = false;
+            } else if (!email.value.match(emailPattern)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+                email.classList.add('error');
+                isValid = false;
+            }
+    
+            if (username.value === '') {
+                document.getElementById('fullnameError').textContent = 'Please enter your username.';
+                username.classList.add('error');
+                isValid = false;
+            } else if (!username.value.match(usernamePattern)) {
+                document.getElementById('fullnameError').textContent = 'Username must be 1-10 characters long and can include only letters, underscores, and @.';
+                username.classList.add('error');
+                isValid = false;
+            }
+    
+            if (password.value === '') {
+                document.getElementById('passwordError').textContent = 'Please enter your password.';
+                password.classList.add('error');
+                isValid = false;
+            } else if (!password.value.match(passwordPattern)) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 8 characters long and include at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special symbol.';
+                password.classList.add('error');
+                isValid = false;
+            }
+    
+            if (password.value !== confirmPassword.value) {
+                document.getElementById('password2Error').textContent = 'Passwords do not match.';
+                confirmPassword.classList.add('error');
+                isValid = false;
+            }
+    
+            return isValid;
+        }
+    </script>
+    
+    <!-- validateForm -->
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+</body>
+
+</html>
+
+

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&display=swap");
+
+      body {
+        max-height: 100vh !important;
+        width: 100%;
+      }
+
+      #description {
+        font-size: 24px !important;
+      }
+
+      .nav-link {
+        border-radius: 20px !important; /* Add rounded corners */
+        padding: 7px 22px !important; /* Adjust padding for better appearance */
+        transition: background-color 0.3s !important; /* Add a smooth transition effect for background color */
+        margin: 1px !important;
+        color: white !important; /* Set the background color for the active tab */
+        }
+
+        .nav-link:hover{
+            color: rgb(63, 63, 250) !important; /* Set the text color for the active tab */
+        }
+
+    /* Style the active tab */
+        .nav-link.active {
+            background-color: white !important; /* Set the background color for the active tab */
+            color: rgb(63, 63, 250) !important; /* Set the text color for the active tab */
+            border: 1px solid #001a74 !important;
+            margin: 1px !important;
+        }
+
+      .form-wrap {
+        background: rgba(255, 255, 255, 1) !important;
+        width: 100% !important;
+        max-width: 450px !important;
+        padding: 40px !important;
+        margin: 50px auto !important;
+        position: relative !important;
+        -webkit-border-radius: 10px !important;
+        -moz-border-radius: 10px !important;
+        border-radius: 10px !important;
+        -webkit-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15) !important;
+        -moz-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15) !important;
+        box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15) !important;
+      }
+
+      .form-wrap:before {
+        content: "" !important;
+        width: 90%;
+        height: calc(100% + 60px) !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 auto !important;
+        position: absolute !important;
+        top: -30px !important;
+        background: #0000d9 !important;
+        z-index: -1 !important;
+        opacity: 0.8 !important;
+        -webkit-border-radius: 10px !important;
+        -moz-border-radius: 10px !important;
+        border-radius: 10px !important;
+        -webkit-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15) !important;
+        -moz-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15) !important;
+        box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15) !important;
+      }
+
+      .form-group {
+        margin-bottom: 25px !important;
+      }
+
+      .form-group > label {
+        display: block !important;
+        font-size: 18px !important;
+        color: #000 !important;
+      }
+
+      .custom-control-label {
+        color: #000 !important;
+        font-size: 16px !important;
+      }
+
+      .form-control {
+        height: 50px !important;
+        background: #f2f4fe !important;
+        border-color: rgb(212, 212, 212) !important;
+        padding: 0 15px !important;
+        font-size: 16px !important;
+        -webkit-transition: all 0.3s ease-in-out !important;
+        -moz-transition: all 0.3s ease-in-out !important;
+        -o-transition: all 0.3s ease-in-out !important;
+        transition: all 0.3s ease-in-out !important;
+      }
+
+      .form-select {
+        height: 50px !important;
+        /* {% comment %} background: #ecf0f4 !important; {% endcomment %} */
+        /* {% comment %} color:black !important; {% endcomment %} */
+        /* {% comment %} border-color: transparent !important; {% endcomment %} */
+        padding: 0 15px !important;
+        font-size: 16px !important;
+        -webkit-transition: all 0.3s ease-in-out !important;
+        -moz-transition: all 0.3s ease-in-out !important;
+        -o-transition: all 0.3s ease-in-out !important;
+        transition: all 0.3s ease-in-out !important;
+      }
+
+      .form-select:focus {
+        border-color: #0b0085 !important;
+        -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1) !important;
+        -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1) !important;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1) !important;
+      }
+
+      .form-control:focus {
+        border-color: #0d01b2 !important;
+        -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1) !important;
+        -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1) !important;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1) !important;
+      }
+
+      textarea.form-control {
+        /* {% comment %} height: 160px; {% endcomment %} */
+        padding-top: 10px !important;
+        /* {% comment %} resize: none; {% endcomment %} */
+      }
+
+      .btn {
+        padding: 0.657rem 0.75rem !important;
+        font-size: 18px !important;
+        letter-spacing: 0.05em !important;
+        -webkit-transition: all 0.3s ease-in-out !important;
+        -moz-transition: all 0.3s ease-in-out !important;
+        -o-transition: all 0.3s ease-in-out !important;
+        transition: all 0.3s ease-in-out !important;
+      }
+
+      .btn-primary {
+        color: #fff !important;
+        background-color: #0036d9 !important;
+        border-color: #0036d9 !important;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Veriprofile</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
+  </head>
+
+  <body class="homebg"  hx-ext="ws" ws-connect="/ws/notifications/">
+    {% include 'messages.html' %}
+
+    <div class="">
+      <div class="container mt-2 p-4">
+          <form
+            id="survey-form"
+            method="post"
+            action="{% url 'hr_register' %}"
+            enctype="multipart/form-data"
+          >
+            {% csrf_token %}
+            <p class="mb-1 fw-bold mb-3" style="font-size: 20px;color: #0303C9;">HR Register :</p>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <input
+                  type="text"
+                  placeholder="First Name"
+                  name="first_name"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <input
+                  type="text"
+                  placeholder="Last Name"
+                  name="last_name"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <div class="form-group">
+                    <select class="select form-select" name="company_name">
+                      <option disabled selected value>Select</option>
+                      {% for i in company %}
+                      <option value="{{i.name_of_partner}}">
+                        {{i.name_of_partner}}
+                      </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <textarea
+                    type="text"
+                    placeholder="Address"
+                    name="address_hr"
+                    class="form-control"
+                    rows="1"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <input
+                  type="text"
+                  placeholder="Designation in Company"
+                  name="designation_in_company"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <input
+                  type="number"
+                  placeholder="Contact"
+                  name="contact"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <input
+                  type="text"
+                  placeholder="Email"
+                  name="hr_email"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Employment No."
+                  name="employment_number"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <input
+                  type="text"
+                  placeholder="Username"
+                  name="username"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Password"
+                  name="password"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <p class="mb-3">Upload Employment ID :</p>
+                <input
+                  type="file"
+                  placeholder="Upload Employment ID"
+                  name="employment_id"
+                  class="form-control"
+                  style="padding-top: 10px !important"
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <p class="mb-3">Upload Aadhar :</p>
+                <input
+                  type="file"
+                  class="form-control"
+                  placeholder="Upload Aadhar"
+                  name="aadhar_card"
+                  style="padding-top: 10px !important"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <button
+                  type="submit"
+                  id="submit"
+                  class="btn btn-primary btn-block"
+                >
+                  Register
+                </button>
+              </div>
+              <div class="col-md-6">
+                <p class="mb-0 my-2">Already Registered ? 
+                    <a href="{% url 'signin' %}">Login</a>
+                </p>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"
+    ></script>
+  </body>
+</html>
